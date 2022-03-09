@@ -1,4 +1,5 @@
 import React, { useState} from 'react';
+// useState is a built in Hook that is temporarily 
 // components are what links data to our front end / html
 // props short for properties are how we call in data's keys : values
 const PersonCard = (props) => {
@@ -13,12 +14,12 @@ const PersonCard = (props) => {
     // {props.age} == {props}
     // example {age, firstName, lastName, hairColor,} == {props.etc}
     const {age} = props;
-
     return (
     <div>
         <h1>{props.firstName}, {props.lastName}</h1>
         <p>Age: {age + count}</p>
         <p>Hair Color: {props.hairColor}</p>
+        
         <button onClick={() => setCount(count + 1)}>Birthday Button for {props.firstName} {props.lastName}</button>
         <button onClick={ ()=> alert(`${props.firstName} turned ${age + count}!`)}>Alert Click Count</button>
     </div>
