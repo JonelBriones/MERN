@@ -3,7 +3,7 @@ import UserForm from './components/form';
 function App() {
   return (
     <div>
-      <UserForm setUsername={""} setEmail={""} setPassword={""}/>
+      <UserForm />
     </div>
   );
 }
