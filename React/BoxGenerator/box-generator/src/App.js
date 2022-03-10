@@ -7,6 +7,7 @@ import './App.css';
 function App() {
 
     // creating getters and setters using state
+    // state lift
     const [colorList, setColorList] = useState([]);
   
     return (
