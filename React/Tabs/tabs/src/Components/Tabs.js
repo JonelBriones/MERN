@@ -4,12 +4,13 @@ const Tabs = (props) => {
     const {tabList, setTabList} = props;
         const [tabName,setTabName] = useState('');
         const [description,setDescription] = useState('');
-
+        const [id,setId] = useState('');
         const handleForm = (e) => {
             e.preventDefault();
             setTabList([...tabList,{
                 tabName : tabName,
                 description : description,
+                id : Math.floor(Math.random() * 10000)
             }])
             console.log(tabList);
             setTabName('');
