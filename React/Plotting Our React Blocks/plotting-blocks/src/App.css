@@ -1,0 +1,40 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
+.app {
+  background-color: rgb(179, 174, 174);
+  padding:  10px 20px ;
+  width: 800px;
+  height: 800px;
+}
+.header {
+  background-color: green;
+  height: 100px;
+
+}
+.advertisement {
+  background-color: purple;
+  height: 100px;
+  width: 700px;
+}
+.main {
+  background-color:red;
+  height: 500px;
+  width: 600px;
+}
+.subContents {
+  background-color:orange;
+  height: 100px;
+  width: 200px;
+}
+.nav {
+  background-color:blue;
+  height: 400px;
+  width: 400px;
+} 
+.flex {
+  display: flex;
+}
+
+
