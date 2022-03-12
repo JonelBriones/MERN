@@ -6,12 +6,12 @@ const Display = (props) => {
         const toggle = (e,tab) => {
             e.preventDefault();
             console.log(tab)
-            
             if (toggleTab === false) {
                 setToggleTab(true);
-                
+                console.log(toggleTab)
             } else {
                 setToggleTab(false);
+                console.log(toggleTab)
             }
         }
     // const onClickHandler = (e,value) => {
