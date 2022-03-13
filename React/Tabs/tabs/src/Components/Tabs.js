@@ -10,7 +10,8 @@ const Tabs = (props) => {
             setTabList([...tabList,{
                 tabName : tabName,
                 description : description,
-                id : Math.floor(Math.random() * 10000)
+                id : Math.floor(Math.random() * 10000),
+                show : false
             }])
             // console.log(tabList);
             setTabName('');
