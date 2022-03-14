@@ -5,7 +5,8 @@ const MessageForm = (props) => {
     
     const handleSubmit = (e) => {
         e.preventDefault();
-        props.onNewMessage( msg );
+        props.onNewMessage( msg ); //when msg is created, using lifting state
+        //onNewMessage is passed by props and is setting(msg)
     };
     
     return (

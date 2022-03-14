@@ -4,7 +4,8 @@ const MessageDisplay = (props) => {
     return (
         <>
             <h1>Current Message</h1>
-            <pre>{ props.message }</pre>
+            <pre>{ props.message }</pre> 
+{/* when  */}
         </>
     );
 };
