@@ -2,43 +2,44 @@ const express = require("express");
 const faker = require("faker");
 const app = express();
 
-app.get("/api/faker",(required,response)=>{
-    const name = faker.name.firstName();
-    const email = faker.internet.email();
+app.get("/api/user",(required,response)=>{
+    const id = Math.floor(Math.random() * 10000); 
+    const firstName = faker.name.firstName();
+    const lastName = faker.name.lastName();
+    const phoneNumber = faker.phone.phoneNumber();
+    const userEmail = faker.internet.email();
+    const password = `${firstName + lastName + id}`; 
     response.json({
-        firstName: name,
-        userEmail : email,
-    })
-})
-app.get("/api/product",(required,response)=>{
-    const name = faker.commerce.productName();
-    const price = faker.commerce.price();
-    const department = faker.commerce.department();
-    response.json({
-        productName: name,
-        price : price,
-        department : department,
+        id : id,
+        firstName: firstName,
+        lastName : lastName,
+        phoneNumber : phoneNumber,
+        userEmail : userEmail,
+        password : password,
     })
 })
 
-// we can create a function to return a random / fake "Product"
-const createProduct = () => {
-    const newFake = {
-        name: faker.commerce.productName(),
-        price: '' + faker.commerce.price(),
-        department: faker.commerce.department()
-    };
-    return newFake;
-};
+app.get("/api/company", (req,res)=>{
+    const id = Math.floor(Math.random() * 10000); 
+    const companyName = faker.name.firstName();
+    const address = [
+        faker.name.firstName(),
+        faker.name.firstName(),
+        faker.name.firstName(),
+        Math.floor(Math.random() * 100000),
+        faker.name.firstName()
+    ]
+    res.json({
+        id : id,
+        companyName : companyName,
+        address : [
+            {street : address[0]},
+            {city : address[1]},
+            {state : address[2]},
+            {zipCode : address[3]},
+            {country : address[4]},
+        ]
+    });
     
-const newFakeProduct = createProduct();
-console.log(newFakeProduct);
-/*
- * The output of the above console log will look like this
- * {
- *   name: 'Anime Figure',
- *   price: '$568.00
- *   department: 'Tools' 
- * }
- */
+});
 app.listen(8000,()=>console.log("You have successfully connect to port 8000"));
