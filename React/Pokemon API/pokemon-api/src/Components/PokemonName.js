@@ -8,6 +8,7 @@ const PokemonName = (props) => {
 
     useEffect(()=>{
         axios
+        // .get(`https://pokeapi.co/api/v2/pokemon/${id}`)
         .get(`https://pokeapi.co/api/v2/pokemon/${id}`)
         // .then(response=>{setPokemon(response.data.results)})
         .then((response) => {
