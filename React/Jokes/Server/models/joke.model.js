@@ -1,10 +1,14 @@
 const mongoose = require('mongoose');
- 
-const JokeSchema = new mongoose.Schema({
-    joke: {
-        type: String
+ // create a model/schema,this is how we structure our document
+const JokeSchema = new mongoose.Schema(
+    {
+        question: String,
+        joke: String
+    },
+    {
+        timestamps: true
     }
-});
+);
  
 const Joke = mongoose.model('Joke', JokeSchema);
  
