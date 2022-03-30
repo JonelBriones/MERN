@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios';
 import { useNavigate} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 const ProductList = (props) => {
     /* We deconstruct getter and setter which were passed down 
     via props by the parent component (app.js) to our child 
@@ -36,7 +37,7 @@ const ProductList = (props) => {
 
         let checkProduct = [...product].filter((productToDelete) => productToDelete._id === _id)
         console.log(`${checkProduct} has been deleted`,checkProduct)
-  };
+    };
     return product.map((oneProduct) => {
         return (
             <div key={oneProduct._id}> 
@@ -48,7 +49,9 @@ const ProductList = (props) => {
                     <div>
                     <p>${oneProduct.price}</p>
                     <p>Description: {oneProduct.description}</p>
+                    <p>ID: {oneProduct._id}</p>
                     <button onClick={() => deleteProduct(oneProduct._id)}>Delete</button>
+                    <Link to={`/product/${oneProduct._id}`}>Show This Product</Link>
                     </div> // if tab.show == false, return tab's description
                     :null // if tab.show == false, return null
                 }

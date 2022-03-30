@@ -25,17 +25,15 @@ Product.find({})
     })
 }
 
-module.exports.findOneSingleProduct = (req, res) => {
-    Product.findOne({ _id: req.params.id })
-        .then(oneSingleProduct => {
-            res.json({ product: oneSingleProduct })
-        })
-        .catch((err) => {
-            res.json({ message: 'Something went wrong', error: err })
-        });}
+
+module.exports.getProduct = (request, response) => {
+    Product.findOne({_id:request.params.id})
+        .then(product => response.json(product))
+        .catch(err => response.json(err))
+}
  
 module.exports.updateExistingProduct = (req, res) => {
-    Joke.findOneAndUpdate(
+    this.updateExistingProduct.findOneAndUpdate(
         { _id: req.params.id },
         req.body,
         { new: true, runValidators: true }
