@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import axios from 'axios';
-import '../App.css';
 const ProductForm = (props) => {
     const {product, setProduct} = props;
     //keep track of what is being typed via useState hook
@@ -21,21 +20,16 @@ const ProductForm = (props) => {
             .then(res=>{
                 console.log(res); // always console log to get used to tracking your data!
                 console.log(res.data);
+                setProduct([...product,res.data]);
             })
             .catch(err=>console.log(err))
-        setProduct([...product,{
-            title,
-            price,
-            description,
-            show : false
-        }])
         setTitle('');
         setPrice('');
         setDescription('');
     }
     
     return (
-        <div className='App'>
+        <div>
             <form onSubmit={onSubmitHandler}>
                 <label>Title</label>
                 <input type="text" value={title} required onChange= {(e)=>setTitle(e.target.value)}/>
