@@ -1,14 +1,8 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios';
-import { useNavigate} from 'react-router-dom';
 import {Link} from 'react-router-dom';
 const ProductList = (props) => {
-    /* We deconstruct getter and setter which were passed down 
-    via props by the parent component (app.js) to our child 
-    component (PersonList.js). Now we can easily use the getter 
-    and setter without having to write props.getter or props.setter every time: */
-    const {product, setProduct} = props;
-    const navigate = useNavigate();
+    const {product, setProduct,removeFromDom} = props;
     useEffect(()=>{
     	axios.get("http://localhost:8000/api/product")
     	.then((res)=>{
@@ -32,11 +26,13 @@ const ProductList = (props) => {
         setProduct(showProductInfo);
         // console.log(showProductInfo)
       }
-    const deleteProduct = (_id) => {
-        navigate(`/api/delete/${_id}`); // this will change the url
-
-        let checkProduct = [...product].filter((productToDelete) => productToDelete._id === _id)
-        console.log(`${checkProduct} has been deleted`,checkProduct)
+    const deleteProduct = (productId) => {
+        axios.delete('http://localhost:8000/api/product/' + productId)
+            .then(res => {
+                console.log(`Deleting ${res.data.title} ID:${productId}`);
+                removeFromDom(productId)
+            })
+            .catch(err => console.log(err))
     };
     return product.map((oneProduct) => {
         return (
@@ -51,7 +47,8 @@ const ProductList = (props) => {
                     <p>Description: {oneProduct.description}</p>
                     <p>ID: {oneProduct._id}</p>
                     <button onClick={() => deleteProduct(oneProduct._id)}>Delete</button>
-                    <Link to={`/product/${oneProduct._id}`}>Show This Product</Link>
+                    <Link to={`/product/${oneProduct._id}`}><button>Show This Product</button></Link>
+                    <Link to={`/product/edit/${oneProduct._id}`}><button>Edit</button></Link>
                     </div> // if tab.show == false, return tab's description
                     :null // if tab.show == false, return null
                 }
