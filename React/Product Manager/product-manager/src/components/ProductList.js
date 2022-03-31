@@ -26,10 +26,13 @@ const ProductList = (props) => {
         setProduct(showProductInfo);
         // console.log(showProductInfo)
       }
-    const deleteProduct = (productId) => {
+      const deleteProduct = (thisProduct) => {
+        // passing the whole object to console.log the key:value
+        let productId = thisProduct._id; 
+        console.log(thisProduct)
         axios.delete('http://localhost:8000/api/product/' + productId)
             .then(res => {
-                console.log(`Deleting ${res.data.title} ID:${productId}`);
+                console.log(`Deleting Product:${thisProduct.title} ID:${productId}`);
                 removeFromDom(productId)
             })
             .catch(err => console.log(err))
@@ -43,12 +46,12 @@ const ProductList = (props) => {
                 {
                     oneProduct.show?
                     <div>
-                    <p>${oneProduct.price}</p>
+                    {/* <p>${oneProduct.price}</p>
                     <p>Description: {oneProduct.description}</p>
-                    <p>ID: {oneProduct._id}</p>
-                    <button onClick={() => deleteProduct(oneProduct._id)}>Delete</button>
+                    <p>ID: {oneProduct._id}</p> */}
                     <Link to={`/product/${oneProduct._id}`}><button>Show This Product</button></Link>
                     <Link to={`/product/edit/${oneProduct._id}`}><button>Edit</button></Link>
+                    <button onClick={() => deleteProduct(oneProduct)}>Delete</button>
                     </div> // if tab.show == false, return tab's description
                     :null // if tab.show == false, return null
                 }

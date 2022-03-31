@@ -4,7 +4,6 @@ import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 const Update = (props) => {
-    const [product, setProduct] = useState({});
     const [title, setTitle] = useState();
     const [price, setPrice] = useState();
     const [description, setDescription] = useState();
@@ -18,9 +17,7 @@ const Update = (props) => {
             setPrice(res.data.price);
             setDescription(res.data.description);
 	    })
-    	.catch((err)=>{
-            console.log(err);
-    	})
+    	.catch((err)=> console.log(err))
     }, []);
     const updateProduct = (e) => {
     e.preventDefault();
@@ -41,7 +38,7 @@ const Update = (props) => {
     return (
         <div>
             <button onClick={home}>Home</button>
-            <h1> Updating {}</h1>
+            <h1> Updating {title}</h1>
             <form onSubmit={updateProduct}>
                 <label>Title</label>
                 <input type="text" value={title} required onChange= {(e)=>setTitle(e.target.value)}/>
