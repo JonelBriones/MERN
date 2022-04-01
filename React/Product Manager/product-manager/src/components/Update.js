@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 const Update = (props) => {
     const [title, setTitle] = useState();
@@ -18,7 +17,7 @@ const Update = (props) => {
             setDescription(res.data.description);
 	    })
     	.catch((err)=> console.log(err))
-    }, []);
+    }, [id]);
     const updateProduct = (e) => {
     e.preventDefault();
     axios.put('http://localhost:8000/api/product/' + id, {
