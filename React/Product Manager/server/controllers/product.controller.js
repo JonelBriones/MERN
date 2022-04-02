@@ -8,38 +8,49 @@ module.exports.index = (request, response) => {
     });
 }
 // CRUD functionalities
-module.exports.createProduct = (request, response) => {
+module.exports.createProduct = (request, res) => {
 Product.create(request.body) //This will use whatever the body of the client's request sends over
-    .then(product => response.json(product))
-    .catch(err => response.json(err));
+    .then(product =>res.json(product))
+    .catch(err => {
+        console.log("Something went wrong in creating products")
+        res.status(400).json(err)
+    })
+    
 }
+
+module.exports.updateProduct = (request, res) => {
+Product.findOneAndUpdate({_id: request.params.id}, request.body,
+    {new:true, runValidators: true})
+//     .then(updatedProduct =>res.json(updatedProduct))
+    .then((updateProduct)=> {
+        console.log(updateProduct);
+        res.json(updateProduct)
+    })
+    .catch(err => {
+        console.log("Something went wrong in updating products")
+        res.status(400).json(err)
+    })
+}
+
 module.exports.getAllProduct = (req,res) => {
 Product.find({})
     .then(products => {
         console.log(products);
         res.json(products);
     })
-    .catch(err => {
-        console.log(err)
-        res.json(err);
-    })
+    .catch(err => {res.status(400).json(err)})
 }
 
 
 module.exports.getProduct = (request, response) => {
     Product.findOne({_id:request.params.id})
         .then(product => response.json(product))
-        .catch(err => response.json(err))
+        .catch(err => {res.status(400).json(err)})
 }
  
-module.exports.updateProduct = (request, response) => {
-    Product.findOneAndUpdate({_id: request.params.id}, request.body, {new:true})
-        .then(updatedProduct => response.json(updatedProduct))
-        .catch(err => response.json(err))
-}
 
 module.exports.deleteProduct = (request, response) => {
     Product.deleteOne({ _id: request.params.id }) //note: "id" here MUST match id in corresponding route
         .then(deleteConfirmation => response.json(deleteConfirmation))
-        .catch(err => response.json(err))
+        .catch(err => {res.status(400).json(err)})
 }

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, { useEffect} from 'react'
 import axios from 'axios';
 import {Link} from 'react-router-dom';
 const ProductList = (props) => {
@@ -39,7 +39,7 @@ const ProductList = (props) => {
     };
     return product.map((oneProduct) => {
         return (
-            <div key={oneProduct._id}> 
+            <div className="App" key={oneProduct._id}> 
                 <hr/>
                 {/* checked function will set the object to have a false value, on click will change to the opposite  */}
                 <button checked={oneProduct.show} onClick={(e) => toggleProduct(oneProduct._id)}>{oneProduct.title}</button>
@@ -60,16 +60,6 @@ const ProductList = (props) => {
         )
        
     }); 
-
-    // return (
-    //     <div>
-    //         {
-    //             product.map((product, index)=>{
-    //             return <p key={index}>{product.title}, {product.price}, {product.description} </p>
-    //             })
-    //         }
-    //     </div>
-    // )
 }
 export default ProductList;
 
