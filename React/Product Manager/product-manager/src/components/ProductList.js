@@ -1,8 +1,13 @@
-import React, { useEffect} from 'react'
+import React, { useState,useEffect} from 'react'
 import axios from 'axios';
-import {Link} from 'react-router-dom';
+import {useNavigate,Link} from 'react-router-dom';
+import Home from './Home';
 const ProductList = (props) => {
-    const {product, setProduct,removeFromDom} = props;
+    const [product, setProduct] = useState([]);
+    const navigate = useNavigate();
+    const removeFromDom = productId => {
+        setProduct(product.filter(oneProduct => oneProduct._id !== productId));
+    }
     useEffect(()=>{
     	axios.get("http://localhost:8000/api/product")
     	.then((res)=>{
@@ -34,12 +39,16 @@ const ProductList = (props) => {
             .then(res => {
                 console.log(`Deleting Product:${thisProduct.title} ID:${productId}`);
                 removeFromDom(productId)
+                navigate("/product/list");
             })
             .catch(err => console.log(err))
     };
-    return product.map((oneProduct) => {
-        return (
-            <div className="App" key={oneProduct._id}> 
+    return (
+        <div className="App">
+        <Link to={"/product/add/"}><button>Add Product!</button></Link>
+        { 
+            product.map((oneProduct)=> (
+            <div  key={oneProduct._id}> 
                 <hr/>
                 {/* checked function will set the object to have a false value, on click will change to the opposite  */}
                 <button checked={oneProduct.show} onClick={(e) => toggleProduct(oneProduct._id)}>{oneProduct.title}</button>
@@ -55,11 +64,12 @@ const ProductList = (props) => {
                     </div> // if tab.show == false, return tab's description
                     :null // if tab.show == false, return null
                 }
-            </div>
-            
-        )
-       
-    }); 
+            </div>  
+            ))
+
+        }
+       </div>
+    );
 }
 export default ProductList;
 

@@ -2,36 +2,38 @@ import React, {useState, useEffect} from 'react'
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import Home from './Home';
+import Form from './Form';
 const Update = (props) => {
-    const [title, setTitle] = useState("");
-    const [price, setPrice] = useState("");
-    const [description, setDescription] = useState("");
+
+
+
     const [errors, setError] = useState ({});
     const {id} = useParams();
     const navigate = useNavigate();
+
+    const [editProduct, setEditProduct] = useState({
+        title: "",
+        price: "",
+        description: ""
+    })
+
     useEffect(()=>{
     	axios.get(`http://localhost:8000/api/product/${id}`)
     	.then((res)=>{
 	        console.log(res.data);
-            setTitle(res.data.title);
-            setPrice(res.data.price);
-            setDescription(res.data.description);
+            setEditProduct(res.data);
 	    })
     	.catch((err)=> console.log(err))
     }, [id]);
-    const updateProduct = (e) => {
+    const editSubmitHandler = (e) => {
     e.preventDefault();
-    axios.put('http://localhost:8000/api/product/' + id, {
-        title,    // this is shortcut syntax for firstName: firstName,
-        price,      // this is shortcut syntax for lastName: lastName
-        description
-    })
+    axios.put('http://localhost:8000/api/product/' + id,editProduct)
         .then(res => {
             console.log(res);
-            navigate("/product"); // this will take us back to the Main.js
+            navigate("/product/list"); // this will take us back to the Main.js
             })
         .catch(err=>{
-            console.log("hello world!")
             console.log(err);
             console.log(err.response);
             console.log(err.response.data);
@@ -40,42 +42,31 @@ const Update = (props) => {
 
         })
     }
-    const home = () => {
-    navigate("/product");
-}
+
+    const onChangeHandler = (e) => {
+        const editProductObject = {...editProduct};
+        editProductObject[e.target.name] = e.target.value;
+        console.log(`e.target.name = ${e.target.name}`)
+        console.log(`e.target.value = ${e.target.value}`)
+        setEditProduct(editProductObject);
+        console.log(editProductObject)
+        console.log(editProduct)
+    }
+
     return (
         <div className="App">
-            <button onClick={home}>Home</button>
-            <h1> Updating {title}</h1>
-            <form onSubmit={updateProduct}>
-            <div>
-                {
-                    errors.title?
-                    <span>{errors.title.message}</span>:
-                    <label>Title</label>
-                }
-                <input type="text" value={title} onChange= {(e)=>setTitle(e.target.value)}/>
-                </div>
-                <div>
-                {
-                    errors.price?
-                    <span>{errors.price.message}</span>:
-                    <label>Price</label>
-                }
-                <input type="number" value={price}  onChange= {(e)=>setPrice(e.target.value)}/>
-                </div>
-                <div>
-                {
-                    errors.description?
-                    <span>{errors.description.message}</span>:
-                    <label>Description</label>
-                }
-                <input type="text" value={description}  onChange= {(e)=>setDescription(e.target.value)}/>
-                </div>
-                <button type="submit">Update!</button>
-            </form>
+            {/* <button onClick={home}>Home</button> */}
+            <Home/>
+            <h1> Updating {editProduct.title}</h1>
+            <Form 
+            // all arguments will be passed as a paramter for form.js
+            newProduct={editProduct}
+            errors={errors}
+            onChangeHandler={onChangeHandler}
+            onSubmitHandler={editSubmitHandler}
+            buttonText={"Update a Product"}
+            />
         </div>
-
-    ) 
+    )
 }
 export default Update;

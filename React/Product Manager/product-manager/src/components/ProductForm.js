@@ -1,31 +1,34 @@
 import React, { useState } from 'react'
 import axios from 'axios';
 import '../App.css';
+import { Link,useNavigate } from 'react-router-dom';
+import Form from './Form';
 const ProductForm = (props) => {
-    const {product, setProduct} = props;
+    // const {product, setProduct} = props;
     //keep track of what is being typed via useState hook
-    const [title, setTitle] = useState(""); 
-    const [price, setPrice] = useState("");
-    const [description, setDescription] = useState("");
+    // const [title, setTitle] = useState(""); 
+    // const [price, setPrice] = useState("");
+    // const [description, setDescription] = useState("");
     const [errors, setError] = useState({});
+    const navigate = useNavigate();
 
+    const [newProduct, setNewProduct] = useState({
+        title: "",
+        price: "",
+        description: ""
+    })
     //handler when the form is submitted
-    const onSubmitHandler = (e) => {
+    const newSubmitHandler = (e) => {
         //prevent default behavior of the submit
         e.preventDefault();
         //make a post request to create a new person
-        axios.post('http://localhost:8000/api/product', {
-            title,   
-            price,
-            description,
-        })
+        axios.post('http://localhost:8000/api/product', 
+            newProduct
+        )
             .then(res=>{
                 console.log(res); // always console log to get used to tracking your data!
                 console.log(res.data);
-                setProduct([...product,res.data]);
-                setTitle('');
-                setPrice('');
-                setDescription('');
+                navigate("/product/list");
             })
             .catch(err=>{
                 console.log("hello world!")
@@ -37,36 +40,28 @@ const ProductForm = (props) => {
 
             })
     }
+
+    const onChangeHandler = (e) => {
+        const newProductObject = {...newProduct};
+        newProductObject[e.target.name] = e.target.value;
+        console.log(`e.target.name = ${e.target.name}`)
+        console.log(`e.target.value = ${e.target.value}`)
+        setNewProduct(newProductObject);
+        console.log(newProductObject)
+        console.log(newProduct)
+    }
     
     return (
         <div className='App'>
-            <form onSubmit={onSubmitHandler}>
-                <div>
-                {
-                    errors.title?
-                    <span>{errors.title.message}</span>:
-                    <label>Title</label>
-                }
-                <input type="text" value={title} onChange= {(e)=>setTitle(e.target.value)}/>
-                </div>
-                <div>
-                {
-                    errors.price?
-                    <span>{errors.price.message}</span>:
-                    <label>Price</label>
-                }
-                <input type="number" value={price}  onChange= {(e)=>setPrice(e.target.value)}/>
-                </div>
-                <div>
-                {
-                    errors.description?
-                    <span>{errors.description.message}</span>:
-                    <label>Description</label>
-                }
-                <input type="text" value={description}  onChange= {(e)=>setDescription(e.target.value)}/>
-                </div>
-                <button type="submit">Submit!</button>
-            </form>
+            <Link to={"/product/list"}><button>Home</button></Link>
+            <Form 
+            // all arguments will be passed as a paramter for form.js
+            newProduct={newProduct}
+            errors={errors}
+            onChangeHandler={onChangeHandler}
+            onSubmitHandler={newSubmitHandler}
+            buttonText={"Add a Product"}
+            />
         </div>
         
         

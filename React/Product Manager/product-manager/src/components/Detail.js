@@ -3,6 +3,7 @@ import axios from 'axios';
 import {Link} from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import Home from './Home';
 const Detail = (props) => {
     const [product, setProduct] = useState({});
     const {removeFromDom} = props; 
@@ -22,25 +23,24 @@ const Detail = (props) => {
             console.log(err);
     	})
     }, []);
-    const home = () => {
-        navigate("/product");
-    }
+    // const home = () => {
+    //     navigate("/product/list");
+    // }
     const deleteProduct = (thisProduct) => {
         // passing the whole object to console.log the key:value
         let productId = thisProduct._id; 
         console.log(thisProduct)
         axios.delete('http://localhost:8000/api/product/' + productId)
             .then(res => {
-                console.log(`Deleting Product:${thisProduct.title} ID:${productId}`);
-                navigate("/product")
+                console.log(`Deleting Product:${thisProduct.title} ID:${productId}`);
+                navigate("/product/list")
                 removeFromDom(productId)
-                // navigate("/product")
             })
             .catch(err => console.log(err))
     };
     return (
-        <div>
-            <button onClick={home}>Home</button>
+        <div className='App'>
+            <Home/>
             <h1>Product: {product.title}</h1>
             <h1>Price: ${product.price}</h1>
             <h1>Description: {product.description}</h1>
