@@ -10,7 +10,7 @@ const Detail = (props) => {
     useEffect(()=>{
     	axios.get(`http://localhost:8000/api/product/${id}`)
     	.then((res)=>{
-	        console.log(res.data);
+            console.log(`Displaying Product: ${res.data.title} from mongoDB`,res.data);
             setProduct(res.data);
 	    })
     	.catch((err)=>{
@@ -34,8 +34,10 @@ const Detail = (props) => {
             <h1>Product: {product.title}</h1>
             <h1>Price: ${product.price}</h1>
             <h1>Description: {product.description}</h1>
-            <Link to={`/product/edit/${product._id}`}><button>Edit</button></Link>
-            <Delete deleteHandler={()=>deleteProduct(product)}/>
+            <Delete 
+                    deleteHandler={()=>deleteProduct(product)}
+                    editHandler={()=> console.log(`redirecting to edit: ${product.title}`)}
+                    productId={product._id}/>
         </div>
     ) 
 }

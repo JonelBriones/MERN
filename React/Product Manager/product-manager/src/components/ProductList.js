@@ -11,7 +11,7 @@ const ProductList = (props) => {
     useEffect(()=>{
     	axios.get("http://localhost:8000/api/product")
     	.then((res)=>{
-	        console.log(res.data);
+	        console.log("List all product objects from mongoDB",res.data);
             setProduct(res.data);
 	    })
     	.catch((err)=>{
@@ -22,9 +22,11 @@ const ProductList = (props) => {
         const showProductInfo = product.map((oneProduct) => { // after mapping through list, find tab that matches id
         // if the tab matches id, set show to true will display tab.description
         if (_id === oneProduct._id) {
+            console.log(`ID of ${oneProduct.title} matches the passed in ID:${_id}`)
             oneProduct.show = !oneProduct.show; // 
-            console.log(oneProduct.show)
-            console.log(`${oneProduct} matches the ${_id}`)
+            oneProduct.show?
+            console.log(`${oneProduct.title} has been opened`):
+            console.log(`${oneProduct.title} has been closed`)
           }
           return oneProduct;
         })
@@ -56,9 +58,13 @@ const ProductList = (props) => {
                     oneProduct.show?
                     <div>
                     <Link to={`/product/${oneProduct._id}`}><button>Show This Product</button></Link>
-                    <Link to={`/product/edit/${oneProduct._id}`}><button>Edit</button></Link>
+                    {/* <Link to={`/product/edit/${oneProduct._id}`}><button>Edit</button></Link> */}
                     {/* <button onClick={() => deleteProduct(oneProduct)}>Delete</button> */}
-                    <Delete deleteHandler={()=>deleteProduct(oneProduct)}/>
+
+                    <Delete 
+                    deleteHandler={()=>deleteProduct(oneProduct)}
+                    editHandler={()=> console.log(`redirecting to edit: ${oneProduct.title}`)}
+                    productId={oneProduct._id}/>
                     </div> // if tab.show == false, return tab's description
                     :null // if tab.show == false, return null
                 }

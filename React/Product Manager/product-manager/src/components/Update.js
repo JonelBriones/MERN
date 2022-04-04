@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import Home from './Home';
-import Form from './Form';
+import CreateForm from './CreateForm';
 const Update = (props) => {
 
 
@@ -58,7 +58,7 @@ const Update = (props) => {
             {/* <button onClick={home}>Home</button> */}
             <Home/>
             <h1> Updating {editProduct.title}</h1>
-            <Form 
+            <CreateForm 
             // all arguments will be passed as a paramter for form.js
             newProduct={editProduct}
             errors={errors}

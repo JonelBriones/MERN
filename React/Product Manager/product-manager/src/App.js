@@ -2,7 +2,6 @@ import React from 'react';
 // import axios from 'axios';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import {useParams} from 'react-router-dom';
-
 import ProductForm from './components/ProductForm';
 import Detail from './components/Detail';
 import Update from './components/Update';

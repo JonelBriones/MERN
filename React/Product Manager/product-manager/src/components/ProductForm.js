@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import axios from 'axios';
 import '../App.css';
 import { Link,useNavigate } from 'react-router-dom';
-import Form from './Form';
+import CreateForm from './CreateForm';
+
 const ProductForm = (props) => {
     // const {product, setProduct} = props;
     //keep track of what is being typed via useState hook
@@ -54,7 +55,7 @@ const ProductForm = (props) => {
     return (
         <div className='App'>
             <Link to={"/product/list"}><button>Home</button></Link>
-            <Form 
+            <CreateForm 
             // all arguments will be passed as a paramter for form.js
             newProduct={newProduct}
             errors={errors}
