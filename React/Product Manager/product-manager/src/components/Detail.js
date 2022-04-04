@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import Home from './Home';
+import Delete from './Delete';
 const Detail = (props) => {
     const [product, setProduct] = useState({});
     const {removeFromDom} = props; 
@@ -32,9 +33,8 @@ const Detail = (props) => {
         console.log(thisProduct)
         axios.delete('http://localhost:8000/api/product/' + productId)
             .then(res => {
-                console.log(`Deleting Product:${thisProduct.title} ID:${productId}`);
-                navigate("/product/list")
-                removeFromDom(productId)
+                console.log(`Deleting Product:${thisProduct.title} ID:${productId}`);
+                navigate("/product/list");
             })
             .catch(err => console.log(err))
     };
@@ -45,7 +45,8 @@ const Detail = (props) => {
             <h1>Price: ${product.price}</h1>
             <h1>Description: {product.description}</h1>
             <Link to={`/product/edit/${product._id}`}><button>Edit</button></Link>
-            <button onClick={()=> deleteProduct(product)}>Delete</button>
+            {/* <button onClick={()=> deleteProduct(product)}>Delete</button> */}
+            <Delete deleteHandler={()=>deleteProduct(product)}/>
         </div>
     ) 
 }
