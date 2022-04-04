@@ -1,7 +1,7 @@
 import React, { useState,useEffect} from 'react'
 import axios from 'axios';
 import {useNavigate,Link} from 'react-router-dom';
-import Home from './Home';
+import Delete from './Delete';
 const ProductList = (props) => {
     const [product, setProduct] = useState([]);
     const navigate = useNavigate();
@@ -55,12 +55,10 @@ const ProductList = (props) => {
                 {
                     oneProduct.show?
                     <div>
-                    {/* <p>${oneProduct.price}</p>
-                    <p>Description: {oneProduct.description}</p>
-                    <p>ID: {oneProduct._id}</p> */}
                     <Link to={`/product/${oneProduct._id}`}><button>Show This Product</button></Link>
                     <Link to={`/product/edit/${oneProduct._id}`}><button>Edit</button></Link>
-                    <button onClick={() => deleteProduct(oneProduct)}>Delete</button>
+                    {/* <button onClick={() => deleteProduct(oneProduct)}>Delete</button> */}
+                    <Delete deleteHandler={()=>deleteProduct(oneProduct)}/>
                     </div> // if tab.show == false, return tab's description
                     :null // if tab.show == false, return null
                 }
