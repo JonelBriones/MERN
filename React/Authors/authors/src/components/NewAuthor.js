@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthorForm from './AuthorForm';
 const NewAuthor = (props) => {
@@ -26,14 +26,14 @@ const NewAuthor = (props) => {
                 setError(err.response.data.errors)
             })
     }
+
     const onChangeHandler = (e) => {
         const newAuthorObject = {...newAuthor};
         newAuthorObject[e.target.name] = e.target.value;
         console.log(`e.target.name = ${e.target.name}`)
         console.log(`e.target.value = ${e.target.value}`)
+        console.log(newAuthorObject)
         setNewAuthor(newAuthorObject);
-        console.log(newAuthorObject)
-        console.log(newAuthorObject)
     }
     const home = () => {
         navigate("/");
@@ -48,7 +48,8 @@ const NewAuthor = (props) => {
             newAuthor={newAuthor}
             onSubmitHandler={newSubmitHandler}
             onChangeHandler={onChangeHandler}
-            buttonText={"Add Author"} />
+            buttonText={"Add Author"} 
+            />
         </div>
     )
 }

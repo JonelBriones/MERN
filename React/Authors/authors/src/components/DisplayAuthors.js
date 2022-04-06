@@ -26,11 +26,16 @@ const DisplayAuthors = (props) => {
                 console.log(err);
             })
     },[]);
+    // const {authorListOrder, setAuthorListOrder} = useState([])
+    const sortedInAlphabeticalOrder = author.sort((a,b)=> {
+        const ascended = (setAuthor === 'asc')?-1: 1;
+        return ascended * a.firstName.localeCompare(b.firstName)
+    })
     return (
         <div>
             <AddAuthorBtn/>
             {
-                author.map((oneAuthor)=> (
+                sortedInAlphabeticalOrder.map((oneAuthor)=> (
                     <div key={oneAuthor._id}>
                         <hr/>
                         <div>

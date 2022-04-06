@@ -14,12 +14,15 @@ const UpdateAuthor = (props) => {
     })
     useEffect(() => {
         axios.get(`http://localhost:8000/api/author/${id}`)
-         .then((res) => {
-             console.log(res.data)
-             setUpdateAuthor(res.data);
+            .then((res) => {
+            setUpdateAuthor(res.data);
+            res.data !== null?
+            console.log(res.data):
+            console.log("This Author does not exist!")
          })
          .catch((err)=> {
              console.log(err);
+
          })
     },[id])
 
@@ -50,14 +53,26 @@ const UpdateAuthor = (props) => {
     }
     return (
         <div>
-            <Home buttonText={"Cancel"}/>
-            <AddAuthorBtn/>
-            <AuthorForm 
-            errors={errors}
-            newAuthor={updateAuthor}
-            onSubmitHandler={updateSubmitHandler}
-            onChangeHandler={onChangeHandler}
-            buttonText={"Update Author"} />
+            {
+                updateAuthor !== null?
+                <div>
+                    <Home buttonText={"Cancel"}/>
+                    <AddAuthorBtn/>
+                    <AuthorForm 
+                        errors={errors}
+                        newAuthor={updateAuthor}
+                        onSubmitHandler={updateSubmitHandler}
+                        onChangeHandler={onChangeHandler}
+                        buttonText={"Update Author"} 
+                    /> 
+                </div>:
+                <div>
+                    <p>We're sorry, but we could not find the author you are looking for.</p>
+                    <p> Would you like to add an author to our database?</p>
+                    <AddAuthorBtn/>
+                </div>
+            }
+            
         </div>
     )
 }

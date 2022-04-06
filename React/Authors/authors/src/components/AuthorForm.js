@@ -1,12 +1,14 @@
-import React, {useEffect} from 'react';
+import React, {useState,useEffect} from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import axios from 'axios';
 
 const AuthorForm = (props) => {
     const {errors, newAuthor, onSubmitHandler,
     onChangeHandler,buttonText
     } = props;
+
 
     return (
         <Form onSubmit={onSubmitHandler} className="form-container">
@@ -14,8 +16,10 @@ const AuthorForm = (props) => {
                 <Form.Label>
                     {
                         errors.firstName?
-                        <span>{errors.firstName.message}</span>:
+                        <span>{errors.firstName.message}</span>
+                        :
                         <label>First Name</label>
+
                     } 
                 </Form.Label>
                 <Form.Control type="text" name="firstName" placeholder="First Name"
