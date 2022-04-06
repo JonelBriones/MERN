@@ -7,6 +7,7 @@ import DeleteBtn from './DeleteBtn';
 const DisplayAuthors = (props) => {
     const navigate = useNavigate();
     const [author,setAuthor] = useState([]);
+    const [orderType,setOrderType] = useState(false);
     const {onDeleteHandler} = props;
 
     const removeFromDom = authorId => {
@@ -29,11 +30,28 @@ const DisplayAuthors = (props) => {
     // const {authorListOrder, setAuthorListOrder} = useState([])
     const sortedInAlphabeticalOrder = author.sort((a,b)=> {
         const ascended = (setAuthor === 'asc')?-1: 1;
-        return ascended * a.firstName.localeCompare(b.firstName)
+        const descended = (setAuthor === 'des')?1: -1;
+        
+        return (orderType?
+        ascended * a.firstName.localeCompare(b.firstName):
+        descended * a.firstName.localeCompare(b.firstName))
     })
+    const toggleOrderType = () => {
+        setOrderType(!orderType)
+        console.log(orderType)
+    }
     return (
         <div>
             <AddAuthorBtn/>
+            <div>
+            <button type="checkbox" checked={orderType} onClick={toggleOrderType}>
+                {
+                    orderType?
+                    <p>Ascended</p>:
+                    <p>Descended</p>
+                }
+            </button>
+            </div>
             {
                 sortedInAlphabeticalOrder.map((oneAuthor)=> (
                     <div key={oneAuthor._id}>
