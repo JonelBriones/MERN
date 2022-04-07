@@ -7,6 +7,24 @@ const PlayerSchema = new mongoose.Schema({
     },
     position: {
         type: String,
+        required: [false]
+    },
+    playing: {
+        type: Boolean,
+        required: [false]
+
+    }
+    ,
+    notPlaying: {
+        type: Boolean,
+        required: [false]
+
+    }
+    ,
+    undecided: {
+        type: Boolean,
+        required: [false]
+
     }
 
 }, {timestamps: true});

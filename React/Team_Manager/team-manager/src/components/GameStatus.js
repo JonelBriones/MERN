@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button'
 const GameStatus = (props) => {
     const navigate = useNavigate();
     const [player,setPlayer] = useState([]);
-    // const [confirmDelete,setConfirmDelete] = useState(false);
+
 
     useEffect(() => {
         axios.get("http://localhost:8000/api/player")
@@ -19,28 +19,52 @@ const GameStatus = (props) => {
             })
     },[])
 
+    
+
     const changeColor = (playerId,index) => {
-        console.log(playerId)
         const changeColor = player.map((onePlayer)=> {
             if(playerId === onePlayer._id) {
                 if(index === 1) {
                 onePlayer.playing = !onePlayer.playing
-                console.log(onePlayer.playing)
+                onePlayer.notPlaying = false
+                onePlayer.undecided = false
                 }
                 else if (index === 2) {
                     onePlayer.notPlaying = !onePlayer.notPlaying
-                    console.log(onePlayer.notPlaying)
+                    onePlayer.playing = false
+                    onePlayer.undecided = false
                 }
                 else if (index === 3) {
                     onePlayer.undecided = !onePlayer.undecided
-                    console.log(onePlayer.undecided)
+                    onePlayer.playing = false
+                    onePlayer.notPlaying = false
                 }
+                // else if(
+                //     !onePlayer.playing && 
+                //     !onePlayer.notPlaying && 
+                //     !onePlayer.undecided &&
+                //     index === 1 || 2)
+                // {
+                //     onePlayer.undecided = true
+                //     if(onePlayer.undecided) {
+                //         setPlayerStatus(onePlayer)
+                //         console.log(onePlayer)
+                //     }
+                // }
             }
-            return onePlayer;
+
+            axios.put("http://localhost:8000/api/player/" + onePlayer._id,onePlayer)
+            .then((res)=> {
+            })
+            .catch((err) => {
+            })
+
+            return onePlayer
         })
-        setPlayer(changeColor);
+        setPlayer(changeColor)
     }
-    // const variantColor = ["success","danger","warning"];
+
+
     return (
         <div>
             <Link to={"/"}>
@@ -65,23 +89,24 @@ const GameStatus = (props) => {
                                     <Button variant=
                                     {
                                         onePlayer.playing?
-                                        "success":"info"
+                                        "success"
+                                        :"info"
                                     } 
-                                    checked={onePlayer.playing} onClick={()=>changeColor(onePlayer._id,1)}>Playing</Button>
+                                     onClick={()=>changeColor(onePlayer._id,1)} disabled={onePlayer.playing}>Playing</Button>
                                     
                                     <Button variant=
                                     {
                                         onePlayer.notPlaying?
                                         "danger":"info"
                                     } 
-                                    checked={onePlayer.notPlaying} onClick={()=>changeColor(onePlayer._id,2)}>Not Playing</Button>
+                                     onClick={()=>changeColor(onePlayer._id,2)} disabled={onePlayer.notPlaying}>Not Playing</Button>
                                     
                                     <Button variant=
                                     {
                                         onePlayer.undecided?
                                         "warning":"info"
                                     } 
-                                    checked={onePlayer.undecided} onClick={()=>changeColor(onePlayer._id,3)}>Undecided</Button>
+                                     onClick={()=>changeColor(onePlayer._id,3)} disabled={onePlayer.undecided}>Undecided</Button>
                                     </td>
                                 </tr>
                             )

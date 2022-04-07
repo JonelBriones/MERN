@@ -35,6 +35,14 @@ const OnePlayer = (props) => {
             </Link>
             <h1>{updatePlayer.playerName}</h1>
             <p>Position: {updatePlayer.position}</p>
+            <p>Status:
+                {
+                    updatePlayer.playing?
+                    " Playing":updatePlayer.notPlaying?
+                    " Not Playing":
+                    " Undecided"
+                }
+            </p>
             {
                 confirmDelete !== true?
                 <Button variant="danger" onClick={() =>setConfirmDelete(true)}>Delete</Button>:

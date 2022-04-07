@@ -8,6 +8,9 @@ const AddPlayer = (props) => {
     const [newPlayer,setNewPlayer] = useState({
         playerName: "",
         position: "",
+        playing: false,
+        notPlaying: false,
+        undecided: true,
     });
     const onSubmitHandler = (e) => {
         e.preventDefault();
