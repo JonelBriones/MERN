@@ -21,15 +21,21 @@ const AddPlayer = (props) => {
                 setError(err.response.data.errors)
             })
     }
-    return (
+    const newChangeHandler = (e) => {
+        const newPlayerObject = {...newPlayer};
+        newPlayerObject[e.target.name] = e.target.value;
+        console.log(newPlayerObject);
+        setNewPlayer(newPlayerObject)
+    }
+     return (
         <div>
             <Link to={"/"}>
                 <button>Home</button>
             </Link>
             <PlayerForm 
             onSubmitHandler={onSubmitHandler}
-            onChangeHandler={newPlayer}
-            error={errors}
+            onChangeHandler={newChangeHandler}
+            errors={errors}
             buttonText={"Add Player"}
             player={newPlayer}
             />

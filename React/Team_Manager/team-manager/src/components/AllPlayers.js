@@ -1,19 +1,72 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import Form from 'react-bootstrap/Form';
+import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
+import DeleteBtn from './DeleteBtn';
 const AllPlayers = (props) => {
     const navigate = useNavigate();
+    const [player,setPlayer] = useState([]);
 
+    useEffect(() => {
+        axios.get("http://localhost:8000/api/player")
+            .then((res)=> {
+                console.log(res.data);
+                setPlayer(res.data)
+            })
+            .catch((err)=> {
+                console.log(err);
+            })
+    },[])
+
+    const removeFromDom = playerId => {
+        console.log("Returning to Home Page")
+        navigate("/")
+        setPlayer(player.filter(onePlayer => onePlayer._id !== playerId));
+    }
+    // const sortedInAlphabeticalOrder = player.sort((a,b)=> {
+    //     const ascended = (setPlayer === 'asc')?-1: 1;
+    //     const descended = (setPlayer === 'des')?1: -1;
+    //     return ascended * a.firstName.localeCompare(b.firstName);
+    //     // return (orderType?
+    //     // ascended * a.firstName.localeCompare(b.firstName):
+    //     // descended * a.firstName.localeCompare(b.firstName))
+    // })
     return (
         <div>
             <Link to={"/add"}>
                 <button>Add Player</button>
             </Link>
-            
-            <h1>List of Players</h1>
+            <Table striped bordered hover variant="dark" >
+                <thead>
+                    <tr>
+                        <th>Player</th>
+                        <th>Position</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        player.map((onePlayer)=> (
+                            <tr key={onePlayer._id}>
+                                <td>{onePlayer.playerName}</td>
+                                <td>{onePlayer.position}</td>
+                                <td>
+                                    <DeleteBtn
+                                successCallback={()=>removeFromDom(onePlayer._id)}
+                                playerObject={onePlayer}
+                                />
+                                </td>
+                            </tr>
+                            
+                        ))
+                        
+                    }
+                        
+                </tbody>
+            </Table>
+
         </div>
     )
 }
