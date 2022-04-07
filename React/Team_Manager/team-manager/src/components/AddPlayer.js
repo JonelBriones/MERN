@@ -30,7 +30,7 @@ const AddPlayer = (props) => {
      return (
         <div>
             <Link to={"/"}>
-                <button>Home</button>
+                <button>Manage Players</button>
             </Link>
             <PlayerForm 
             onSubmitHandler={onSubmitHandler}

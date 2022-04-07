@@ -8,6 +8,7 @@ import DeleteBtn from './DeleteBtn';
 const AllPlayers = (props) => {
     const navigate = useNavigate();
     const [player,setPlayer] = useState([]);
+    const [confirmDelete,setConfirmDelete] = useState(false);
 
     useEffect(() => {
         axios.get("http://localhost:8000/api/player")
@@ -38,6 +39,9 @@ const AllPlayers = (props) => {
             <Link to={"/add"}>
                 <button>Add Player</button>
             </Link>
+            <Link to={"/status/game"}>
+                <button>Game Status</button>
+            </Link>
             <Table striped bordered hover variant="dark" >
                 <thead>
                     <tr>
@@ -50,13 +54,22 @@ const AllPlayers = (props) => {
                     {
                         player.map((onePlayer)=> (
                             <tr key={onePlayer._id}>
-                                <td>{onePlayer.playerName}</td>
+                                <td><Link to={"/edit/" + onePlayer._id}>{onePlayer.playerName}</Link></td>
                                 <td>{onePlayer.position}</td>
                                 <td>
-                                    <DeleteBtn
-                                successCallback={()=>removeFromDom(onePlayer._id)}
-                                playerObject={onePlayer}
-                                />
+                                    {
+                                        confirmDelete !== true?
+                                       <Button variant="danger" onClick={() =>setConfirmDelete(true)}>Delete</Button>:
+                                       <div>
+                                        <DeleteBtn
+                                        successCallback={()=>removeFromDom(onePlayer._id)}
+                                        playerObject={onePlayer}
+                                        buttonText={"Confirm"}/>
+                                        <Button onClick={() =>setConfirmDelete(false)}>Cancel</Button> 
+                                        </div>
+
+                                    }
+                                    
                                 </td>
                             </tr>
                             

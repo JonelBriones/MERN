@@ -5,7 +5,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const DeleteBtn = (props) => {
-    const {playerObject,successCallback} = props;
+    const {playerObject,successCallback,confirmDelete,buttonText} = props;
     const navigate = useNavigate();
 
     const onDeleteHandler = () => {
@@ -24,7 +24,7 @@ const DeleteBtn = (props) => {
 
     return (
         <Button variant="danger" onClick={onDeleteHandler}>
-            Delete
+            {buttonText}
         </Button>
     )
 }
