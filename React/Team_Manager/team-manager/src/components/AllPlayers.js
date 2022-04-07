@@ -37,7 +37,6 @@ const AllPlayers = (props) => {
 
     const setConfirmDelete = (onePlayerId) => {
         console.log(onePlayerId)
-        console.log(onePlayerId.playerName)
         const deletePlayer = player.map((onePlayer)=> {
             if(onePlayerId === onePlayer._id) {
                 onePlayer.confirmDelete = !onePlayer.confirmDelete
