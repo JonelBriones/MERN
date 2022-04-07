@@ -8,7 +8,7 @@ import DeleteBtn from './DeleteBtn';
 const AllPlayers = (props) => {
     const navigate = useNavigate();
     const [player,setPlayer] = useState([]);
-    const [confirmDelete,setConfirmDelete] = useState(false);
+    // const [confirmDelete,setConfirmDelete] = useState(false);
 
     useEffect(() => {
         axios.get("http://localhost:8000/api/player")
@@ -34,6 +34,21 @@ const AllPlayers = (props) => {
     //     // ascended * a.firstName.localeCompare(b.firstName):
     //     // descended * a.firstName.localeCompare(b.firstName))
     // })
+
+    const setConfirmDelete = (onePlayerId) => {
+        console.log(onePlayerId)
+        console.log(onePlayerId.playerName)
+        const deletePlayer = player.map((onePlayer)=> {
+            if(onePlayerId === onePlayer._id) {
+                onePlayer.confirmDelete = !onePlayer.confirmDelete
+                console.log(onePlayer.confirmDelete)
+            }
+            return onePlayer;
+        })
+        setPlayer(deletePlayer);
+
+        
+    }
     return (
         <div>
             <Link to={"/add"}>
@@ -58,15 +73,16 @@ const AllPlayers = (props) => {
                                 <td>{onePlayer.position}</td>
                                 <td>
                                     {
-                                        confirmDelete !== true?
-                                       <Button variant="danger" onClick={() =>setConfirmDelete(true)}>Delete</Button>:
-                                       <div>
-                                        <DeleteBtn
-                                        successCallback={()=>removeFromDom(onePlayer._id)}
-                                        playerObject={onePlayer}
-                                        buttonText={"Confirm"}/>
-                                        <Button onClick={() =>setConfirmDelete(false)}>Cancel</Button> 
+                                        onePlayer.confirmDelete?
+                                        <div>
+                                            <DeleteBtn
+                                            successCallback={()=>removeFromDom(onePlayer._id)}
+                                            playerObject={onePlayer}
+                                            buttonText={"Confirm"}/>
+                                            <Button onClick={() =>setConfirmDelete(onePlayer._id)}>Cancel</Button> 
                                         </div>
+                                        :
+                                       <Button variant="danger" checked={onePlayer.confirmDelete} onClick={() =>setConfirmDelete(onePlayer._id)}>Delete</Button>
 
                                     }
                                     
