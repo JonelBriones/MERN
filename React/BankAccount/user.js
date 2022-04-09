@@ -1,10 +1,9 @@
-const { use } = require("express/lib/application");
 
 class User {
     constructor(username,email) {
         this.name = username
         this.email = email
-        this.accountBalance= 0
+        this.accountBalance = 0
     }
     makeDeposit(amount) {
         this.accountBalance += amount;
