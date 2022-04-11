@@ -1,5 +1,4 @@
 import './App.css';
-
 // required to import the component file to js file
 import PersonCard from './components/PersonCard';
 

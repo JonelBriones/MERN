@@ -21,6 +21,7 @@ class PersonCard extends Component {
             
             <button onClick={()=>this.birthday()}>Birthday Button for {firstName} {lastName}</button>
             <button onClick={ ()=> alert(`${firstName} turned ${age + this.state.count}!`)}>Alert Click Count</button>
+            <button onClick={()=>this.setState({count:0})}>Reset</button>
         </div>
         )
     }   
