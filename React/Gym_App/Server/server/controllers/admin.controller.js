@@ -1,18 +1,18 @@
-const User = require('../models/user.model');
+const Admin = require('../models/admin.model');
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 
 module.exports = {
     register: (req,res)=> {
-        const user = new User(req.body);
-        user.save()
-            .then((newUser)=> {
-                console.log(newUser)
+        const admin = new Admin(req.body);
+        admin.save()
+            .then((newAdmin)=> {
+                console.log(newAdmin)
                 console.log("Successfully Registered")
                 res.json({
                     successMessage: "Thank you for registering",
-                    user: newUser
+                    admin: newAdmin
                 });
             })
             .catch((err)=> {
@@ -21,22 +21,22 @@ module.exports = {
             })
     },
     login: (req,res)=> {
-        User.findOne({email: req.body.email})
-            .then((userRecord)=> {
-                if(userRecord === null){
+        Admin.findOne({adminName: req.body.adminName})
+            .then((adminRecord)=> {
+                if(adminRecord === null){
                     res.status(400).json({message:"Invalid Login Attempt"})
                 }
                 else {
-                    bcrypt.compare( req.body.password,userRecord.password)
+                    bcrypt.compare( req.body.adminPassword,adminRecord.adminPassword)
                         .then((isPasswordValid)=> {
                             if(isPasswordValid) {
                                 console.log("Password is valid")
                                 res.cookie(
-                                    "usertoken",
+                                    "admintoken",
                                     jwt.sign(
                                         {
-                                            id: userRecord._id, 
-                                            email: userRecord.email
+                                            id: adminRecord._id, 
+                                            adminName: adminRecord.adminName
                                         },
                                         process.env.JWT_SECRET
                                     ),
@@ -47,9 +47,10 @@ module.exports = {
 
                                 ).json({
                                     message: "Successfully Login",
-                                    userLoggedIn: userRecord.email,
-                                    userId: userRecord._id
+                                    adminLoggedIn: adminRecord.adminName,
+                                    adminId: adminRecord._id
                                 });
+                                console.log("Login Successful")
                             }
                             else {
                                 res.status(400).json({
@@ -70,60 +71,70 @@ module.exports = {
     },
     logout: (req,res)=> {
         console.log("logging out");
-        res.clearCookie("usertoken");
+        res.clearCookie("admintoken");
         res.json({
             message:"You have successfully logged out!"
         })
-    },
+    }
+}
+
+
+
+
 /* ------ CRUD FUNCTIONS ------*/
 
-    createUser:(req,res) => {
-    User.create(req.body)
-        .then((createUser)=> {
-            res.json(createUser)
-            console.log(createUser);
+module.exports.createAdmin= (req,res) => {
+    Admin.create(req.body)
+        .then((createAdmin)=> {
+            res.json(createAdmin)
+            console.log(createAdmin);
         })
         .catch((err)=>{
             res.status(400).json(err)
-            console.log("Something went wrong in createing user");
+            console.log("Something went wrong in creating admin");
         })
-    },
-    getLoggedInUser: (req,res) => {
-    User.findOne({_id:req.jwtpayload.id})
-        .then((findLoggedInUser)=>res.json(findLoggedInUser))
-        .catch((err)=>res.json(err))
-    },
-    updateUser: (req,res) => {
-    User.findOneAndUpdate({_id:req.params.id},req.body)
-        .then((updateUser) => {
-            res.json(updateUser)
-            console.log(updateUser);
+}
+module.exports.getAdmin = (req,res) => {
+    Admin.findOne({_id:req.params.id})
+        .then((findOneAdmin) => {
+            res.json(findOneAdmin)
+            console.log(findOneAdmin);
         })
         .catch((err)=> {
             res.status(400).json(err)
-            console.log("Something went wrong in updating user");
+            console.log("Something went wrong in finding admin");
         })
-    },
-    getAllUsers: (req,res) => {
-    User.find({})
-        .then((AllUsers) => {
-            res.json(AllUsers)
-            console.log(AllUsers);
-        })
-        .catch((err)=> {
-            res.status(400).json(err)
-            console.log("Something went wrong in finding all users");
-        })
-    },   
-    deleteUser: (req,res) => {
-    User.deleteOne({_id:req.params.id})
-        .then((deleteUser) => {
-            res.json(deleteUser)
-            console.log(deleteUser);
+}
+module.exports.updateAdmin = (req,res) => {
+    Admin.findOneAndUpdate({_id:req.params.id},req.body)
+        .then((updateAdmin) => {
+            res.json(updateAdmin)
+            console.log(updateAdmin);
         })
         .catch((err)=> {
             res.status(400).json(err)
-            console.log("Something went wrong in deleting user");
+            console.log("Something went wrong in updating admin");
         })
-    }
+}
+module.exports.getAllAdmins = (req,res) => {
+    Admin.find({})
+        .then((AllAdmins) => {
+            res.json(AllAdmins)
+            console.log(AllAdmins);
+        })
+        .catch((err)=> {
+            res.status(400).json(err)
+            console.log("Something went wrong in finding all admins");
+        })
+}
+module.exports.deleteAdmin = (req,res) => {
+    Admin.deleteOne({_id:req.params.id})
+        .then((deleteAdmin) => {
+            res.json(deleteAdmin)
+            console.log(deleteAdmin);
+        })
+        .catch((err)=> {
+            res.status(400).json(err)
+            console.log("Something went wrong in deleting admin");
+        })
 }
