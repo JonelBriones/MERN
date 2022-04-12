@@ -1,5 +1,33 @@
+import React, {useState,useEffect} from 'react'
 import {Navbar,Nav,NavDropdown,Container} from 'react-bootstrap'
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 const Dashboard = (props) => {
+    const navigate = useNavigate();
+
+    const [loggedAdmin,setloggedAdmin] = useState({})
+    const [admin,setAdmin] = useState({})
+    useEffect(()=> {
+        axios.get("http://localhost:8000/api/admins")
+            .then((res)=>{
+                setloggedAdmin(res.data)
+                console.log(res.data)
+            })
+            .catch((err)=>console.log(err))
+
+    },[])
+
+    const logout = () => {
+        axios.post("http://localhost:8000/api/admin/logout",{},
+        {
+            withCredentials:true
+        })
+            .then((res)=>{
+                console.log(res.data)
+                navigate("/admin")
+            })
+            .catch((err)=>console.log(err))
+    }
     return (
         <div>
             <Navbar bg="light" expand="lg">
@@ -11,16 +39,13 @@ const Dashboard = (props) => {
                         <Nav.Link href="#home">Products</Nav.Link>
                         <Nav.Link href="#link">Settings</Nav.Link>
                         <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-                        <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-                        <NavDropdown.Divider />
-                        <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+                        <NavDropdown.Item onClick={logout}>Logout</NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
+
         </div>
     )
 }
