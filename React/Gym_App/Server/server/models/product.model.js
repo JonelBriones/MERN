@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const ProductSchema = new mongoose.Schema({
-    productName: {
+    name: {
         type: String,
         required: [true, "Product's name is required"],
     },
@@ -11,6 +11,10 @@ const ProductSchema = new mongoose.Schema({
     category: {
         type:String,
         required: [true, "Product's category is required"]
+    },
+    price: {
+        type:String,
+        required: [true, "Product's price is required"]
     },
     createdBy: {
         type: mongoose.Schema.Types.ObjectId,

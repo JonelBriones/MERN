@@ -24,7 +24,7 @@ module.exports = {
             })
     },
     getProduct: (req,res) => {
-        Product.findOne({_id:req.params.id})
+        Product.findOne({name:req.params.id})
             .then((findOneProduct) => {
                 res.json(findOneProduct)
                 console.log(findOneProduct);
@@ -45,18 +45,18 @@ module.exports = {
                 console.log("Something went wrong in updating product");
             })
     },
-    // getAllProducts: (req,res) => {
-    //     Product.find()
-    //         .populate("createdBy","adminName")
-    //             .then((AllProducts) => {
-    //                 res.json(AllProducts)
-    //                 console.log(AllProducts);
-    //             })
-    //             .catch((err)=> {
-    //                 res.status(400).json(err)
-    //                 console.log("Something went wrong in finding all products");
-    //             })
-    // },
+    getAllProducts: (req,res) => {
+        Product.find()
+            // .populate("createdBy","adminName")
+                .then((AllProducts) => {
+                    res.json(AllProducts)
+                    console.log(AllProducts);
+                })
+                .catch((err)=> {
+                    res.status(400).json(err)
+                    console.log("Something went wrong in finding all products");
+                })
+    },
     deleteProduct: (req,res) => {
         Product.deleteOne({_id:req.params.id})
             .then((deleteProduct) => {

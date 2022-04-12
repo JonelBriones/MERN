@@ -21,13 +21,13 @@ module.exports = {
             })
     },
     login: (req,res)=> {
-        Admin.findOne({adminName: req.body.adminName})
+        Admin.findOne({name: req.body.name})
             .then((adminRecord)=> {
                 if(adminRecord === null){
                     res.status(400).json({message:"Invalid Login Attempt"})
                 }
                 else {
-                    bcrypt.compare( req.body.adminPassword,adminRecord.adminPassword)
+                    bcrypt.compare( req.body.password,adminRecord.password)
                         .then((isPasswordValid)=> {
                             if(isPasswordValid) {
                                 console.log("Password is valid")
@@ -36,7 +36,7 @@ module.exports = {
                                     jwt.sign(
                                         {
                                             id: adminRecord._id, 
-                                            adminName: adminRecord.adminName
+                                            name: adminRecord.name
                                         },
                                         process.env.JWT_SECRET
                                     ),
@@ -47,7 +47,7 @@ module.exports = {
 
                                 ).json({
                                     message: "Successfully Login",
-                                    adminLoggedIn: adminRecord.adminName,
+                                    adminLoggedIn: adminRecord.name,
                                     adminId: adminRecord._id
                                 });
                                 console.log("Login Successful")
