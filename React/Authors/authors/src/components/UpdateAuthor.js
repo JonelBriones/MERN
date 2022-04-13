@@ -3,7 +3,6 @@ import { useNavigate,useParams } from 'react-router-dom';
 import axios from 'axios';
 import AuthorForm from './AuthorForm';
 import AddAuthorBtn from './AddAuthorBtn';
-import Home from './Home';
 const UpdateAuthor = (props) => {
     const [errors, setError] = useState({});
     const {id} = useParams();

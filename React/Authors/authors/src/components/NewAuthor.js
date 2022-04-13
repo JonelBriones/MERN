@@ -1,11 +1,14 @@
 import axios from 'axios';
-import React, {useState,useEffect} from 'react';
+import React, {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthorForm from './AuthorForm';
 import AddAuthorBtn from './AddAuthorBtn';
+import io from 'socket.io-client';
+
 const NewAuthor = (props) => {
 
     const navigate = useNavigate();
+    const [socket] = useState(() => io(':8000'));
     const [errors, setError] = useState({});
     const [newAuthor, setNewAuthor] = useState({
         firstName: "",
@@ -18,6 +21,7 @@ const NewAuthor = (props) => {
             .then((res)=> {
                 console.log(res) 
                 console.log(res.data)
+                socket.emit("Added:",res.data);
                 navigate("/");
             })
             .catch((err) => {

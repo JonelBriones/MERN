@@ -4,7 +4,6 @@ import { Link,useParams,useNavigate } from 'react-router-dom';
 import {Button,Table} from 'react-bootstrap';
 import AddAuthorBtn from './AddAuthorBtn';
 import DeleteBtn from './DeleteBtn';
-import Home from './Home';
 const DisplayOneAuthor = (props) => {
     const [oneAuthor, setOneAuthor] = useState({});
     const {id} = useParams();
