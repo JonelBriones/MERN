@@ -52,11 +52,10 @@ const UpdateAuthor = (props) => {
         console.log(updateAuthorObject)
     }
     return (
-        <div>
+        <div className='table-container'>
             {
                 updateAuthor !== null?
                 <div>
-                    <Home buttonText={"Cancel"}/>
                     <AddAuthorBtn/>
                     <AuthorForm 
                         errors={errors}
@@ -67,8 +66,7 @@ const UpdateAuthor = (props) => {
                     /> 
                 </div>:
                 <div>
-                    <p>We're sorry, but we could not find the author you are looking for.</p>
-                    <p> Would you like to add an author to our database?</p>
+                    <h1>This Author Does Not Exist!</h1>
                     <AddAuthorBtn/>
                 </div>
             }

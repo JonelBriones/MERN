@@ -1,10 +1,10 @@
-import logo from './logo.svg';
 import './App.css';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import NewAuthor from './components/NewAuthor';
 import DisplayAuthors from './components/DisplayAuthors';
 import DisplayOneAuthor from './components/DisplayOneAuthor';
 import UpdateAuthor from './components/UpdateAuthor';
+import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
   return (
     <div className="App">

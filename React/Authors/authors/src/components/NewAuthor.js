@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, {useState,useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthorForm from './AuthorForm';
+import AddAuthorBtn from './AddAuthorBtn';
 const NewAuthor = (props) => {
 
     const navigate = useNavigate();
@@ -39,10 +40,11 @@ const NewAuthor = (props) => {
         navigate("/");
     }
     return (
-        <div>
+        <div className='table-container'>
             
             <h1>Add Your Favorite Author!</h1>
-            <button onClick={home}>Home</button>
+            <AddAuthorBtn
+            oneAuthor={"authorForm"}/>
             <AuthorForm 
             errors={errors}
             newAuthor={newAuthor}

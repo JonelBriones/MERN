@@ -2,8 +2,8 @@ import React, {useEffect,useState} from 'react';
 import axios from 'axios';
 import { Link,useNavigate,} from 'react-router-dom';
 import AddAuthorBtn from './AddAuthorBtn';
-import Button from 'react-bootstrap/Button'
 import DeleteBtn from './DeleteBtn';
+import {Table,Button,Nav} from 'react-bootstrap'
 const DisplayAuthors = (props) => {
     const navigate = useNavigate();
     const [author,setAuthor] = useState([]);
@@ -41,37 +41,45 @@ const DisplayAuthors = (props) => {
         console.log(orderType)
     }
     return (
-        <div>
-            <AddAuthorBtn/>
-            <div>
-            <button type="checkbox" checked={orderType} onClick={toggleOrderType}>
-                {
-                    orderType?
-                    <p>Ascended</p>:
-                    <p>Descended</p>
-                }
-            </button>
+            <div className='table-container'>
+                <h1>All Authors</h1>
+                <AddAuthorBtn
+                orderType={orderType}
+                toggleOrderType={toggleOrderType}
+                oneAuthor={"displayAuthors"}
+                />
+                <Table striped bordered hover>
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                        {
+                            sortedInAlphabeticalOrder.map((oneAuthor)=> (
+                                <tr key={oneAuthor._id}>
+                                    <td>
+                                        <Link to={`/show/${oneAuthor._id}`}><Button variant="info">{oneAuthor.firstName} {oneAuthor.lastName}</Button>
+                                        </Link>
+                                    </td>
+                                    <td>
+                                    <Link to={`/edit/${oneAuthor._id}`}>
+                                        <Button variant="warning">Edit</Button>
+                                    </Link>
+                                    <DeleteBtn 
+                                    onDeleteHandler={onDeleteHandler} 
+                                    authorObject={oneAuthor}
+                                    successCallback={()=>removeFromDom(oneAuthor._id)}
+                                    />
+                                    </td>
+                                </tr>
+                            ))
+                        }
+                    </tbody>
+                </Table>
             </div>
-            {
-                sortedInAlphabeticalOrder.map((oneAuthor)=> (
-                    <div key={oneAuthor._id}>
-                        <hr/>
-                        <div>
-                            <Link to={`/show/${oneAuthor._id}`}><Button variant="info">{oneAuthor.firstName} {oneAuthor.lastName}</Button>
-                            </Link>
-                        </div>
-                        <Link to={`/edit/${oneAuthor._id}`}>
-                            <Button variant="warning">Edit</Button>
-                        </Link>
-                        <DeleteBtn 
-                        onDeleteHandler={onDeleteHandler} 
-                        authorObject={oneAuthor}
-                        successCallback={()=>removeFromDom(oneAuthor._id)}
-                        />
-                    </div>
-                ))
-            }
-        </div>
     )
 }
 export default DisplayAuthors;

@@ -1,12 +1,10 @@
 import axios from 'axios';
 import React, {useEffect,useState} from 'react';
 import { Link,useParams,useNavigate } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Button from 'react-bootstrap/Button';
+import {Button,Table} from 'react-bootstrap';
 import AddAuthorBtn from './AddAuthorBtn';
 import DeleteBtn from './DeleteBtn';
 import Home from './Home';
-import UpdateAuthor from './UpdateAuthor';
 const DisplayOneAuthor = (props) => {
     const [oneAuthor, setOneAuthor] = useState({});
     const {id} = useParams();
@@ -29,18 +27,35 @@ const DisplayOneAuthor = (props) => {
          })
     },[])
     return (
-        <div>
-            <Home buttonText={"Home"}/>
-            <AddAuthorBtn/>
-            <h1>{oneAuthor.firstName}{oneAuthor.lastName}</h1>
-            <Link to={`/edit/${oneAuthor._id}`}>
-                <Button variant="warning">Edit</Button>
-            </Link>
-            <DeleteBtn onDeleteHandler={onDeleteHandler}
-            authorObject={oneAuthor}
-            successCallback={()=>removeFromDom(oneAuthor._id)}
-            />
-            
+
+        <div className='table-container'>
+            {
+                id===null?
+                <Table striped bordered hover>
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{oneAuthor.firstName}{oneAuthor.lastName}</td>
+                                <td><Link to={`/edit/${oneAuthor._id}`}>
+                                <Button variant="warning">Edit</Button>
+                                </Link>
+                                <DeleteBtn onDeleteHandler={onDeleteHandler}
+                                authorObject={oneAuthor}
+                                successCallback={()=>removeFromDom(oneAuthor._id)}
+                                /></td>
+                            </tr>
+                        </tbody>
+                </Table>:
+                <div>
+                    <h1>This Author Does Not Exist!</h1>
+                    <AddAuthorBtn/>
+                </div>
+                }
         </div>
     )
 }
