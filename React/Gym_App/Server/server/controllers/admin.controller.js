@@ -75,7 +75,12 @@ module.exports = {
         res.json({
             message:"You have successfully logged out!"
         })
-    }
+    },
+    getLoggedInAdmin: (req,res) => {
+        Admin.findOne({_id:req.jwtpayload.id})
+            .then((findLoggedInAdmin)=>res.json(findLoggedInAdmin))
+            .catch((err)=>res.json(err))
+        },
 }
 
 
@@ -127,6 +132,7 @@ module.exports.getAllAdmins = (req,res) => {
             console.log("Something went wrong in finding all admins");
         })
 }
+
 module.exports.deleteAdmin = (req,res) => {
     Admin.deleteOne({_id:req.params.id})
         .then((deleteAdmin) => {

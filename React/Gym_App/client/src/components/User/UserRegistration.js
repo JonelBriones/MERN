@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import axios from 'axios';
 import UserForm from './UserForm';
 import { useNavigate } from 'react-router-dom';
+import UserLogin from './UserLogin';
 const UserRegistration = (props) => {
     const navigate = useNavigate();
     const [confirmReg,setConfirmReg] = useState("");
@@ -48,16 +49,76 @@ const UserRegistration = (props) => {
 
     }
 
+    /* USER LOGIN */
+    const [userData,setUserData] = useState("")
+    const [errorsLogin,setErrorLogin] = useState("");
+    const [userLogin,setUserLogin] = useState({
+        email: "",
+        password: "",
+    });
+    const onSubmitHandlerLogin = (e) => {
+        e.preventDefault()
+        axios.post("http://localhost:8000/api/users/login",
+        userLogin,
+        {
+            withCredentials:true
+        })
+            .then((res)=>{
+                console.log(res.data)
+                navigate("/");
+                // setUserData(res.data)
+            })
+            .catch((err)=> {
+                console.log(err.response.data.message)
+                setErrorLogin(err.response.data.message)
+                setUserLogin({
+                    name: "",
+                    password: ""
+                })
+            })
+
+    }
+    
+
+    const onChangeHandlerLogin = (e) => {
+        const newUserObject = {...userLogin};
+        newUserObject[e.target.name] = e.target.value;
+        console.log(newUserObject);
+        setUserLogin(newUserObject);
+    }
+
 
     return (
-        <UserForm
-        onSubmitHandler={onSubmitHandler}
-        onChangeHandler={onChangeHandler}
-        user={user}
-        errors={errors}
-        confirmReg={confirmReg}
-        buttonText={'Sign Up'}
-        />
+        <div>
+            <h1>Gym App</h1>
+            {
+                confirmReg?
+            <h1>{confirmReg}</h1>:
+            <h1>Registration</h1>
+            
+            }
+        <div className="container">
+            <div className="adminReg">
+                <UserForm
+                onSubmitHandler={onSubmitHandler}
+                onChangeHandler={onChangeHandler}
+                user={user}
+                errors={errors}
+                confirmReg={confirmReg}
+                buttonText={'Sign Up'}
+                />
+            </div>
+            <div className="adminLogin">
+                <UserLogin
+                onSubmitHandler={onSubmitHandlerLogin}
+                onChangeHandler={onChangeHandlerLogin}
+                user={userLogin}
+                errors={errorsLogin}
+                buttonText={'Login'}
+                />
+            </div>
+        </div>
+        </div>
     )
 }
 export default UserRegistration;

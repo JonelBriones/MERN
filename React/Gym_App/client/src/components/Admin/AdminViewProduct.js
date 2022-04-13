@@ -1,28 +1,20 @@
 import React, {useState,useEffect} from 'react'
 import axios from 'axios'
 import {Table,Button} from 'react-bootstrap'
-import { Link,useNavigate } from 'react-router-dom'
+import { Link,useNavigate,useParams } from 'react-router-dom'
 import {Navbar,Container,Nav,NavDropdown} from 'react-bootstrap'
-
-const Store = (props) => {
+const AdminViewProduct = (props) => {
     const navigate = useNavigate();
     const [product,setProduct] = useState([])
-    const [cart,setCart] = useState([])
-
+    const {id} = useParams();
     useEffect(()=> {
-        axios.get("http://localhost:8000/api/products")
+        axios.get("http://localhost:8000/api/products/product/" + id)
             .then((res)=>{
                 console.log(res.data)
                 setProduct(res.data)
             })
-            .catch((err)=>console.log(err))
-
+            .catch((err)=>{console.log(err)})
     },[])
-
-    const addToCart = (product) => {
-        setCart(product)
-        console.log(cart)
-    }
 
     const logout = () => {
         axios.post("http://localhost:8000/api/users/logout",{},
@@ -40,11 +32,12 @@ const Store = (props) => {
         <div>
             <Navbar expand="lg" bg="dark" variant="dark">
                 <Container>
-                    <Navbar.Brand href="/">Gym Dashboard</Navbar.Brand>
+                    <Navbar.Brand href="/">Admin Dashboard</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
                         <Nav.Link href="/products">Store</Nav.Link>
+                        <Nav.Link href="/products/add">Add Product</Nav.Link>
                         <Nav.Link href="/cart">Cart</Nav.Link>
                         <NavDropdown title="Dropdown" id="basic-nav-dropdown">
                         <NavDropdown.Item onClick={()=>logout()}>Logout</NavDropdown.Item>
@@ -53,31 +46,28 @@ const Store = (props) => {
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
-            <Table striped bordered hover>
+            <Button href="/products">Go Back</Button>
+            <Table striped bordered>
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Descripton</th>
-                        <th>Category</th>
-                        <th>Price</th>
-                        <th>Action</th>
+                        <th>Name:</th>
+                        <th>Description:</th>
+                        <th>Category:</th>
+                        <th>Price:</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {
-                product.map((oneProduct,index)=> (
-                    <tr key={oneProduct._id}>
-                        <td><Link to={`product/${oneProduct.name}`}>{oneProduct.name}</Link></td>
-                        <td>{oneProduct.description}</td>
-                        <td>{oneProduct.category}</td>
-                        <td>{oneProduct.price}</td>
-                        <td><Button variant="info" size="sm" onClick={()=>addToCart(oneProduct)}>Add to cart</Button></td>
+                    <tr>
+                        <td>{product.name}</td>
+                        <td>{product.description}</td>
+                        <td>{product.category}</td>
+                        <td>${product.price}</td>
                     </tr>
-                ))
-            }
                 </tbody>
             </Table>
         </div>
+
     )
 }
-export default Store;
+
+export default AdminViewProduct;

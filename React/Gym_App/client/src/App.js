@@ -9,6 +9,7 @@ import Store from './components/Gym/Store';
 import ViewProduct from './components/Gym/ViewProduct';
 import AdminLoginAndRegistration from './components/Admin/AdminLoginAndRegistration';
 import Dashboard from './components/Admin/Dashboard';
+import AdminViewProduct from './components/Admin/AdminViewProduct';
 function App() {
   return (
     <div className="App">
@@ -17,9 +18,10 @@ function App() {
           <Route element={<AdminLoginAndRegistration/>} path="/admin"/>
           <Route element={<Dashboard/>} path="/dashboard"/>
           <Route element={<Home/>} path="/"/>
-          <Route element={<UserRegistration/>} path="/registration"/>
-          <Route element={<CreateProduct/>} path="/store/add"/>
+          <Route element={<UserRegistration/>} path="/users/"/>
+          <Route element={<CreateProduct/>} path="/products/add"/>
           <Route element={<Store/>} path="/products"/>
+          <Route element={<AdminViewProduct/>} path="/products"/>
           <Route element={<ViewProduct/>} path="/products/product/:id"/>
         </Routes>
       </BrowserRouter>

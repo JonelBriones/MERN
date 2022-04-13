@@ -32,6 +32,15 @@ const ProductForm = (props) => {
                     }</Form.Label>
                     <Form.Control type="text" name="category" value={product.category} onChange={(e)=>onChangeHandler(e)}/>
                 </Form.Group>
+
+                <Form.Group>
+                    <Form.Label>{
+                        errors.category?
+                        <span>{errors.price.message}</span>:
+                        <span>Price</span>
+                    }</Form.Label>
+                    <Form.Control type="text" name="price" value={product.price} onChange={(e)=>onChangeHandler(e)}/>
+                </Form.Group>
                 <Button type="submit">{buttonText}</Button>
             </Form>
         </div>

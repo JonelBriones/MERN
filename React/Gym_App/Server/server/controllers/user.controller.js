@@ -27,7 +27,7 @@ module.exports = {
                     res.status(400).json({message:"Invalid Login Attempt"})
                 }
                 else {
-                    bcrypt.compare( req.body.password,userRecord.password)
+                    bcrypt.compare(req.body.password,userRecord.password)
                         .then((isPasswordValid)=> {
                             if(isPasswordValid) {
                                 console.log("Password is valid")
@@ -75,19 +75,25 @@ module.exports = {
             message:"You have successfully logged out!"
         })
     },
+
+    // removes id when logged out
+    logout2(req,res) {
+        res.cooke("usertoken",jwt.sign({_id: ""},process.env.JWY_SECRET),{
+            httpOnly:true,
+            maxAge: 0
+        })
+        .json({message: "ok"});
+    },
 /* ------ CRUD FUNCTIONS ------*/
 
-    createUser:(req,res) => {
-    User.create(req.body)
-        .then((createUser)=> {
-            res.json(createUser)
-            console.log(createUser);
-        })
-        .catch((err)=>{
-            res.status(400).json(err)
-            console.log("Something went wrong in createing user");
-        })
-    },
+    // authenticateUser(req,res) {
+    //     const decodedJwt = jwt.decode(req.cookies.usertoken,{complete:true})
+    //     User.findOne({decodedJwt.payload._id})
+    //     .then((findLoggedInUser)=>res.json(findLoggedInUser))
+    //     .catch((err)=>res.json(err))
+    // },
+
+    // retrieves data by jtwtoken
     getLoggedInUser: (req,res) => {
     User.findOne({_id:req.jwtpayload.id})
         .then((findLoggedInUser)=>res.json(findLoggedInUser))

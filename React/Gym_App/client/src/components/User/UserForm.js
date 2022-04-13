@@ -6,14 +6,6 @@ const UserForm = (props) => {
     const {user,onSubmitHandler,errors,onChangeHandler,buttonText,confirmReg} = props;
 
     return (
-        <div>
-            <h1>Gym App</h1>
-            {
-                confirmReg?
-            <h1>{confirmReg}</h1>:
-            <h1>Registration</h1>
-            
-            }
             <Form onSubmit={onSubmitHandler}>
                 <Form.Group className="mb-3">
                     <Form.Label>{
@@ -61,7 +53,6 @@ const UserForm = (props) => {
                 </Form.Group>
                 <Button type="submit">{buttonText}</Button>
             </Form>
-        </div>
     )
 }
 export default UserForm;
