@@ -12,7 +12,7 @@ const DeleteBtn = (props) => {
 
     const onDeleteHandler = () => {
         console.log(authorObject)
-        axios.delete(`http://localhost:8000/api/author/${authorObject._id}`)
+        axios.delete(`http://localhost:8000/api/author/${authorObject._id}`,{withCredentials:true})
             .then((res)=> {
                 console.log(`Delete Author: ${authorObject.firstName} ${authorObject.lastName} from mongoDB`,res.data)
                 successCallback();

@@ -1,8 +1,8 @@
 import React, {useEffect,useState} from 'react';
 import { useNavigate,useParams } from 'react-router-dom';
 import axios from 'axios';
-import AuthorForm from './AuthorForm';
-import AddAuthorBtn from './AddAuthorBtn';
+import AuthorForm from '../components/AuthorForm';
+import AddAuthorBtn from '../components/AddAuthorBtn';
 import io from 'socket.io-client';
 
 const UpdateAuthor = (props) => {
@@ -19,12 +19,12 @@ const UpdateAuthor = (props) => {
         axios.get(`http://localhost:8000/api/author/${id}`)
             .then((res) => {
             setUpdateAuthor(res.data);
-            socket.emit("update_author",res.data);
-            // disconnect before leaving
-            socket.disconnect();
-                res.data !== null?
-                console.log(res.data):
-                console.log("This Author does not exist!")
+            // socket.emit("update_author",res.data);
+            // // disconnect before leaving
+            // socket.disconnect();
+            //     res.data !== null?
+            //     console.log(res.data):
+            //     console.log("This Author does not exist!")
          })
          .catch((err)=> {
              console.log(err);
@@ -32,13 +32,31 @@ const UpdateAuthor = (props) => {
          })
     },[id])
 
+    // USER LOGGED IN  
+    const [loggedUser,setLoggedUser] = useState([])
+
+    useEffect(() => {
+        axios.get("http://localhost:8000/api/users/user")
+            .then((res)=> {
+                console.log(res.data)
+                setLoggedUser(res.data)
+            })
+            .catch((err)=>{console.log(err)})
+    },[])
+
     const updateSubmitHandler = (e) => {
         e.preventDefault();
-        axios.put("http://localhost:8000/api/author/" + id,updateAuthor)
+        axios.put("http://localhost:8000/api/author/" + id,updateAuthor,{ withCredentials: true })
             .then((res)=> {
                 console.log(res) 
                 console.log(res.data)
-                navigate("/");
+                socket.emit("update_author",res.data);
+            // disconnect before leaving
+            socket.disconnect();
+                res.data !== null?
+                console.log(res.data):
+                console.log("This Author does not exist!")
+                navigate("/home");
             })
             .catch((err) => {
                 console.log("Response Error:",err.response)
@@ -62,6 +80,7 @@ const UpdateAuthor = (props) => {
             {
                 updateAuthor !== null?
                 <div>
+                    <h1>Update Author</h1>
                     <AddAuthorBtn/>
                     <AuthorForm 
                         errors={errors}

@@ -1,11 +1,12 @@
 import './App.css';
 import React, {useState,useEffect} from 'react'
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
-import NewAuthor from './components/NewAuthor';
-import DisplayAuthors from './components/DisplayAuthors';
-import DisplayOneAuthor from './components/DisplayOneAuthor';
-import UpdateAuthor from './components/UpdateAuthor';
+import NewAuthor from './views/NewAuthor';
+import DisplayAuthors from './views/DisplayAuthors';
+import DisplayOneAuthor from './views/DisplayOneAuthor';
+import UpdateAuthor from './views/UpdateAuthor';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import UserLogReg from './views/UserLogReg';
 
 function App() {
   
@@ -13,8 +14,9 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route element={<NewAuthor/>} path="/add" default/>
-          <Route element={<DisplayAuthors/>} path="/" default/>
+          <Route element={<UserLogReg/>} path="/"/>
+          <Route element={<NewAuthor/>} path="/add" />
+          <Route element={<DisplayAuthors/>} path="/home" default />
           <Route element={<DisplayOneAuthor/>} path="/show/:id" default/>
           <Route element={<UpdateAuthor/>} path="/edit/:id" default/>
         </Routes>

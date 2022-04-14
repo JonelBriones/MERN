@@ -1,12 +1,13 @@
 const {response} = require('express');
 const Author = require('../models/author.model');
-module.exports.index = (req, res) => {
-    res.json({
-        message: "Hello World"
-    });
-}
-module.exports.createAuthor = (req, res) => {
-    Author.create(req.body)
+// const User = require('../models/user.model');
+module.exports = {
+    createAuthor: (req, res) => {
+        const newAuthorObject = new Author(req.body);
+
+        newAuthorObject.createdBy = req.jwtpayload.id;
+
+        newAuthorObject.save()
         .then((createAuthor) => {
             res.json(createAuthor)
             console.log(createAuthor);
@@ -15,8 +16,9 @@ module.exports.createAuthor = (req, res) => {
             res.status(400).json(err)
             console.log("Something went wrong in creating author");
         })
-}
-module.exports.getAuthor = (req, res) => {
+    },
+
+    getAuthor: (req, res) => {
     Author.findOne({_id:req.params.id})
         .then((findOneAuthor) => {
             res.json(findOneAuthor)
@@ -26,8 +28,8 @@ module.exports.getAuthor = (req, res) => {
             res.status(400).json(err)
             console.log("Something went wrong in getting one author");
         })
-}
-module.exports.updateAuthor = (req, res) => {
+    },
+    updateAuthor: (req, res) => {
     Author.findOneAndUpdate({_id:req.params.id},req.body,
         {new:true, runValidators:true})
         .then((updateAuthor) => {
@@ -38,8 +40,8 @@ module.exports.updateAuthor = (req, res) => {
             res.status(400).json(err)
             console.log("Something went wrong in updating author");
         })
-}
-module.exports.getAllAuthors = (req, res) => {
+    },
+    getAllAuthors: (req, res) => {
     Author.find({})
         .then((AllAuthors) => {
             res.json(AllAuthors)
@@ -49,8 +51,8 @@ module.exports.getAllAuthors = (req, res) => {
             res.status(400).json(err)
             console.log("Something went wrong in getting all authors");
         })
-}
-module.exports.deleteAuthor = (req, res) => {
+    },
+    deleteAuthor: (req, res) => {
     Author.deleteOne({_id:req.params.id})
         .then((deleteAuthor) => {
             res.json(deleteAuthor)
@@ -60,4 +62,5 @@ module.exports.deleteAuthor = (req, res) => {
             res.status(400).json(err)
             console.log("Something went wrong in deleting author");
         })
+    }
 }

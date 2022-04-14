@@ -2,8 +2,8 @@ import axios from 'axios';
 import React, {useEffect,useState} from 'react';
 import { Link,useParams,useNavigate } from 'react-router-dom';
 import {Button,Table} from 'react-bootstrap';
-import AddAuthorBtn from './AddAuthorBtn';
-import DeleteBtn from './DeleteBtn';
+import AddAuthorBtn from '../components/AddAuthorBtn';
+import DeleteBtn from '../components/DeleteBtn';
 const DisplayOneAuthor = (props) => {
     const [oneAuthor, setOneAuthor] = useState({});
     const {id} = useParams();
@@ -12,7 +12,7 @@ const DisplayOneAuthor = (props) => {
 
     const removeFromDom = () => {
         console.log("Returning to Home Page")
-        navigate("/")
+        navigate("/home")
     }
 
     useEffect(() => {
@@ -25,6 +25,18 @@ const DisplayOneAuthor = (props) => {
              console.log(err);
          })
     },[])
+
+        // USER LOGGED IN  
+        const [loggedUser,setLoggedUser] = useState([])
+
+        useEffect(() => {
+            axios.get("http://localhost:8000/api/users/user")
+                .then((res)=> {
+                    console.log("Logged User:",res.data)
+                    setLoggedUser(res.data)
+                })
+                .catch((err)=>{console.log(err)})
+        },[])
     return (
 
         <div className='table-container'>
@@ -35,16 +47,20 @@ const DisplayOneAuthor = (props) => {
                     <AddAuthorBtn/>
                 </div>:
                 <div>
-                <h1>{oneAuthor.firstName}{oneAuthor.lastName}</h1>
+                <h1>Displaying</h1>
                 <AddAuthorBtn/>
                 <Table striped bordered hover>
                         <thead>
                             <tr>
+                                <th>Author's</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
+                                <td>{oneAuthor.firstName} {oneAuthor.lastName}
+                                <div><span>Created By:{loggedUser.username}</span></div>
+                                </td>
                                 <td><Link to={`/edit/${oneAuthor._id}`}>
                                 <Button variant="warning">Edit</Button>
                                 </Link>

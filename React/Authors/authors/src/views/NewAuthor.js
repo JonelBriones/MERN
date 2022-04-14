@@ -1,8 +1,8 @@
 import axios from 'axios';
 import React, {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
-import AuthorForm from './AuthorForm';
-import AddAuthorBtn from './AddAuthorBtn';
+import AuthorForm from '../components/AuthorForm';
+import AddAuthorBtn from '../components/AddAuthorBtn';
 import io from 'socket.io-client';
 
 const NewAuthor = (props) => {
@@ -17,7 +17,7 @@ const NewAuthor = (props) => {
 
     const newSubmitHandler = (e) => {
         e.preventDefault();
-        axios.post("http://localhost:8000/api/author",newAuthor)
+        axios.post("http://localhost:8000/api/author",newAuthor,{ withCredentials: true })
             .then((res)=> {
                 console.log(res) 
                 console.log(res.data)
@@ -25,7 +25,7 @@ const NewAuthor = (props) => {
                 socket.emit("add_author",res.data);
                 // disconnect before leaving
                 socket.disconnect();
-                navigate("/");
+                navigate("/home");
             })
             .catch((err) => {
                 console.log("Response Error:",err.response)

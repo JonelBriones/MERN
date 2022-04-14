@@ -1,8 +1,8 @@
 import React, {useEffect,useState} from 'react';
 import axios from 'axios';
 import { Link,useNavigate,} from 'react-router-dom';
-import AddAuthorBtn from './AddAuthorBtn';
-import DeleteBtn from './DeleteBtn';
+import AddAuthorBtn from '../components/AddAuthorBtn';
+import DeleteBtn from '../components/DeleteBtn';
 import {Table,Button} from 'react-bootstrap'
 import io from 'socket.io-client';
 
@@ -16,7 +16,19 @@ const DisplayAuthors = (props) => {
 
     const [socket] = useState(() => io(':8000'));
     const [message,setMessage] = useState("connecting to server");
+    // USER LOGGED IN  
+    const [loggedUser,setLoggedUser] = useState([])
 
+    useEffect(() => {
+        axios.get("http://localhost:8000/api/users/user")
+            .then((res)=> {
+                console.log("User Logged In:",res.data)
+                setLoggedUser(res.data)
+            })
+            .catch((err)=>{console.log(err)})
+    },[])
+
+    // SOCKET
     useEffect(()=> {
         console.log("Inside useEffect for sockets")
             socket.on("connect", ()=> {
@@ -28,7 +40,13 @@ const DisplayAuthors = (props) => {
                 console.log("new author added")
                 console.log(authorId)
                 //author is not refresh after listen is setup
-                setAuthor((currentValue)=>[authorId, ...currentValue]);
+                setAuthor((currentValue)=>[authorId,...currentValue]);
+            });
+            socket.on("author_updated",(authorId)=> {
+                console.log("new author added")
+                console.log(authorId)
+                //author is not refresh after listen is setup
+                // setAuthor((currentValue)=>[authorId,...currentValue]);
             });
             socket.on("author_deleted",(authorId)=> {
                 console.log("author deleted")
@@ -43,7 +61,7 @@ const DisplayAuthors = (props) => {
 
     const removeFromDom = authorId => {
         console.log("Returning to Home Page")
-        navigate("/")
+        navigate("/home")
         setAuthor(author.filter(oneAuthor => oneAuthor._id !== authorId));
     }
 

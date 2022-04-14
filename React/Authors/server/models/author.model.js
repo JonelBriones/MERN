@@ -9,6 +9,10 @@ const AuthorSchema = new mongoose.Schema({
         type: String,
         required: [true, "Please enter Author's last name!"],
         minLength: [3, "Author's last name must at least be 3 characters long!"]
+    },
+    createdBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
     }
 
 }, {timestamps: true});
