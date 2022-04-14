@@ -10,25 +10,43 @@ const DisplayAuthors = (props) => {
     const navigate = useNavigate();
     const [author,setAuthor] = useState([]);
     const [orderType,setOrderType] = useState(false);
+    const {onDeleteHandler} = props;
+    
+    // SOCKET MESSENGER
+
     const [socket] = useState(() => io(':8000'));
     const [message,setMessage] = useState("connecting to server");
-    const {onDeleteHandler} = props;
+
+    useEffect(()=> {
+        console.log("Inside useEffect for sockets")
+            socket.on("connect", ()=> {
+                console.log(socket)
+                console.log(socket.id);
+            })
+            //list for new authors event
+            socket.on("author_added",(authorId)=> {
+                console.log("new author added")
+                console.log(authorId)
+                //author is not refresh after listen is setup
+                setAuthor((currentValue)=>[authorId, ...currentValue]);
+            });
+            socket.on("author_deleted",(authorId)=> {
+                console.log("author deleted")
+                setAuthor((currentValue)=> {
+                    return currentValue.filter((oneAuthor)=>{
+                        return oneAuthor._id !== authorId;
+                    })
+                })
+            })
+            return () => socket.disconnect();
+          }, []);
 
     const removeFromDom = authorId => {
         console.log("Returning to Home Page")
         navigate("/")
         setAuthor(author.filter(oneAuthor => oneAuthor._id !== authorId));
     }
-    useEffect(()=> {
-        socket.on("socket connected", (data) => { 
-            console.log(socket.id)
-            console.log(data);
-            setMessage("New message added");
-            setAuthor([data,...author])
-            });
 
-            return () => socket.disconnect(true);
-          }, [author]);
     useEffect(() => {
         axios.get("http://localhost:8000/api/author")
             .then((res)=> {

@@ -29,17 +29,22 @@ const DisplayOneAuthor = (props) => {
 
         <div className='table-container'>
             {
-                id===null?
+                oneAuthor===null?
+                <div>
+                    <h1>This Author Does Not Exist!</h1>
+                    <AddAuthorBtn/>
+                </div>:
+                <div>
+                <h1>{oneAuthor.firstName}{oneAuthor.lastName}</h1>
+                <AddAuthorBtn/>
                 <Table striped bordered hover>
                         <thead>
                             <tr>
-                                <th>Title</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>{oneAuthor.firstName}{oneAuthor.lastName}</td>
                                 <td><Link to={`/edit/${oneAuthor._id}`}>
                                 <Button variant="warning">Edit</Button>
                                 </Link>
@@ -49,10 +54,7 @@ const DisplayOneAuthor = (props) => {
                                 /></td>
                             </tr>
                         </tbody>
-                </Table>:
-                <div>
-                    <h1>This Author Does Not Exist!</h1>
-                    <AddAuthorBtn/>
+                </Table>
                 </div>
                 }
         </div>

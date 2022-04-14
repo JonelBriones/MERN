@@ -21,7 +21,10 @@ const NewAuthor = (props) => {
             .then((res)=> {
                 console.log(res) 
                 console.log(res.data)
-                socket.emit("Added:",res.data);
+                // notify the server a new author is added, notify client of new author
+                socket.emit("add_author",res.data);
+                // disconnect before leaving
+                socket.disconnect();
                 navigate("/");
             })
             .catch((err) => {

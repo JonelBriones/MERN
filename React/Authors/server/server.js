@@ -15,7 +15,7 @@ const server = app.listen(8000,()=> {
 const io = socket(server, {
     cors: {
         origin: 'http://localhost:3000',
-        methods: ['Get', 'Post'],
+        methods: ['GET', 'POST'],
         allowedHeaders: ['*'],
         credentials: true,
     }
@@ -23,10 +23,24 @@ const io = socket(server, {
 io.on("connection", socket => {
     console.log('socket id: ' + socket.id);
     
-    socket.on("event_from_client", data => {
+    // ON ADD
+    socket.on("add_author", authorId => {
         // send a message with "data" to ALL clients EXCEPT for the one that emitted the
     	//     "event_from_client" event
-        console.log(data)
-        socket.broadcast.emit("new_added_author", data);
+        console.log(authorId)
+        socket.broadcast.emit("author_added", authorId);
+    });
+
+    // ON DELETE
+    socket.on("deleted_author", (authorId) => {
+        console.log(authorId)
+        socket.broadcast.emit("author_deleted", authorId);
+    });
+
+    // ON UPDATE
+    socket.on("update_author", (authorId) => {
+        console.log(authorId)
+        socket.broadcast.emit("author_updated", authorId);
     });
 });
+

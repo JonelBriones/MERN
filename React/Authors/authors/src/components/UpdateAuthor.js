@@ -3,10 +3,14 @@ import { useNavigate,useParams } from 'react-router-dom';
 import axios from 'axios';
 import AuthorForm from './AuthorForm';
 import AddAuthorBtn from './AddAuthorBtn';
+import io from 'socket.io-client';
+
 const UpdateAuthor = (props) => {
     const [errors, setError] = useState({});
     const {id} = useParams();
     const navigate = useNavigate();
+    const [socket] = useState(() => io(':8000'));
+
     const [updateAuthor, setUpdateAuthor] = useState({
         firstName: "",
         lastName: "",
@@ -15,9 +19,12 @@ const UpdateAuthor = (props) => {
         axios.get(`http://localhost:8000/api/author/${id}`)
             .then((res) => {
             setUpdateAuthor(res.data);
-            res.data !== null?
-            console.log(res.data):
-            console.log("This Author does not exist!")
+            socket.emit("update_author",res.data);
+            // disconnect before leaving
+            socket.disconnect();
+                res.data !== null?
+                console.log(res.data):
+                console.log("This Author does not exist!")
          })
          .catch((err)=> {
              console.log(err);
