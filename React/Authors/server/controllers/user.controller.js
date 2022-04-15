@@ -47,7 +47,7 @@ module.exports = {
                                     },
 
                                 ).json({
-                                    message: "Successfully Login",
+                                    message: "Successful Login",
                                     userLoggedIn: userRecord.username,
                                     userId: userRecord._id
                                 });
@@ -69,17 +69,17 @@ module.exports = {
                 res.status(400).json({message:"Invalid Login Attempt"})
             })
     },
-    logout: (req,res)=> {
-        console.log("logging out");
-        res.clearCookie("usertoken");
-        res.json({
-            message:"You have successfully logged out!"
-        })
-    },
+    // logout2: (req,res)=> {
+    //     console.log("logging out");
+    //     res.clearCookie("usertoken");
+    //     res.json({
+    //         message:"You have successfully logged out!"
+    //     })
+    // },
 
     // removes id when logged out
-    logout2(req,res) {
-        res.cooke("usertoken",jwt.sign({_id: ""},process.env.JWT_SECRET),{
+    logout(req,res) {
+        res.cookie("usertoken",jwt.sign({_id: ""},process.env.JWT_SECRET),{
             httpOnly:true,
             maxAge: 0
         })
@@ -87,19 +87,19 @@ module.exports = {
     },
 /* ------ CRUD FUNCTIONS ------*/
 
-    // authenticateUser(req,res) {
-    //     const decodedJwt = jwt.decode(req.cookies.usertoken,{complete:true})
-    //     User.findOne({decodedJwt.payload._id})
-    //     .then((findLoggedInUser)=>res.json(findLoggedInUser))
-    //     .catch((err)=>res.json(err))
-    // },
-
-    // retrieves data by jtwtoken
-    getLoggedInUser: (req,res) => {
-    User.findOne({_id: req.jwtpayload.id})
+getLoggedInUser(req,res) {
+        const decodedJwt = jwt.decode(req.cookies.usertoken,{complete:true})
+        User.findOne({_id:decodedJwt.payload.id})
         .then((findLoggedInUser)=>res.json(findLoggedInUser))
         .catch((err)=>res.json(err))
     },
+
+    // retrieves data by jtwtoken
+    // getLoggedInUser: (req,res) => {
+    // User.findOne({_id: req.jwtpayload.id})
+    //     .then((user)=>res.json(user))
+    //     .catch((err)=>res.json(err))
+    // },
     updateUser: (req,res) => {
     User.findOneAndUpdate({_id:req.params.id},req.body)
         .then((updateUser) => {

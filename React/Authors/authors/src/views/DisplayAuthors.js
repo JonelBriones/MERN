@@ -12,17 +12,17 @@ const DisplayAuthors = (props) => {
     const [orderType,setOrderType] = useState(false);
     const {onDeleteHandler} = props;
     
-    // USER LOGGED IN  
-    const [loggedUser,setLoggedUser] = useState([])
+    // // USER LOGGED IN  
+    // const [loggedUser,setLoggedUser] = useState([])
 
-    useEffect(() => {
-        axios.get("http://localhost:8000/api/users/user")
-            .then((res)=> {
-                console.log("User Logged In:",res.data)
-                setLoggedUser(res.data)
-            })
-            .catch((err)=>{console.log(err)})
-    },[])
+    // useEffect(() => {
+    //     axios.get("http://localhost:8000/api/users/user")
+    //         .then((res)=> {
+    //             console.log("User Logged In:",res.data)
+    //             setLoggedUser(res.data)
+    //         })
+    //         .catch((err)=>{console.log(err)})
+    // },[])
 
     // SOCKET
     const [socket] = useState(() => io(':8000'));
@@ -76,7 +76,7 @@ const DisplayAuthors = (props) => {
             .catch((err)=> {
                 console.log(err);
             })
-    },[]);
+    },[socket]);
     // const {authorListOrder, setAuthorListOrder} = useState([])
     const sortedInAlphabeticalOrder = author.sort((a,b)=> {
         const ascended = (setAuthor === 'asc')?-1: 1;

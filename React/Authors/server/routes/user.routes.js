@@ -1,5 +1,5 @@
 const UserController = require('../controllers/user.controller');
-const {authenticateUser} = require("../config/jwt.config");
+const {authenticate} = require("../config/jwt.config");
 
 module.exports = (app) => {
     // User Login/Logout and Registration
@@ -15,5 +15,5 @@ module.exports = (app) => {
     app.put('/api/users/:id',UserController.updateUser) 
 
     // Retrieve who is currently logged in
-    app.get('/api/users/user',authenticateUser,UserController.getLoggedInUser) 
+    app.get('/api/user/secure',authenticate,UserController.getLoggedInUser) 
 }

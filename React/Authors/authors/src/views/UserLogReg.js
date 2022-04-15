@@ -8,9 +8,7 @@ const UserLogReg = (props) => {
     const [confirmReg,setConfirmReg] = useState("");
     const [errors,setError] = useState({});
     const [user,setUser] = useState({
-        firstName: "",
-        lastName: "",
-        email: "",
+        username:"",
         password: "",
         confirmPassword: ""
     });
@@ -24,9 +22,6 @@ const UserLogReg = (props) => {
             .then((res)=>{
                 console.log(res.data)
                 setUser({
-                    firstName: "",
-                    lastName: "",
-                    email: "",
                     password: "",
                     confirmPassword: ""
                 })
@@ -50,10 +45,9 @@ const UserLogReg = (props) => {
     }
 
     /* USER LOGIN */
-    const [userData,setUserData] = useState("")
     const [errorsLogin,setErrorLogin] = useState("");
     const [userLogin,setUserLogin] = useState({
-        email: "",
+        username: "",
         password: "",
     });
     const onSubmitHandlerLogin = (e) => {
