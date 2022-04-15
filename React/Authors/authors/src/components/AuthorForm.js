@@ -1,8 +1,8 @@
-import React, {useState,useEffect} from 'react';
+import React from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import axios from 'axios';
+
 
 const AuthorForm = (props) => {
     const {errors, newAuthor, onSubmitHandler,

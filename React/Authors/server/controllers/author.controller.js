@@ -60,6 +60,7 @@ module.exports = {
     },
     getAuthor: (req, res) => {
     Author.findOne({_id:req.params.id})
+        .populate("createdBy", "username")
         .then((findOneAuthor) => {
             res.json(findOneAuthor)
             console.log(findOneAuthor);

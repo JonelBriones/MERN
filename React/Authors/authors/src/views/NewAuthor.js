@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthorForm from '../components/AuthorForm';
 import AddAuthorBtn from '../components/AddAuthorBtn';
@@ -17,7 +17,9 @@ const NewAuthor = (props) => {
 
     const newSubmitHandler = (e) => {
         e.preventDefault();
-        axios.post("http://localhost:8000/api/author",newAuthor,{ withCredentials: true })
+        axios.post("http://localhost:8000/api/author",newAuthor,
+        { withCredentials: true } // sends cookie with axios request and checks authentication
+        )
             .then((res)=> {
                 console.log(res) 
                 console.log(res.data)
@@ -32,19 +34,16 @@ const NewAuthor = (props) => {
                 console.log("Response Message:",err.response.data)
                 console.log("Response Object Validation:",err.response.data.errors)
                 setError(err.response.data.errors)
+                if(err.response.status === 401) {
+                    navigate("/")
+                }
             })
     }
 
     const onChangeHandler = (e) => {
         const newAuthorObject = {...newAuthor};
         newAuthorObject[e.target.name] = e.target.value;
-        console.log(`e.target.name = ${e.target.name}`)
-        console.log(`e.target.value = ${e.target.value}`)
-        console.log(newAuthorObject)
         setNewAuthor(newAuthorObject);
-    }
-    const home = () => {
-        navigate("/");
     }
     return (
         <div className='table-container'>

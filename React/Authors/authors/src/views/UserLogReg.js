@@ -15,13 +15,11 @@ const UserLogReg = (props) => {
     const onSubmitHandler = (e) => {
         e.preventDefault()
         axios.post("http://localhost:8000/api/users/register",
-        user,
-        {
-            withCredentials:true
-        })
+        user)
             .then((res)=>{
                 console.log(res.data)
                 setUser({
+                    username: "",
                     password: "",
                     confirmPassword: ""
                 })
@@ -39,7 +37,6 @@ const UserLogReg = (props) => {
     const onChangeHandler = (e) => {
         const newUserObject = {...user};
         newUserObject[e.target.name] = e.target.value;
-        console.log(newUserObject);
         setUser(newUserObject);
 
     }
@@ -74,7 +71,6 @@ const UserLogReg = (props) => {
     const onChangeHandlerLogin = (e) => {
         const newUserObject = {...userLogin};
         newUserObject[e.target.name] = e.target.value;
-        console.log(newUserObject);
         setUserLogin(newUserObject);
     }
 

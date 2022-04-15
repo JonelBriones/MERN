@@ -17,8 +17,8 @@ function App() {
           <Route element={<UserLogReg/>} path="/"/>
           <Route element={<NewAuthor/>} path="/add"/>
           <Route element={<DisplayAuthors/>} path="/home" default />
-          <Route element={<Profile/>} path="/profile" />
           <Route element={<DisplayOneAuthor/>} path="/show/:id"/>
+          <Route element={<Profile/>} path="/profile/:username"/>
           <Route element={<UpdateAuthor/>} path="/edit/:id"/>
         </Routes>
       </BrowserRouter>

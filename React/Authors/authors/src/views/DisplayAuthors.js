@@ -12,17 +12,15 @@ const DisplayAuthors = (props) => {
     const [orderType,setOrderType] = useState(false);
     const {onDeleteHandler} = props;
     
-    // // USER LOGGED IN  
-    // const [loggedUser,setLoggedUser] = useState([])
+    // USER LOGGED IN  
 
-    // useEffect(() => {
-    //     axios.get("http://localhost:8000/api/users/user")
-    //         .then((res)=> {
-    //             console.log("User Logged In:",res.data)
-    //             setLoggedUser(res.data)
-    //         })
-    //         .catch((err)=>{console.log(err)})
-    // },[])
+    useEffect(() => {
+        axios.get("http://localhost:8000/api/user/secure",{withCredentials:true})
+            .then((res)=> {
+                console.log("User Logged In:",res.data)
+            })
+            .catch((err)=>{console.log(err)})
+    },[])
 
     // SOCKET
     const [socket] = useState(() => io(':8000'));
@@ -115,7 +113,7 @@ const DisplayAuthors = (props) => {
                                         <Link to={`/show/${oneAuthor._id}`}><Button variant="info">{oneAuthor.firstName} {oneAuthor.lastName}</Button>
                                         </Link>
                                     </td>
-                                    <td>{oneAuthor.createdBy.username}</td>
+                                    <td><Link to={`/profile/${oneAuthor.createdBy.username}`}>{oneAuthor.createdBy.username}</Link></td>
                                     <td>
                                     
                                     <Link to={`/edit/${oneAuthor._id}`}>

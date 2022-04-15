@@ -16,7 +16,8 @@ const DisplayOneAuthor = (props) => {
     }
 
     useEffect(() => {
-        axios.get(`http://localhost:8000/api/author/${id}`)
+        console.log(id)
+        axios.get(`http://localhost:8000/api/author/${id}`,{withCredentials:true})
          .then((res) => {
              console.log(res.data)
              setOneAuthor(res.data);
@@ -24,19 +25,20 @@ const DisplayOneAuthor = (props) => {
          .catch((err)=> {
              console.log(err);
          })
-    },[])
+    },[id])
 
-        // // USER LOGGED IN  
-        // const [loggedUser,setLoggedUser] = useState([])
 
-        // useEffect(() => {
-        //     axios.get("http://localhost:8000/api/users/user")
-        //         .then((res)=> {
-        //             console.log("Logged User:",res.data)
-        //             setLoggedUser(res.data)
-        //         })
-        //         .catch((err)=>{console.log(err)})
-        // },[])
+        // USER LOGGED IN  
+        const [loggedUser,setLoggedUser] = useState([])
+
+        useEffect(() => {
+            axios.get("http://localhost:8000/api/user/secure",{withCredentials:true})
+                .then((res)=> {
+                    console.log("Logged User:",res.data)
+                    setLoggedUser(res.data)
+                })
+                .catch((err)=>{console.log(err)})
+        },[])
     return (
 
         <div className='table-container'>
@@ -44,22 +46,23 @@ const DisplayOneAuthor = (props) => {
                 oneAuthor===null?
                 <div>
                     <h1>This Author Does Not Exist!</h1>
-                    <AddAuthorBtn/>
+                    <AddAuthorBtn
+                    user={loggedUser}/>
                 </div>:
                 <div>
                 <h1>Displaying</h1>
-                <AddAuthorBtn/>
+                <AddAuthorBtn
+                />
                 <Table striped bordered hover>
                         <thead>
                             <tr>
                                 <th>Author's</th>
-                                <th>Actions</th>
+                                <th>Actions{loggedUser.username}</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>{oneAuthor.firstName} {oneAuthor.lastName}
-                                <div><span>Created By:{}</span></div>
+                                <td>{oneAuthor.firstName + " " + oneAuthor.lastName}
                                 </td>
                                 <td><Link to={`/edit/${oneAuthor._id}`}>
                                 <Button variant="warning">Edit</Button>

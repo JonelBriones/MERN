@@ -11,7 +11,7 @@ module.exports = {
                     console.log("User Only")
                 }
                 else {
-                    console.log(payload);
+                    console.log("Authentication Accepted");
                     req.jwtpayload = payload; //without having to decode jwt
                     next()
                 }

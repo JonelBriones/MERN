@@ -36,7 +36,8 @@ const UpdateAuthor = (props) => {
     const [loggedUser,setLoggedUser] = useState([])
 
     useEffect(() => {
-        axios.get("http://localhost:8000/api/users/user")
+        console.log("Checking User Logged In")
+        axios.get("http://localhost:8000/api/user/secure")
             .then((res)=> {
                 console.log(res.data)
                 setLoggedUser(res.data)
@@ -63,6 +64,9 @@ const UpdateAuthor = (props) => {
                 console.log("Response Message:",err.response.data)
                 console.log("Response Object Validation:",err.response.data.errors)
                 setError(err.response.data.errors)
+                if(err.response.status === 401) {
+                    navigate("/")
+                }
             })
     }
 
