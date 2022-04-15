@@ -12,10 +12,6 @@ const DisplayAuthors = (props) => {
     const [orderType,setOrderType] = useState(false);
     const {onDeleteHandler} = props;
     
-    // SOCKET MESSENGER
-
-    const [socket] = useState(() => io(':8000'));
-    const [message,setMessage] = useState("connecting to server");
     // USER LOGGED IN  
     const [loggedUser,setLoggedUser] = useState([])
 
@@ -29,6 +25,9 @@ const DisplayAuthors = (props) => {
     },[])
 
     // SOCKET
+    const [socket] = useState(() => io(':8000'));
+    const [message,setMessage] = useState("connecting to server");
+
     useEffect(()=> {
         console.log("Inside useEffect for sockets")
             socket.on("connect", ()=> {
@@ -65,8 +64,9 @@ const DisplayAuthors = (props) => {
         setAuthor(author.filter(oneAuthor => oneAuthor._id !== authorId));
     }
 
+    // Retrieve all Authors
     useEffect(() => {
-        axios.get("http://localhost:8000/api/author")
+        axios.get("http://localhost:8000/api/authors")
             .then((res)=> {
                 console.log("Listing all Authors from mongoDB",res.data);
                 /* takes the list of object results and sets each object as author */
@@ -98,11 +98,11 @@ const DisplayAuthors = (props) => {
                 toggleOrderType={toggleOrderType}
                 oneAuthor={"displayAuthors"}
                 />
-                <p>{message}</p>
                 <Table striped bordered hover>
                     <thead>
                         <tr>
                             <th>Title</th>
+                            <th>Created By</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -115,7 +115,9 @@ const DisplayAuthors = (props) => {
                                         <Link to={`/show/${oneAuthor._id}`}><Button variant="info">{oneAuthor.firstName} {oneAuthor.lastName}</Button>
                                         </Link>
                                     </td>
+                                    <td>{oneAuthor.createdBy.username}</td>
                                     <td>
+                                    
                                     <Link to={`/edit/${oneAuthor._id}`}>
                                         <Button variant="warning">Edit</Button>
                                     </Link>
@@ -123,6 +125,7 @@ const DisplayAuthors = (props) => {
                                     onDeleteHandler={onDeleteHandler} 
                                     authorObject={oneAuthor}
                                     successCallback={()=>removeFromDom(oneAuthor._id)}
+
                                     />
                                     </td>
                                 </tr>

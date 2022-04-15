@@ -6,13 +6,13 @@ module.exports = {
             process.env.JWT_SECRET,
             (err, payload)=>{
                 if(err){
-                    // console.log(err);
+                    console.log(err);
                     res.status(401).json({verified:false})
                     console.log("User Only")
                 }
                 else {
                     console.log(payload);
-                    req.jwtpayload = payload;
+                    req.jwtpayload = payload; //without having to decode jwt
                     next()
                 }
             }

@@ -35,6 +35,7 @@ module.exports = {
                                     "usertoken",
                                     jwt.sign(
                                         {
+                                            //data saved to server when logged in
                                             id: userRecord._id, 
                                             username: userRecord.username
                                         },
@@ -77,13 +78,13 @@ module.exports = {
     },
 
     // removes id when logged out
-    // logout2(req,res) {
-    //     res.cooke("usertoken",jwt.sign({_id: ""},process.env.JWT_SECRET),{
-    //         httpOnly:true,
-    //         maxAge: 0
-    //     })
-    //     .json({message: "You have successfully logged out!"});
-    // },
+    logout2(req,res) {
+        res.cooke("usertoken",jwt.sign({_id: ""},process.env.JWT_SECRET),{
+            httpOnly:true,
+            maxAge: 0
+        })
+        .json({message: "You have successfully logged out!"});
+    },
 /* ------ CRUD FUNCTIONS ------*/
 
     // authenticateUser(req,res) {
@@ -95,7 +96,7 @@ module.exports = {
 
     // retrieves data by jtwtoken
     getLoggedInUser: (req,res) => {
-    User.findOne({_id:req.jwtpayload.id})
+    User.findOne({_id: req.jwtpayload.id})
         .then((findLoggedInUser)=>res.json(findLoggedInUser))
         .catch((err)=>res.json(err))
     },
@@ -110,11 +111,22 @@ module.exports = {
             console.log("Something went wrong in updating user");
         })
     },
+    getOneUser: (req,res) => {
+    User.findOne({_id: req.params.id})
+        .then((oneUser)=> {
+            console.log(oneUser)
+            res.json(oneUser)
+        })
+        .catch((err)=> {
+            console.log(err)
+            res.status(400).json(err)
+        })
+    },
     getAllUsers: (req,res) => {
     User.find({})
-        .then((AllUsers) => {
-            res.json(AllUsers)
-            console.log(AllUsers);
+        .then((allUsers) => {
+            res.json(allUsers)
+            console.log(allUsers);
         })
         .catch((err)=> {
             res.status(400).json(err)

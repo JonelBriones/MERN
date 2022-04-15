@@ -26,17 +26,17 @@ const DisplayOneAuthor = (props) => {
          })
     },[])
 
-        // USER LOGGED IN  
-        const [loggedUser,setLoggedUser] = useState([])
+        // // USER LOGGED IN  
+        // const [loggedUser,setLoggedUser] = useState([])
 
-        useEffect(() => {
-            axios.get("http://localhost:8000/api/users/user")
-                .then((res)=> {
-                    console.log("Logged User:",res.data)
-                    setLoggedUser(res.data)
-                })
-                .catch((err)=>{console.log(err)})
-        },[])
+        // useEffect(() => {
+        //     axios.get("http://localhost:8000/api/users/user")
+        //         .then((res)=> {
+        //             console.log("Logged User:",res.data)
+        //             setLoggedUser(res.data)
+        //         })
+        //         .catch((err)=>{console.log(err)})
+        // },[])
     return (
 
         <div className='table-container'>
@@ -59,7 +59,7 @@ const DisplayOneAuthor = (props) => {
                         <tbody>
                             <tr>
                                 <td>{oneAuthor.firstName} {oneAuthor.lastName}
-                                <div><span>Created By:{loggedUser.username}</span></div>
+                                <div><span>Created By:{}</span></div>
                                 </td>
                                 <td><Link to={`/edit/${oneAuthor._id}`}>
                                 <Button variant="warning">Edit</Button>
