@@ -45,9 +45,23 @@ const NewAuthor = (props) => {
         newAuthorObject[e.target.name] = e.target.value;
         setNewAuthor(newAuthorObject);
     }
+
+    // USER LOGGED IN  
+    const [loggedUser,setLoggedUser] = useState({})
+
+    useEffect(() => {
+        axios.get("http://localhost:8000/api/user/secure",{withCredentials:true})
+            .then((res)=> {
+                setLoggedUser(res.data)
+            })
+            .catch((err)=>{
+                console.log(err)
+                if(err.response.status === 401) {
+                    navigate("/welcome")
+                }})
+    },[])
     return (
         <div className='table-container'>
-            
             <h1>Add Your Favorite Author!</h1>
             <AddAuthorBtn
             oneAuthor={"authorForm"}/>

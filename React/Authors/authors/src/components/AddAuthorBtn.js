@@ -45,7 +45,7 @@ const AddAuthorBtn = (props) => {
                         {
                             oneAuthor !== "displayAuthors"?
                             <Nav.Link href="/home">Go Back</Nav.Link>:
-                            <Nav.Link eventKey="link-1" type="checkbox" checked={orderType} onClick={toggleOrderType}>
+                            <Nav.Link type="checkbox" checked={orderType} onClick={toggleOrderType}>
                                 {
                                     orderType?
                                     <span>Ascended</span>:

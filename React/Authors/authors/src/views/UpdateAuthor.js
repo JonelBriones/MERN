@@ -42,7 +42,12 @@ const UpdateAuthor = (props) => {
                 console.log(res.data)
                 setLoggedUser(res.data)
             })
-            .catch((err)=>{console.log(err)})
+            .catch((err)=>{
+                console.log(err)
+                if(err.response.status === 401) {
+                    navigate("/")
+                }})
+            
     },[])
 
     const updateSubmitHandler = (e) => {

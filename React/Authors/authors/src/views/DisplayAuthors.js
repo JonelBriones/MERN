@@ -20,7 +20,11 @@ const DisplayAuthors = (props) => {
             .then((res)=> {
                 setLoggedUser(res.data)
             })
-            .catch((err)=>{console.log(err)})
+            .catch((err)=>{
+                console.log(err)
+                if(err.response.status === 401) {
+                    navigate("/welcome")
+                }})
     },[])
 
     // SOCKET
@@ -90,6 +94,7 @@ const DisplayAuthors = (props) => {
         console.log(orderType)
     }
     return (
+
             <div className='table-container'>
                 <h1>All Authors</h1>
                 <AddAuthorBtn

@@ -26,7 +26,7 @@ const DeleteBtn = (props) => {
             .catch(err=> {
                 console.log(err);
                 if(err.response.status === 401) {
-                    navigate("/")
+                    navigate("/welcome")
                 }
             })
     }

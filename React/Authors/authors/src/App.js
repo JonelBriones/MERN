@@ -7,11 +7,13 @@ import UpdateAuthor from './views/UpdateAuthor';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import UserLogReg from './views/UserLogReg';
 import Profile from './views/Profile';
+import Welcome from './views/Welcome';
 
 function App() {
   
   return (
     <div className="App">
+      <div className="wrapper">
       <BrowserRouter>
         <Routes>
           <Route element={<UserLogReg/>} path="/"/>
@@ -20,8 +22,10 @@ function App() {
           <Route element={<DisplayOneAuthor/>} path="/show/:id"/>
           <Route element={<Profile/>} path="/profile/:username"/>
           <Route element={<UpdateAuthor/>} path="/edit/:id"/>
+          <Route element={<Welcome/>} path="/welcome"/>
         </Routes>
       </BrowserRouter>
+      </div>
     </div>
   );
 }
