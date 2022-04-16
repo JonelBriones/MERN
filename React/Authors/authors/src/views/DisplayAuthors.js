@@ -13,11 +13,12 @@ const DisplayAuthors = (props) => {
     const {onDeleteHandler} = props;
     
     // USER LOGGED IN  
+    const [loggedUser,setLoggedUser] = useState({})
 
     useEffect(() => {
         axios.get("http://localhost:8000/api/user/secure",{withCredentials:true})
             .then((res)=> {
-                console.log("User Logged In:",res.data)
+                setLoggedUser(res.data)
             })
             .catch((err)=>{console.log(err)})
     },[])
@@ -114,18 +115,20 @@ const DisplayAuthors = (props) => {
                                         </Link>
                                     </td>
                                     <td><Link to={`/profile/${oneAuthor.createdBy.username}`}>{oneAuthor.createdBy.username}</Link></td>
+                                    {
+                                        loggedUser.username === oneAuthor.createdBy.username?
                                     <td>
-                                    
-                                    <Link to={`/edit/${oneAuthor._id}`}>
-                                        <Button variant="warning">Edit</Button>
-                                    </Link>
-                                    <DeleteBtn 
-                                    onDeleteHandler={onDeleteHandler} 
-                                    authorObject={oneAuthor}
-                                    successCallback={()=>removeFromDom(oneAuthor._id)}
-
-                                    />
-                                    </td>
+                                        <Link to={`/edit/${oneAuthor._id}`}>
+                                            <Button variant="warning">Edit</Button>
+                                        </Link>
+                                        <DeleteBtn 
+                                        onDeleteHandler={onDeleteHandler} 
+                                        authorObject={oneAuthor}
+                                        successCallback={()=>removeFromDom(oneAuthor._id)}
+                                        />
+                                    </td>:
+                                    null
+                                    }
                                 </tr>
                             ))
                         }

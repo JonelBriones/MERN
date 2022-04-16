@@ -6,6 +6,7 @@ import AddAuthorBtn from '../components/AddAuthorBtn';
 import DeleteBtn from '../components/DeleteBtn';
 const DisplayOneAuthor = (props) => {
     const [oneAuthor, setOneAuthor] = useState({});
+    const [createdBy, setCreatedBy] = useState("");
     const {id} = useParams();
     const navigate = useNavigate();
     const {onDeleteHandler} = props;
@@ -17,28 +18,17 @@ const DisplayOneAuthor = (props) => {
 
     useEffect(() => {
         console.log(id)
-        axios.get(`http://localhost:8000/api/author/${id}`,{withCredentials:true})
+        axios.get(`http://localhost:8000/api/author/${id}`)
          .then((res) => {
              console.log(res.data)
+             console.log("createdBy",res.data.createdBy.username)
+             setCreatedBy(res.data.createdBy.username);
              setOneAuthor(res.data);
          })
          .catch((err)=> {
              console.log(err);
          })
-    },[id])
-
-
-        // USER LOGGED IN  
-        const [loggedUser,setLoggedUser] = useState([])
-
-        useEffect(() => {
-            axios.get("http://localhost:8000/api/user/secure",{withCredentials:true})
-                .then((res)=> {
-                    console.log("Logged User:",res.data)
-                    setLoggedUser(res.data)
-                })
-                .catch((err)=>{console.log(err)})
-        },[])
+    },[])
     return (
 
         <div className='table-container'>
@@ -47,7 +37,7 @@ const DisplayOneAuthor = (props) => {
                 <div>
                     <h1>This Author Does Not Exist!</h1>
                     <AddAuthorBtn
-                    user={loggedUser}/>
+                    />
                 </div>:
                 <div>
                 <h1>Displaying</h1>
@@ -57,20 +47,21 @@ const DisplayOneAuthor = (props) => {
                         <thead>
                             <tr>
                                 <th>Author's</th>
-                                <th>Actions{loggedUser.username}</th>
+                                <th>Created By</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>{oneAuthor.firstName + " " + oneAuthor.lastName}
-                                </td>
-                                <td><Link to={`/edit/${oneAuthor._id}`}>
+                                <td>{oneAuthor.firstName + " " + oneAuthor.lastName}</td>
+                                <td>{createdBy}</td>
+                                {/* <td><Link to={`/edit/${oneAuthor._id}`}>
                                 <Button variant="warning">Edit</Button>
                                 </Link>
                                 <DeleteBtn onDeleteHandler={onDeleteHandler}
                                 authorObject={oneAuthor}
                                 successCallback={()=>removeFromDom(oneAuthor._id)}
-                                /></td>
+                                />
+                                </td> */}
                             </tr>
                         </tbody>
                 </Table>

@@ -30,10 +30,9 @@ const DeleteBtn = (props) => {
                 }
             })
     }
-
     return (
         <Button variant="danger" onClick={onDeleteHandler}>
-            Delete
+        Delete
         </Button>
     )
 }

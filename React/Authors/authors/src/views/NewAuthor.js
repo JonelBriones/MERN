@@ -39,7 +39,7 @@ const NewAuthor = (props) => {
                 }
             })
     }
-
+    
     const onChangeHandler = (e) => {
         const newAuthorObject = {...newAuthor};
         newAuthorObject[e.target.name] = e.target.value;

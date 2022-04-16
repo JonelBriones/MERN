@@ -1,11 +1,11 @@
-import React from 'react'
+import React, {useState,useEffect} from 'react'
 import {useNavigate} from "react-router-dom";
 import { NavDropdown,Navbar,Nav,Container } from "react-bootstrap";
 import axios from "axios";
 
 const AddAuthorBtn = (props) => {
     const navigate = useNavigate();
-    const {orderType,toggleOrderType,oneAuthor,user} = props;
+    const {orderType,toggleOrderType,oneAuthor} = props;
     const logout = () => {
         axios.post("http://localhost:8000/api/users/logout",{},
         {
@@ -17,6 +17,18 @@ const AddAuthorBtn = (props) => {
             })
             .catch((err)=>console.log(err))
     }
+    // USER LOGGED IN  
+    const [loggedUser,setLoggedUser] = useState({})
+
+    useEffect(() => {
+        axios.get("http://localhost:8000/api/user/secure",{withCredentials:true})
+            .then((res)=> {
+                console.log("User Logged In:",res.data)
+                // save the user object and use dot notation to get data
+                setLoggedUser(res.data)
+            })
+            .catch((err)=>{console.log(err)})
+    },[])
     return (
         <>
         <Navbar bg="light" expand="lg">
@@ -42,7 +54,11 @@ const AddAuthorBtn = (props) => {
                                 </Nav.Link>
                         }
                         <NavDropdown title="Settings" id="basic-nav-dropdown">
-                        <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
+                            {
+                                loggedUser.username?
+                            <Nav.Link href={`/profile/${loggedUser.username}`}>{loggedUser.username}</Nav.Link>:
+                            <Nav.Link href="/">Login</Nav.Link>
+                            }
                             <NavDropdown.Item onClick={()=>logout()}>Logout</NavDropdown.Item>
                         </NavDropdown>
                     </Nav>

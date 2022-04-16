@@ -37,7 +37,6 @@ const UpdateAuthor = (props) => {
 
     useEffect(() => {
         console.log("Checking User Logged In")
-        axios.get("http://localhost:8000/api/user/secure")
             .then((res)=> {
                 console.log(res.data)
                 setLoggedUser(res.data)
@@ -47,7 +46,8 @@ const UpdateAuthor = (props) => {
 
     const updateSubmitHandler = (e) => {
         e.preventDefault();
-        axios.put("http://localhost:8000/api/author/" + id,updateAuthor,{ withCredentials: true })
+        axios.put("http://localhost:8000/api/author/" + id,updateAuthor,
+        { withCredentials: true })
             .then((res)=> {
                 console.log(res) 
                 console.log(res.data)
