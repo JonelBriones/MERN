@@ -33,7 +33,7 @@ const DisplayOneAuthor = (props) => {
 
         <div className='table-container'>
             {
-                oneAuthor===null?
+                id !== oneAuthor._id?
                 <div>
                     <h1>This Author Does Not Exist!</h1>
                     <AddAuthorBtn

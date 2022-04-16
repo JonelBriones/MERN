@@ -27,6 +27,17 @@ const Profile = (props) => {
         // navigate("/home")
         setAuthorsCreated(authorsCreated.filter(oneAuthor => oneAuthor._id !== authorId));
     }
+    // USER LOGGED IN  
+    const [loggedUser,setLoggedUser] = useState({})
+
+    useEffect(() => {
+        axios.get("http://localhost:8000/api/user/secure",{withCredentials:true})
+            .then((res)=> {
+                console.log("user", res.data.username)
+                setLoggedUser(res.data)
+            })
+            .catch((err)=>{console.log(err)})
+    },[])
     return (
         <div className='table-container'>
             <h1>{username}'s Profile</h1>
@@ -36,7 +47,10 @@ const Profile = (props) => {
                     <thead>
                         <tr>
                             <th>Author's added by {username}</th>
-                            <th>Actions</th>
+                            {
+                                loggedUser.username === username?
+                                <th>Actions</th>:null
+                            }
                         </tr>
                     </thead>
                     <tbody>
@@ -46,15 +60,19 @@ const Profile = (props) => {
                             <td>
                                 <Link to={`/show/${author._id}`}><Button>{author.firstName + " " + author.lastName}</Button></Link>
                             </td>
-                            <td>
-                                <Link to={`/edit/${author._id}`}>
+                                {
+                                    loggedUser.username === username?
+                                    <td>
+                                        <Link to={`/edit/${author._id}`}>
                                 <Button variant="warning">Edit</Button>
                                 </Link>
                                 <DeleteBtn onDeleteHandler={onDeleteHandler}
                                 authorObject={author}
                                 successCallback={()=>removeFromDom(author._id)}
                                 />
-                            </td>
+                                    </td>:
+                                    null
+                                }
                         </tr>
                     ))
                 }
