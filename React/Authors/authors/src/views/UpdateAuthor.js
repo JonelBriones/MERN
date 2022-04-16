@@ -37,6 +37,7 @@ const UpdateAuthor = (props) => {
 
     useEffect(() => {
         console.log("Checking User Logged In")
+        axios.get("http://localhost:8000/api/user/secure",{withCredentials:true})
             .then((res)=> {
                 console.log(res.data)
                 setLoggedUser(res.data)
