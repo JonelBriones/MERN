@@ -32,22 +32,25 @@ module.exports = {
                             if(isPasswordValid) {
                                 console.log("Password is valid")
                                 res.cookie(
-                                    "usertoken",
+                                "usertoken",
                                     jwt.sign(
                                         {
+                                            //data saved to server when logged in
                                             id: userRecord._id, 
-                                            email: userRecord.email
+                                            email: userRecord.email,
+                                            firstName: userRecord.firstName,
+                                            lastName: userRecord.lastName,
                                         },
                                         process.env.JWT_SECRET
                                     ),
                                     {
                                         httpOnly:true,
-                                        expires: new Date(Date.now()+ 900000)
+                                        expires: new Date(Date.now()+ 90000000)
                                     },
 
                                 ).json({
-                                    message: "Successfully Login",
-                                    userLoggedIn: userRecord.email,
+                                    message: "Successful Login",
+                                    userLoggedIn: userRecord.firstName + " " + userRecord.lastName,
                                     userId: userRecord._id
                                 });
                             }
@@ -68,37 +71,45 @@ module.exports = {
                 res.status(400).json({message:"Invalid Login Attempt"})
             })
     },
-    logout: (req,res)=> {
-        console.log("logging out");
-        res.clearCookie("usertoken");
-        res.json({
-            message:"You have successfully logged out!"
-        })
-    },
-
     // removes id when logged out
-    logout2(req,res) {
-        res.cooke("usertoken",jwt.sign({_id: ""},process.env.JWY_SECRET),{
+    logout(req,res) {
+        res.cookie("usertoken",jwt.sign({_id: ""},process.env.JWT_SECRET),{
             httpOnly:true,
             maxAge: 0
         })
-        .json({message: "ok"});
+        .json({message: "You have successfully logged out!"});
     },
-/* ------ CRUD FUNCTIONS ------*/
-
-    // authenticateUser(req,res) {
-    //     const decodedJwt = jwt.decode(req.cookies.usertoken,{complete:true})
-    //     User.findOne({decodedJwt.payload._id})
-    //     .then((findLoggedInUser)=>res.json(findLoggedInUser))
-    //     .catch((err)=>res.json(err))
-    // },
-
-    // retrieves data by jtwtoken
-    getLoggedInUser: (req,res) => {
-    User.findOne({_id:req.jwtpayload.id})
+    getLoggedInUser(req,res) {
+        const decodedJwt = jwt.decode(req.cookies.usertoken,{complete:true})
+        User.findOne({_id:decodedJwt.payload.id})
         .then((findLoggedInUser)=>res.json(findLoggedInUser))
         .catch((err)=>res.json(err))
     },
+    getOneUser: (req,res) => {
+        User.findOne({_id: req.params.id})
+            .then((oneUser)=> {
+                console.log(oneUser)
+                res.json(oneUser)
+            })
+            .catch((err)=> {
+                console.log(err)
+                res.status(400).json(err)
+            })
+        },
+        // logout2: (req,res)=> {
+    //     console.log("logging out");
+    //     res.clearCookie("usertoken");
+    //     res.json({
+    //         message:"You have successfully logged out!"
+    //     })
+    // },
+    
+    // retrieves data by jtwtoken
+    // getLoggedInUser: (req,res) => {
+    // User.findOne({_id: req.jwtpayload.id})
+    //     .then((user)=>res.json(user))
+    //     .catch((err)=>res.json(err))
+    // },
     updateUser: (req,res) => {
     User.findOneAndUpdate({_id:req.params.id},req.body)
         .then((updateUser) => {
@@ -110,26 +121,26 @@ module.exports = {
             console.log("Something went wrong in updating user");
         })
     },
-    getAllUsers: (req,res) => {
-    User.find({})
-        .then((AllUsers) => {
-            res.json(AllUsers)
-            console.log(AllUsers);
-        })
-        .catch((err)=> {
-            res.status(400).json(err)
-            console.log("Something went wrong in finding all users");
-        })
-    },   
-    deleteUser: (req,res) => {
-    User.deleteOne({_id:req.params.id})
-        .then((deleteUser) => {
-            res.json(deleteUser)
-            console.log(deleteUser);
-        })
-        .catch((err)=> {
-            res.status(400).json(err)
-            console.log("Something went wrong in deleting user");
-        })
-    }
+    // getAllUsers: (req,res) => {
+    // User.find({})
+    //     .then((allUsers) => {
+    //         res.json(allUsers)
+    //         console.log(allUsers);
+    //     })
+    //     .catch((err)=> {
+    //         res.status(400).json(err)
+    //         console.log("Something went wrong in finding all users");
+    //     })
+    // },   
+    // deleteUser: (req,res) => {
+    // User.deleteOne({_id:req.params.id})
+    //     .then((deleteUser) => {
+    //         res.json(deleteUser)
+    //         console.log(deleteUser);
+    //     })
+    //     .catch((err)=> {
+    //         res.status(400).json(err)
+    //         console.log("Something went wrong in deleting user");
+    //     })
+    // }
 }

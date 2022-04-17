@@ -72,7 +72,7 @@ const UserRegistration = (props) => {
                 console.log(err.response.data.message)
                 setErrorLogin(err.response.data.message)
                 setUserLogin({
-                    name: "",
+                    email: "",
                     password: ""
                 })
             })

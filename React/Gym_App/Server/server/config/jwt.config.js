@@ -28,7 +28,6 @@ module.exports = {
                     console.log("User Only")
                 }
                 else {
-                    console.log(payload);
                     req.jwtpayload = payload;
                     next()
                 }

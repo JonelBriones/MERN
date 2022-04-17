@@ -10,18 +10,23 @@ import ViewProduct from './components/Gym/ViewProduct';
 import AdminLoginAndRegistration from './components/Admin/AdminLoginAndRegistration';
 import Dashboard from './components/Admin/Dashboard';
 import AdminViewProduct from './components/Admin/AdminViewProduct';
+import Profile from './components/Gym/Profile';
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
+          {/* ADMIN */}
           <Route element={<AdminLoginAndRegistration/>} path="/admin"/>
           <Route element={<Dashboard/>} path="/dashboard"/>
+          <Route element={<AdminViewProduct/>} path="/products"/>
+          {/* LOGGED USERS */}
+          <Route element={<Profile/>} path="/profile/:id"/>
+          {/* USERS AND GYM */}
           <Route element={<Home/>} path="/"/>
           <Route element={<UserRegistration/>} path="/users/"/>
           <Route element={<CreateProduct/>} path="/products/add"/>
           <Route element={<Store/>} path="/products"/>
-          <Route element={<AdminViewProduct/>} path="/products"/>
           <Route element={<ViewProduct/>} path="/products/product/:id"/>
         </Routes>
       </BrowserRouter>
