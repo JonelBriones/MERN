@@ -3,6 +3,7 @@ import axios from 'axios';
 import UserForm from './UserForm';
 import { useNavigate } from 'react-router-dom';
 import UserLogin from './UserLogin';
+import GymNavbar from '../Gym/GymNavbar';
 const UserRegistration = (props) => {
     const navigate = useNavigate();
     const [confirmReg,setConfirmReg] = useState("");
@@ -90,6 +91,11 @@ const UserRegistration = (props) => {
 
     return (
         <div>
+            <GymNavbar
+            buttonText={"Home"}
+            />
+        <div className="logReg-container">
+            <div className="adminReg">
             <h1>Gym App</h1>
             {
                 confirmReg?
@@ -97,8 +103,6 @@ const UserRegistration = (props) => {
             <h1>Registration</h1>
             
             }
-        <div className="container">
-            <div className="adminReg">
                 <UserForm
                 onSubmitHandler={onSubmitHandler}
                 onChangeHandler={onChangeHandler}
@@ -108,7 +112,10 @@ const UserRegistration = (props) => {
                 buttonText={'Sign Up'}
                 />
             </div>
+            <hr/>
             <div className="adminLogin">
+            <h1>Login</h1>
+
                 <UserLogin
                 onSubmitHandler={onSubmitHandlerLogin}
                 onChangeHandler={onChangeHandlerLogin}

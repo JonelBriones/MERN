@@ -19,14 +19,14 @@ function App() {
           {/* ADMIN */}
           <Route element={<AdminLoginAndRegistration/>} path="/admin"/>
           <Route element={<Dashboard/>} path="/dashboard"/>
-          <Route element={<AdminViewProduct/>} path="/products"/>
+          <Route element={<AdminViewProduct/>} path="/admin/products"/>
+          <Route element={<CreateProduct/>} path="/products/add"/>
           {/* LOGGED USERS */}
           <Route element={<Profile/>} path="/profile/:id"/>
           {/* USERS AND GYM */}
           <Route element={<Home/>} path="/"/>
           <Route element={<UserRegistration/>} path="/users/"/>
-          <Route element={<CreateProduct/>} path="/products/add"/>
-          <Route element={<Store/>} path="/products"/>
+          <Route element={<Store/>} path="/store"/>
           <Route element={<ViewProduct/>} path="/products/product/:id"/>
         </Routes>
       </BrowserRouter>

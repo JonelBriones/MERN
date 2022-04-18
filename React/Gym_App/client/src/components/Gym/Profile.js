@@ -14,6 +14,7 @@ const Profile = (props) => {
         <>
             <GymNavbar
             buttonText={"Profile"}/>
+                <div className="container">
             <Table>
                 <thead>
                     <tr>
@@ -30,6 +31,7 @@ const Profile = (props) => {
                     </tr>
                 </tbody>
             </Table>
+            </div>
         </>
     )
 }

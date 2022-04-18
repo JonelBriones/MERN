@@ -1,20 +1,33 @@
 .App {
   text-align: center;
 }
-form {
+Form {
   margin: auto;
   width: 300px;
+
 }
 
 .container {
   margin:auto;
-  display: flex;
+border-radius: 20px;
   border: 2px solid;
   justify-content: space-evenly;
+  padding:20px
+}
+.logReg-container {
+  margin:auto;
+border-radius: 20px;
+  border: 2px solid;
+  justify-content: space-evenly;
+  padding: 20px;
+
+}
+.navbar {
+  margin-bottom: 40px;
 }
 .adminReg {
-
+flex-wrap:wrap;
 }
 .adminLogin {
-
+flex-wrap:wrap;
 }
