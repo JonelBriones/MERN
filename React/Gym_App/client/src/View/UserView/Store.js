@@ -8,7 +8,7 @@ const Store = (props) => {
     const navigate = useNavigate();
     const [product,setProduct] = useState([])
     const [cart,setCart] = useState([])
-
+    
     useEffect(()=> {
         axios.get("http://localhost:8000/api/products")
             .then((res)=>{
@@ -17,30 +17,72 @@ const Store = (props) => {
             })
             .catch((err)=>console.log(err))
 
-    },[])
+    },[setCart])
 
-    const addToCart = (product) => {
-        setCart(product)
+    const addToCart = (productObject) => {
+
+        // is our product already in the cart?
+        const exist = cart.find((product)=>product._id === productObject._id)
+
+        // if true, add 1 to quantity key value pair for every time it exist/added
+        if(exist) {
+            setCart(cart.map((product)=>
+            //find the matching added product from the cart and increment the qty
+                product._id === productObject._id? {...exist,qty: exist.qty + 1}:product
+
+                /* 
+                go into the product object and increment qty
+                    product : {
+                        name : name,
+                        etc : etc,
+                        qty: qty + 1 (added 1)
+                    }
+                */
+            ))
+        }
+        // else, add to cart and iniate item quantity key value pair
+        else {
+            setCart([...cart,{...productObject,qty: 1}])
+            /* 
+                go into the product object
+                    product : {
+                        name : name,
+                        etc : etc,
+                        qty: 1 (newly created)
+                    }
+                */
+        }
         console.log(cart)
     }
+    const removeFromCart = (productObject) => {
+        const exist = cart.find((product)=>product._id === productObject._id)
 
-    const logout = () => {
-        axios.post("http://localhost:8000/api/users/logout",{},
-        {
-            withCredentials:true
-        })
-            .then((res)=>{
-                console.log(res.data)
-                navigate("/users")
-            })
-            .catch((err)=>console.log(err))
+        // if qty equals 0 stop decrementing
+        if(exist.qty === 0) {
+            setCart(cart.map((product)=>
+            //find the matching added product from the cart and increment the qty
+                product._id === productObject._id? {...exist,qty: exist.qty}:product
+                /* 
+                go into the product object
+                    product : {
+                        name : name,
+                        etc : etc,
+                        qty: qty + 1 (added 1)
+                    }
+                */
+            ))
+        } else {
+            // map into cart and find matching object
+            setCart(cart.map((product)=>
+                product._id === productObject._id? 
+                {...product,qty: product.qty-1}:product
+                ))
+            }
     }
-
     return (
         <>
-            <nav>
-            <GymNavbar buttonText={"/products"}/>
-            </nav>
+            <GymNavbar buttonText={"/products"}
+            cartCount={cart.length}/>
             <div className="container">
             <Table striped bordered hover>
                 <thead>
@@ -49,7 +91,7 @@ const Store = (props) => {
                         <th>Descripton</th>
                         <th>Category</th>
                         <th>Price</th>
-                        <th>Action</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -60,7 +102,16 @@ const Store = (props) => {
                         <td>{oneProduct.description}</td>
                         <td>{oneProduct.category}</td>
                         <td>{oneProduct.price}</td>
-                        <td><Button variant="info" size="sm" onClick={()=>addToCart(oneProduct)}>Add to cart</Button></td>
+                        <td><Button variant="info" size="sm" onClick={()=>addToCart(oneProduct)}>Add 
+                        ({
+                            cart.map((product)=>(
+                                product._id === oneProduct._id?
+                                product.qty:null
+                            ))
+                        })
+                         to cart</Button> 
+                        <Button variant="info" size="sm" onClick={()=>removeFromCart(oneProduct)}>Remove from cart</Button>
+                        </td>
                     </tr>
                 ))
             }

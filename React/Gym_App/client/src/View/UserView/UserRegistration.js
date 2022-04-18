@@ -94,37 +94,37 @@ const UserRegistration = (props) => {
             <GymNavbar
             buttonText={"Home"}
             />
-        <div className="logReg-container">
-            <div className="adminReg">
-            <h1>Gym App</h1>
-            {
-                confirmReg?
-            <h1>{confirmReg}</h1>:
-            <h1>Registration</h1>
-            
-            }
-                <UserForm
-                onSubmitHandler={onSubmitHandler}
-                onChangeHandler={onChangeHandler}
-                user={user}
-                errors={errors}
-                confirmReg={confirmReg}
-                buttonText={'Sign Up'}
-                />
-            </div>
-            <hr/>
-            <div className="adminLogin">
-            <h1>Login</h1>
+            <div className="logReg-container">
+                <div className="adminReg">
+                <h1>Gym App</h1>
+                {
+                    confirmReg?
+                <h1>{confirmReg}</h1>:
+                <h1>Registration</h1>
+                
+                }
+                    <UserForm
+                    onSubmitHandler={onSubmitHandler}
+                    onChangeHandler={onChangeHandler}
+                    user={user}
+                    errors={errors}
+                    confirmReg={confirmReg}
+                    buttonText={'Sign Up'}
+                    />
+                </div>
+                <hr/>
+                <div className="adminLogin">
+                <h1>Login</h1>
 
-                <UserLogin
-                onSubmitHandler={onSubmitHandlerLogin}
-                onChangeHandler={onChangeHandlerLogin}
-                user={userLogin}
-                errors={errorsLogin}
-                buttonText={'Login'}
-                />
+                    <UserLogin
+                    onSubmitHandler={onSubmitHandlerLogin}
+                    onChangeHandler={onChangeHandlerLogin}
+                    user={userLogin}
+                    errors={errorsLogin}
+                    buttonText={'Login'}
+                    />
+                </div>
             </div>
-        </div>
         </div>
     )
 }

@@ -13,10 +13,8 @@ const Profile = (props) => {
     })
     return (
         <>
-            <nav>
             <GymNavbar
             buttonText={"Profile"}/>
-            </nav>
                 <div className="container">
             <Table>
                 <thead>

@@ -3,7 +3,7 @@ import axios from 'axios';
 import {useNavigate,useParams} from 'react-router-dom'
 import {Navbar,Container,Nav,NavDropdown} from 'react-bootstrap'
 const GymNavbar = (props) => {
-    const {buttonText} = props;
+    const {buttonText,cartCount} = props;
     const [loggedUser,setLoggedUser] = useState({})
     const navigate = useNavigate();
     useEffect(()=>{
@@ -36,7 +36,7 @@ const GymNavbar = (props) => {
                 <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="me-auto">
                     <Nav.Link href={buttonText}>Store</Nav.Link>
-                    <Nav.Link href="/cart">Cart</Nav.Link>
+                    <Nav.Link href="/cart">Cart<span> ({cartCount})</span></Nav.Link>
                     <NavDropdown title="Settings" id="basic-nav-dropdown">
                         {
                             !loggedUser._id?
