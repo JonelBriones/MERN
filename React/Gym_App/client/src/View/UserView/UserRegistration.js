@@ -1,9 +1,9 @@
 import React, {useState} from 'react'
 import axios from 'axios';
-import UserForm from './UserForm';
+import UserForm from '../../components/User/UserForm';
 import { useNavigate } from 'react-router-dom';
-import UserLogin from './UserLogin';
-import GymNavbar from '../Gym/GymNavbar';
+import UserLogin from '../../components/User/UserLogin';
+import GymNavbar from '../../components/Gym/GymNavbar';
 const UserRegistration = (props) => {
     const navigate = useNavigate();
     const [confirmReg,setConfirmReg] = useState("");

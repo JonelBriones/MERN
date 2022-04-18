@@ -2,13 +2,13 @@ import React, {useState,useEffect} from 'react'
 import axios from 'axios'
 import {Table,Button} from 'react-bootstrap'
 import { Link,useNavigate,useParams } from 'react-router-dom'
-import {Navbar,Container,Nav,NavDropdown} from 'react-bootstrap'
+import GymNavbar from '../../components/Gym/GymNavbar';
 const ViewProduct = (props) => {
     const navigate = useNavigate();
     const [product,setProduct] = useState([])
-    const {id} = useParams();
+    const {product_name} = useParams();
     useEffect(()=> {
-        axios.get("http://localhost:8000/api/products/product/" + id)
+        axios.get("http://localhost:8000/api/product/" + product_name)
             .then((res)=>{
                 console.log(res.data)
                 setProduct(res.data)
@@ -29,23 +29,10 @@ const ViewProduct = (props) => {
     }
 
     return (
-        <div>
-            <Navbar expand="lg" bg="dark" variant="dark">
-                <Container>
-                    <Navbar.Brand href="/">Gym Dashboard</Navbar.Brand>
-                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                    <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="me-auto">
-                        <Nav.Link href="/products">Store</Nav.Link>
-                        <Nav.Link href="/cart">Cart</Nav.Link>
-                        <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-                        <NavDropdown.Item onClick={()=>logout()}>Logout</NavDropdown.Item>
-                        </NavDropdown>
-                    </Nav>
-                    </Navbar.Collapse>
-                </Container>
-            </Navbar>
-            <Button href="/products">Go Back</Button>
+        <>
+            <nav>
+            <GymNavbar buttonText={"/"}/>
+            </nav>
             <Table striped bordered>
                 <thead>
                     <tr>
@@ -64,7 +51,7 @@ const ViewProduct = (props) => {
                     </tr>
                 </tbody>
             </Table>
-        </div>
+        </>
 
     )
 }

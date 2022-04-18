@@ -1,16 +1,20 @@
 import logo from './logo.svg';
 import './App.css';
-import UserRegistration from './components/User/UserRegistration';
-import CreateProduct from './components/Products/CreateProduct';
-import {BrowserRouter,Routes,Route} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Home from './components/Gym/Home';
-import Store from './components/Gym/Store';
-import ViewProduct from './components/Gym/ViewProduct';
+import {BrowserRouter,Routes,Route} from 'react-router-dom';
+// Admin
 import AdminLoginAndRegistration from './components/Admin/AdminLoginAndRegistration';
 import Dashboard from './components/Admin/Dashboard';
-import AdminViewProduct from './components/Admin/AdminViewProduct';
-import Profile from './components/Gym/Profile';
+import AdminViewProduct from './View/AdminView/AdminViewProduct';
+import CreateProduct from './components/Products/CreateProduct';
+// USERS
+import UserRegistration from './View/UserView/UserRegistration';
+import Home from './View/UserView/Home';
+import Store from './View/UserView/Store';
+import ViewProduct from './View/UserView/ViewProduct';
+// LOGGED USERS
+import Profile from './View/UserView/Profile';
+
 function App() {
   return (
     <div className="App">
@@ -21,13 +25,13 @@ function App() {
           <Route element={<Dashboard/>} path="/dashboard"/>
           <Route element={<AdminViewProduct/>} path="/admin/products"/>
           <Route element={<CreateProduct/>} path="/products/add"/>
+          {/* USERS*/}
+          <Route element={<UserRegistration/>} path="/users/"/>
+          <Route element={<Home/>} path="/"/>
+          <Route element={<Store/>} path="/store"/>
+          <Route element={<ViewProduct/>} path="/store/:product_name"/>
           {/* LOGGED USERS */}
           <Route element={<Profile/>} path="/profile/:id"/>
-          {/* USERS AND GYM */}
-          <Route element={<Home/>} path="/"/>
-          <Route element={<UserRegistration/>} path="/users/"/>
-          <Route element={<Store/>} path="/store"/>
-          <Route element={<ViewProduct/>} path="/products/product/:id"/>
         </Routes>
       </BrowserRouter>
     </div>

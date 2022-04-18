@@ -38,13 +38,11 @@ const GymNavbar = (props) => {
                     <Nav.Link href={buttonText}>Store</Nav.Link>
                     <Nav.Link href="/cart">Cart</Nav.Link>
                     <NavDropdown title="Settings" id="basic-nav-dropdown">
-                    <NavDropdown.Item href={`/profile/${loggedUser._id}`}>
                         {
-                            loggedUser?
-                            loggedUser.firstName + " " + loggedUser.lastName:
-                            <span>Sign in</span>
+                            !loggedUser._id?
+                            <NavDropdown.Item href="/users">Sign in</NavDropdown.Item>:
+                            <NavDropdown.Item href={`/profile/${loggedUser._id}`}>{loggedUser.firstName + " " + loggedUser.lastName}</NavDropdown.Item>
                         }
-                    </NavDropdown.Item>
                     <NavDropdown.Item onClick={()=>logout()}>Logout</NavDropdown.Item>
                     </NavDropdown>
                 </Nav>

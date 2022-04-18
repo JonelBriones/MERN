@@ -1,7 +1,8 @@
 import React, {useState,useEffect} from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import GymNavbar from './GymNavbar';
+import GymNavbar from '../../components/Gym/GymNavbar';
+
 import {Table} from 'react-bootstrap'
 const Profile = (props) => {
     const [loggedUser,setLoggedUser] = useState({})
@@ -12,8 +13,10 @@ const Profile = (props) => {
     })
     return (
         <>
+            <nav>
             <GymNavbar
             buttonText={"Profile"}/>
+            </nav>
                 <div className="container">
             <Table>
                 <thead>

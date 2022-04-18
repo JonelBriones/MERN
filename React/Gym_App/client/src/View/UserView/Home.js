@@ -1,5 +1,6 @@
 import React, {useState,useEffect} from 'react';
-import GymNavbar from './GymNavbar';
+import GymNavbar from '../../components/Gym/GymNavbar';
+
 import {Button} from 'react-bootstrap'
 import axios from 'axios';
 import {useNavigate,useParams} from 'react-router-dom'
@@ -17,8 +18,10 @@ const Home = (props) => {
             })
     },[])
     return (
-            <body>
+            <>
+                <nav>
                 <GymNavbar buttonText={"/store"}/>
+                </nav>
                 <div className="container">
                     <header>
                         <h1>Insert Gym Name</h1>
@@ -31,8 +34,7 @@ const Home = (props) => {
                         }
                     </header>
                 </div>
-
-            </body>
+            </>
     )
 }
 export default Home;

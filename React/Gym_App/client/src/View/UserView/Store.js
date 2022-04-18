@@ -2,7 +2,8 @@ import React, {useState,useEffect} from 'react'
 import axios from 'axios'
 import {Table,Button} from 'react-bootstrap'
 import { Link,useNavigate } from 'react-router-dom'
-import GymNavbar from './GymNavbar'
+import GymNavbar from '../../components/Gym/GymNavbar';
+
 const Store = (props) => {
     const navigate = useNavigate();
     const [product,setProduct] = useState([])
@@ -36,8 +37,10 @@ const Store = (props) => {
     }
 
     return (
-        <div>
+        <>
+            <nav>
             <GymNavbar buttonText={"/products"}/>
+            </nav>
             <div className="container">
             <Table striped bordered hover>
                 <thead>
@@ -53,7 +56,7 @@ const Store = (props) => {
                     {
                 product.map((oneProduct,index)=> (
                     <tr key={oneProduct._id}>
-                        <td><Link to={`product/${oneProduct.name}`}>{oneProduct.name}</Link></td>
+                        <td><Link to={`${oneProduct.name}`}>{oneProduct.name}</Link></td>
                         <td>{oneProduct.description}</td>
                         <td>{oneProduct.category}</td>
                         <td>{oneProduct.price}</td>
@@ -64,7 +67,7 @@ const Store = (props) => {
                 </tbody>
             </Table>
             </div>
-        </div>
+        </>
     )
 }
 export default Store;
