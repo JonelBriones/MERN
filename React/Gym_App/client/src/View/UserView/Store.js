@@ -8,7 +8,7 @@ const Store = (props) => {
     const navigate = useNavigate();
     const [product,setProduct] = useState([])
     const [cart,setCart] = useState([])
-    
+    const [cartCount,setCartCount] = useState(0)
     useEffect(()=> {
         axios.get("http://localhost:8000/api/products")
             .then((res)=>{
@@ -23,12 +23,12 @@ const Store = (props) => {
 
         // is our product already in the cart?
         const exist = cart.find((product)=>product._id === productObject._id)
-
         // if true, add 1 to quantity key value pair for every time it exist/added
         if(exist) {
             setCart(cart.map((product)=>
             //find the matching added product from the cart and increment the qty
                 product._id === productObject._id? {...exist,qty: exist.qty + 1}:product
+
 
                 /* 
                 go into the product object and increment qty
@@ -52,11 +52,12 @@ const Store = (props) => {
                     }
                 */
         }
-        console.log(cart)
+
+        // console.log("cart count",cartCount)
+        // console.log("after",exist.qty)
     }
     const removeFromCart = (productObject) => {
         const exist = cart.find((product)=>product._id === productObject._id)
-
         // if qty equals 0 stop decrementing
         if(exist.qty === 0) {
             setCart(cart.map((product)=>
@@ -78,6 +79,7 @@ const Store = (props) => {
                 {...product,qty: product.qty-1}:product
                 ))
             }
+        console.log("after added",exist.qty)
     }
     return (
         <>
@@ -87,7 +89,7 @@ const Store = (props) => {
             <Table striped bordered hover>
                 <thead>
                     <tr>
-                        <th>Name</th>
+                        <th>Name </th>
                         <th>Descripton</th>
                         <th>Category</th>
                         <th>Price</th>
@@ -109,8 +111,14 @@ const Store = (props) => {
                                 product.qty:null
                             ))
                         })
-                         to cart</Button> 
-                        <Button variant="info" size="sm" onClick={()=>removeFromCart(oneProduct)}>Remove from cart</Button>
+                         to cart</Button>
+                         {
+                             cart.map((product)=>(
+                                product._id === oneProduct._id?
+                                product.qty?
+                                <Button key={oneProduct._id} variant="info" size="sm" onClick={()=>removeFromCart(oneProduct)}>Remove from cart</Button>:null:null
+                            ))
+                         } 
                         </td>
                     </tr>
                 ))
