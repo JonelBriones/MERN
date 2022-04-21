@@ -22,12 +22,37 @@ border-radius: 20px;
   padding: 20px;
 
 }
-.navbar {
+/* .navbar {
   margin-bottom: 40px;
-}
+} */
 .adminReg {
 flex-wrap:wrap;
 }
 .adminLogin {
 flex-wrap:wrap;
+}
+.home-img {
+  color: rgb(255, 255, 255);
+  font-weight:bolder;
+  font-size: large;
+  height: 500px;
+  /* object-fit: cover; */
+  background-image: url("./images/samuel-girven-fqMu99l8sqo-unsplash.jpg");
+  background-size: cover;
+  display: flex;
+}
+.home-content {
+margin:auto;
+align-items: center;
+text-shadow: 50px;
+position: relative;
+top: -100px;
+
+}
+.home-content h1 {
+  /* padding: 100px; */
+  font-size: 4rem;
+}
+html {
+  background-color: black;
 }

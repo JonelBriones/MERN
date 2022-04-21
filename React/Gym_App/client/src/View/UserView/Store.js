@@ -18,7 +18,11 @@ const Store = (props) => {
             .catch((err)=>console.log(err))
 
     },[setCart])
-
+    const checkQty = ()=> {
+        cart.map((oneProduct)=>{
+            console.log(oneProduct.qty)
+        })
+    }
     const addToCart = (productObject) => {
 
         // is our product already in the cart?
@@ -52,9 +56,9 @@ const Store = (props) => {
                     }
                 */
         }
-
         // console.log("cart count",cartCount)
         // console.log("after",exist.qty)
+        checkQty()
     }
     const removeFromCart = (productObject) => {
         const exist = cart.find((product)=>product._id === productObject._id)
@@ -83,7 +87,7 @@ const Store = (props) => {
     }
     return (
         <>
-            <GymNavbar buttonText={"/products"}
+            <GymNavbar buttonText={"/store"}
             cartCount={cart.length}/>
             <div className="container">
             <Table striped bordered hover>
