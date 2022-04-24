@@ -43,6 +43,7 @@ const Store = (props) => {
                     }
                 */
             ))
+            console.log(cart)
         }
         // else, add to cart and iniate item quantity key value pair
         else {
@@ -55,18 +56,16 @@ const Store = (props) => {
                         qty: 1 (newly created)
                     }
                 */
+            console.log(cart)
         }
-        // console.log("cart count",cartCount)
-        // console.log("after",exist.qty)
-        checkQty()
     }
     const removeFromCart = (productObject) => {
         const exist = cart.find((product)=>product._id === productObject._id)
         // if qty equals 0 stop decrementing
-        if(exist.qty === 0) {
-            setCart(cart.map((product)=>
+        if(exist.qty === 1) {
+            setCart(cart.filter((product)=>
             //find the matching added product from the cart and increment the qty
-                product._id === productObject._id? {...exist,qty: exist.qty}:product
+                product._id !== productObject._id
                 /* 
                 go into the product object
                     product : {
@@ -76,14 +75,15 @@ const Store = (props) => {
                     }
                 */
             ))
+        console.log(cart)
         } else {
             // map into cart and find matching object
             setCart(cart.map((product)=>
                 product._id === productObject._id? 
                 {...product,qty: product.qty-1}:product
                 ))
-            }
-        console.log("after added",exist.qty)
+            console.log(cart)
+        }
     }
     return (
         <>
