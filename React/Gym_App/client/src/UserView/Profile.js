@@ -1,7 +1,7 @@
 import React, {useState,useEffect} from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import GymNavbar from '../../components/Gym/GymNavbar';
+import GymNavbar from './GymNavbar';
 
 import {Table} from 'react-bootstrap'
 const Profile = (props) => {
@@ -13,8 +13,8 @@ const Profile = (props) => {
     })
     return (
         <>
-            <GymNavbar
-            buttonText={"Profile"}/>
+            {/* <GymNavbar
+            buttonText={"Profile"}/> */}
                 <div className="container">
             <Table>
                 <thead>

@@ -1,8 +1,11 @@
-import React, {useState,useEffect} from 'react';
+import React, {useState,useEffect,useContext} from 'react';
 import axios from 'axios';
-import {useNavigate,useParams} from 'react-router-dom'
-import {Navbar,Container,Nav,NavDropdown} from 'react-bootstrap'
+import {useNavigate,useParams,Link} from 'react-router-dom'
+import {NavbarBrand,Navbar,Container,Nav,NavLink,NavItem,NavDropdown} from 'react-bootstrap'
+import CartContext from '../CartContext';
+
 const GymNavbar = (props) => {
+    const {cart,item} = useContext(CartContext);
     const {buttonText,cartCount} = props;
     const [loggedUser,setLoggedUser] = useState({})
     const navigate = useNavigate();
@@ -28,20 +31,23 @@ const GymNavbar = (props) => {
             })
             .catch((err)=>console.log(err))
     }
+    const redirect = (page) => {
+        navigate(page)
+    }
     return (
         <Navbar expand="lg" bg="dark" variant="dark" className="navbar">
             <Container>
-                <Navbar.Brand href="/">Home</Navbar.Brand>
+                <NavbarBrand onClick={()=>redirect('/')}>Home</NavbarBrand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="me-auto">
-                    <Nav.Link href={buttonText}>Store</Nav.Link>
-                    <Nav.Link href="/cart">Cart<span> ({cartCount})</span></Nav.Link>
+                    <NavLink onClick={()=>redirect('/store')}>Store</NavLink>
+                    <NavLink onClick={()=>redirect('/cart')}>Cart<span> ({cart.length})</span></NavLink>
                     <NavDropdown title="Settings" id="basic-nav-dropdown">
                         {
                             !loggedUser._id?
-                            <NavDropdown.Item href="/users">Sign in</NavDropdown.Item>:
-                            <NavDropdown.Item href={`/profile/${loggedUser._id}`}>{loggedUser.firstName + " " + loggedUser.lastName}</NavDropdown.Item>
+                            <NavDropdown.Item>Sign in</NavDropdown.Item>:
+                            <NavDropdown.Item onClick={()=>redirect('/profile/' + loggedUser._id)}>{loggedUser.firstName + " " + loggedUser.lastName}</NavDropdown.Item>
                         }
                     <NavDropdown.Item onClick={()=>logout()}>Logout</NavDropdown.Item>
                     </NavDropdown>

@@ -1,5 +1,5 @@
 import React, {useState,useEffect} from 'react';
-import GymNavbar from '../../components/Gym/GymNavbar';
+import GymNavbar from './GymNavbar';
 import {Button} from 'react-bootstrap'
 import axios from 'axios';
 import {useNavigate,useParams} from 'react-router-dom'
@@ -18,7 +18,7 @@ const Home = (props) => {
     },[])
     return (
         <>
-            <GymNavbar buttonText={"/store"}/>
+            {/* <GymNavbar buttonText={"/store"}/> */}
                 <div className="index">
                     <header>
                         <div className='home-img'>

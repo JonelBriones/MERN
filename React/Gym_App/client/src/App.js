@@ -9,17 +9,23 @@ import Dashboard from './components/Admin/Dashboard';
 import AdminViewProduct from './View/AdminView/AdminViewProduct';
 import CreateProduct from './components/Products/CreateProduct';
 // USERS
-import UserRegistration from './View/UserView/UserRegistration';
-import Home from './View/UserView/Home';
-import Store from './View/UserView/Store';
-import ViewProduct from './View/UserView/ViewProduct';
+import UserRegistration from './UserView/UserRegistration';
+import Home from './UserView/Home';
+import Store from './UserView/Store';
+import ViewProduct from './UserView/ViewProduct';
+import Cart from './UserView/Cart';
 // LOGGED USERS
-import Profile from './View/UserView/Profile';
+import Profile from './UserView/Profile';
+// useContext
+import {CartProvider} from './CartContext';
+import GymNavbar from './UserView/GymNavbar';
 
 function App() {
   return (
     <div className="App">
+      <CartProvider>
       <BrowserRouter>
+      <GymNavbar/>
         <Routes>
           {/* ADMIN */}
           <Route element={<AdminLoginAndRegistration/>} path="/admin"/>
@@ -28,13 +34,15 @@ function App() {
           <Route element={<CreateProduct/>} path="/products/add"/>
           {/* USERS*/}
           <Route element={<UserRegistration/>} path="/users/"/>
-          <Route element={<Home/>} path="/"/>
+          <Route element={<Home/>} path="/" default/>
           <Route element={<Store/>} path="/store"/>
+          <Route element={<Cart/>} path="/cart"/>
           <Route element={<ViewProduct/>} path="/store/:product_name"/>
           {/* LOGGED USERS */}
           <Route element={<Profile/>} path="/profile/:id"/>
         </Routes>
       </BrowserRouter>
+      </CartProvider>
     </div>
   );
 }

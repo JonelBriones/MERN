@@ -2,7 +2,7 @@ import React, {useState,useEffect} from 'react'
 import axios from 'axios'
 import {Table,Button} from 'react-bootstrap'
 import { Link,useNavigate,useParams } from 'react-router-dom'
-import GymNavbar from '../../components/Gym/GymNavbar';
+import GymNavbar from './GymNavbar';
 const ViewProduct = (props) => {
     const navigate = useNavigate();
     const [product,setProduct] = useState([])
