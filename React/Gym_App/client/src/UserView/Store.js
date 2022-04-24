@@ -88,8 +88,7 @@ const Store = (props) => {
     // }
     return (
         <>
-            {/* <GymNavbar buttonText={"/store"}
-            cartCount={cart.length}/> */}
+            <GymNavbar/>
             <div className="container">
             <Table striped bordered hover>
                 <thead>

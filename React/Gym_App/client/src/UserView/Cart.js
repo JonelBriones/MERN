@@ -6,13 +6,12 @@ const Cart = (props) => {
     const {cart} = useContext(CartContext)
     return (
         <div>
-            {/* <GymNavbar
-            buttonText={'/store'}/> */}
+            <GymNavbar/>
             <h1>Cart</h1>
             {
                 cart.map((product)=>(
                     <div key={product._id}>
-                        {product.name}
+                        <p>{`Product: ${product.name}`} <span>Qty: {product.qty} Price: ${product.qty * product.price}</span></p>
                     </div>
                 ))
             }

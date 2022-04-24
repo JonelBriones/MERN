@@ -13,8 +13,8 @@ const Profile = (props) => {
     })
     return (
         <>
-            {/* <GymNavbar
-            buttonText={"Profile"}/> */}
+            <GymNavbar/>
+
                 <div className="container">
             <Table>
                 <thead>

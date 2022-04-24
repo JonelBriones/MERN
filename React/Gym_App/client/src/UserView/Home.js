@@ -18,7 +18,7 @@ const Home = (props) => {
     },[])
     return (
         <>
-            {/* <GymNavbar buttonText={"/store"}/> */}
+            <GymNavbar/>
                 <div className="index">
                     <header>
                         <div className='home-img'>
@@ -29,7 +29,7 @@ const Home = (props) => {
                                 {
                                     !loggedUser.firstName?
                                     <Button href="/users">Join us</Button>:
-                                    null
+                                    <p>Welcome back!</p>
                                     
                                 }
                             </div>

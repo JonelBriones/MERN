@@ -91,9 +91,7 @@ const UserRegistration = (props) => {
 
     return (
         <div>
-            <GymNavbar
-            buttonText={"Home"}
-            />
+            <GymNavbar/>
             <div className="logReg-container">
                 <div className="adminReg">
                 <h1>Gym App</h1>

@@ -30,7 +30,7 @@ const ViewProduct = (props) => {
 
     return (
         <>
-            <GymNavbar buttonText={"/"}/>
+            <GymNavbar/>
             <Table striped bordered>
                 <thead>
                     <tr>

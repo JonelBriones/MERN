@@ -25,7 +25,6 @@ function App() {
     <div className="App">
       <CartProvider>
       <BrowserRouter>
-      <GymNavbar/>
         <Routes>
           {/* ADMIN */}
           <Route element={<AdminLoginAndRegistration/>} path="/admin"/>
