@@ -5,7 +5,7 @@ import {NavbarBrand,Navbar,Container,Nav,NavLink,NavItem,NavDropdown} from 'reac
 import CartContext from '../CartContext';
 
 const GymNavbar = (props) => {
-    const {cart,item} = useContext(CartContext);
+    const {cartQty} = useContext(CartContext);
     const {buttonText,cartCount} = props;
     const [loggedUser,setLoggedUser] = useState({})
     const navigate = useNavigate();
@@ -42,11 +42,11 @@ const GymNavbar = (props) => {
                 <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="me-auto">
                     <NavLink onClick={()=>redirect('/store')}>Store</NavLink>
-                    <NavLink onClick={()=>redirect('/cart')}>Cart<span> ({cart.length})</span></NavLink>
+                    <NavLink onClick={()=>redirect('/cart')}>Cart<span> ({cartQty})</span></NavLink>
                     <NavDropdown title="Settings" id="basic-nav-dropdown">
                         {
                             !loggedUser._id?
-                            <NavDropdown.Item>Sign in</NavDropdown.Item>:
+                            <NavDropdown.Item onClick={()=>redirect('/users')}>Sign in</NavDropdown.Item>:
                             <NavDropdown.Item onClick={()=>redirect('/profile/' + loggedUser._id)}>{loggedUser.firstName + " " + loggedUser.lastName}</NavDropdown.Item>
                         }
                     <NavDropdown.Item onClick={()=>logout()}>Logout</NavDropdown.Item>
