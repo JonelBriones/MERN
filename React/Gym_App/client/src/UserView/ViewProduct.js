@@ -25,34 +25,36 @@ const ViewProduct = (props) => {
         <>
             <GymNavbar/>
             <div className="container">
-                <div className='product-view-border'>
-                <div img='' className='product-view-img'>img</div>
-                <div className='product-view-content'>
-                    <h1>{product.name}</h1>
-                    <hr></hr>
-                    <h2>{product.price}</h2>
-                    <div>
-                        <Button variant="info" size="sm" onClick={()=>addToCart(product)}>Add 
-                        ({
-                            cart.map((product)=>(
-                                product._id === product._id?
-                                product.qty:null
-                                ))
-                            })
-                         to cart
-                        </Button>
-                        </div>
+                <div className='product-view-container'>
+                    <div className="product-view product-view-img" style={{backgroundImage: `url(${product.image})`,
+                                    }}>
+                    </div>
+                    <div className='product-view'>
+                        <h1>{product.name}</h1>
+                        <hr></hr>
+                        <h2>{product.price}</h2>
                         <div>
-                        {
-                        cart.map((product)=>(
-                            product._id === product._id?
-                            product.qty?
-                            <Button key={product._id} variant="info" size="sm" onClick={()=>removeFromCart(product)}>Remove from cart</Button>:null:null
-                            ))
-                        } 
-                        </div>
-                    <p>{product.description}</p>
-                </div>
+                            <Button variant="info" size="sm" onClick={()=>addToCart(product)}>Add 
+                            ({
+                                cart.map((oneProduct)=>(
+                                    oneProduct._id === product._id?
+                                    oneProduct.qty:null
+                                    ))
+                                })
+                            to cart
+                            </Button>
+                            </div>
+                            <div>
+                            {
+                            cart.map((oneProduct)=>(
+                                oneProduct._id === product._id?
+                                oneProduct.qty?
+                                <Button key={product._id} variant="danger" size="sm" onClick={()=>removeFromCart(product)}>Remove</Button>:null:null
+                                ))
+                            } 
+                            </div>
+                        <p>{product.description}</p>
+                    </div>
                 </div>
             </div>
         </>
