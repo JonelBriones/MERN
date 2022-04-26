@@ -7,6 +7,31 @@
 .App {
   text-align: center;
 }
+/*  NAVIGATION NAV */
+.navigate-container {
+  display: flex;
+  justify-content: center;
+}
+.navigate {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 80px;
+  /* border: 2px solid; */
+  width: 600px;
+  /* min-width: 100vh; */
+}
+.navigate span {
+  font-size: 1.5rem;
+  display: flex;
+}
+.navigate p {
+  align-items: center;
+  display: flex;
+}
+.navigate p,span {
+  cursor: pointer;
+}
 
 
 /* HOME */
@@ -14,11 +39,12 @@
   width: min(90%, 70.5rem);
   /* margin-inline: auto; */
   margin: 20px auto;
-  border: 2px solid;
+
+  /* border: 2px solid; */
 }
 .home-content {
   padding-bottom: 20px;
-  overflow-wrap: break-word;
+  /* overflow-wrap: break-word; */
 }
 .btn-start {
   width: 100px;
@@ -34,21 +60,110 @@
 }
 /* PROJECT */
 .projects-flow {
-  display:flex;
   justify-content: center;
-  border:2px solid;
   flex-wrap: wrap;   /* makes a new line */
-
+display: flex;
 }
-.project-columns > * {
+/* .project-columns > * {
   flex: 1 1 33%;
+} */
+.project-content {
+  padding: 1.5em;
+  /* text-align: left; */
 }
-.project-columns {
-  border: 2px solid;
+.project-card{
+  border: 2px solid black;
   display: flex;
-  width: 300px;
-  height: 200px;
   margin: 10px;
   justify-content: center;
   align-items: center;
+  width: 300px;
+  height: 200px;
+  transition: transform 500ms ease;
+  transition: all .3s ease;
+  overflow: hidden;
+  background-color: black !important;
+  color: white;
+  /* background-image: url(''); */
+  /* background-size: cover; */
+}
+.project-title {
+  position: relative;
+  font-size: 2rem;
+}
+
+.project-body {
+  transform: translateY(8em);
+}
+.project-card:hover .project-body {
+  transform: translateY(0);
+  transition: all .7s ease;
+
+}
+
+.project-card:hover {
+  background-image: none !important;
+  background-color: black !important;
+  cursor: pointer;
+  transform: scale(1.06);
+  transition: all .3s ease;
+  border: 2px solid black;
+}
+.project-card:hover .project-content p, .project-title {
+  padding: 10px;
+  transform: translateY(-2);
+  transition: all .5s ease;
+}
+.project-btn {
+  font-size: 1.2rem;
+}
+
+/* CONTACT */
+li {
+  list-style-type: none;
+  padding: 8px;
+
+}
+li a {
+  text-decoration: none;
+  color:black;
+}
+form button {
+  margin-top: 6px;
+  width: 100px;
+  line-height: 2;
+  border-radius: 4px;
+  font-size: 1.2rem;
+}
+.form p {
+  font-size: 1.7rem;
+}
+.form {
+  padding: 20px;
+}
+.form input {
+  margin: 6px;
+  width: 200px;
+  line-height: 2;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  padding-left: 10px;
+}
+
+/* FOOTER */
+
+footer {
+  display: flex;
+  justify-content: center;
+}
+.footer {
+  margin-bottom: 10px;
+}
+footer span {
+  font-size: 2rem;
+  background: none;
+  justify-content: space-between;
+}
+footer span:hover {
+  transition: 2s;
 }

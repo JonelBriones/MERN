@@ -1,8 +1,18 @@
 import React from 'react';
+import NavigatePages from '../components/navigatePages/NavigatePages';
 const Blog = (props) => {
     return (
-        
-        <h1>Blog</h1>
+        <div className='home-container'>
+        <div>
+            <div className='home-content'>
+                <NavigatePages
+                left={'projects'}
+                page={'Blog'}
+                right={'contact'}
+                />
+            </div>
+        </div>
+        </div>
     )
 }
 export default Blog;
