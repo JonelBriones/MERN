@@ -30,7 +30,7 @@ const Navbar = (props) => {
                     {SidebarData.map((link,index)=>{
                         return (
                             <li key={index} className={link.className} onClick={showSideBar}>
-                                <Link to={link.path}>{link.icon}
+                                <Link to={!link.disabled?link.path:false}>{link.icon}
                                 <span>{link.title}</span>
                                 </Link>
                             </li>

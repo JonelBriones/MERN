@@ -5,6 +5,7 @@ import Navbar from './components/navbar/Navbar';
 import Blog from './pages/Blog';
 import Contact from './pages/Contact';
 import Projects from './pages/Projects';
+import ViewProject from './pages/ViewProject';
 function App() {
   return (
     <div className='App'>
@@ -15,6 +16,7 @@ function App() {
         <Route element={<Blog/>} path="/blog"/>
         <Route element={<Contact/>} path="/contact"/>
         <Route element={<Projects/>} path="/projects"/>
+        <Route element={<ViewProject/>} path="/project/view"/>
       </Routes>
       </BrowserRouter>
     </div>

@@ -1,12 +1,6 @@
 import React, {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
-import NavigatePages from '../components/navigatePages/NavigatePages';
-import ProjectsData from '../ProjectsData';
-const Projects = (props) => {
-    const navigate = useNavigate();
-    const redirect = (page) => {
-        navigate(page);
-    }
+const ProjectsData = (props) => {
     const [projects,setProjects] = useState([
         {
             _id:0,
@@ -44,36 +38,26 @@ const Projects = (props) => {
             description: "A full CRUD application"
         },
     ])
+    const navigate = useNavigate();
+    const redirect = (page) => {
+        navigate(page);
+    }
     return (
-        <div className='home-container'>
-        <div>
-            <NavigatePages
-            left={'home'}
-            page={'Projects'}
-            right={'blog'}
-            />
-            <div className='home-content'>
-                <div className='projects-flow'>
-                    {
-                        projects.map((project,index)=>(
-                        <div key={project._id} className='project-card' style={{
-                            backgroundImage: `url(${project.image})`,
-                            backgroundSize: 'cover',
-                        }} onClick={()=>redirect(`/project/view`)}>
-                            <div className='project-content'>
-                                <h3 className='project-title'>{project.name}</h3>
-                                <div className='project-body'>
-                                <p>{project.description}</p>
-                                <p className='project-btn'>View</p>
-                                </div>
+        <>
+        {
+                projects.map((projects)=> (
+                    <div key={projects._id}>
+                        <button onClick={()=>redirect(`${projects.name}`)}>
+                            <img src={projects.image}/>
+                            <div>
+                                <div>{projects.name}</div>
+                                <div>{projects.price}</div>
                             </div>
-                        </div>
-                        ))
-                    }
-                </div>
-            </div>
-        </div>
-        </div>
+                        </button>
+                    </div>
+                ))
+            }
+        </>
     )
 }
-export default Projects;
+export default ProjectsData;

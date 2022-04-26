@@ -12,11 +12,11 @@ const NavigatePages = (props) => {
     }
     return (
         <div className='navigate-container'>
-        <div className='navigate'>
-                    <p onClick={()=>redirect(`/${left}`)}><span><AiFillCaretLeft.AiFillCaretLeft/></span>{left}</p>
-                    <h1>{page}</h1>
-                    <p onClick={()=>redirect(`/${right}`)}>{right}<span><AiFillCaretRight.AiFillCaretRight/></span></p>
-        </div>
+            <div className='navigate'>
+                <p onClick={()=>redirect(`/${left}`)}><AiFillCaretLeft.AiFillCaretLeft/>{left}</p>
+                <h1>{page}</h1>
+                <p onClick={()=>redirect(`/${right}`)} className='navigate-right'>{right}<AiFillCaretRight.AiFillCaretRight/></p>
+            </div>
         </div>
     )
 }

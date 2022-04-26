@@ -3,15 +3,13 @@ import NavigatePages from '../components/navigatePages/NavigatePages';
 const Blog = (props) => {
     return (
         <div className='home-container'>
-        <div>
+            <NavigatePages
+            left={'projects'}
+            page={'Blog'}
+            right={'contact'}
+            />
             <div className='home-content'>
-                <NavigatePages
-                left={'projects'}
-                page={'Blog'}
-                right={'contact'}
-                />
             </div>
-        </div>
         </div>
     )
 }

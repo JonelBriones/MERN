@@ -18,15 +18,16 @@ export const SidebarData = [
         className: 'nav-text'
     },
     {
-        title: "Blog",
-        path: '/blog',
-        icon: <BsFillPencilFill.BsFillPencilFill />,
-        className: 'nav-text'
-    },
-    {
         title: "Contact",
         path: '/contact',
         icon: <RiMailSendFill.RiMailSendFill />,
         className: 'nav-text'
+    },
+    {
+        title: "Blog (in process)",
+        path: '/blog',
+        icon: <BsFillPencilFill.BsFillPencilFill />,
+        className: 'nav-text',
+        disabled: 'true'
     },
 ]
