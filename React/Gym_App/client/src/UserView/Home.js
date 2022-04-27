@@ -23,13 +23,15 @@ const Home = (props) => {
                     <header>
                         <div className='home-img'>
                             <div className='home-content'>
-                                <h1>Gym Name</h1>
                                 {/* <img src="../../images/samuel-girven-fqMu99l8sqo-unsplash.jpg"/> */}
                                 {/* <img className="home-img" src={img}/> */}
                                 {
                                     !loggedUser.firstName?
-                                    <Button href="/users">Join us</Button>:
-                                    <p>Welcome back!</p>
+                                    <>
+                                <h1>Gym Name</h1>
+                                    <Button href="/users">Join us</Button>
+                                    </>:
+                                    <h1>Welcome back! {loggedUser.firstName}</h1>
                                     
                                 }
                             </div>

@@ -29,12 +29,14 @@ const Store = (props) => {
             <div className="container">
             <h1>Store</h1>
             <hr/>
-            <main className='product-flex-container'>
+            <p>Products below are used for demo purposes.</p>
+            <hr/>
+            <div className='product-flex-container'>
                     {
                 product.map((oneProduct)=> (
                         <div key={oneProduct._id}>
                             {/* <img src={oneProduct.image}></img> */}
-                            <div class="product-hover">
+                            <div className="product-hover">
                             <button className="product" onClick={()=>redirect(`${oneProduct.name}`)} style={{
                                 border: 'none'
                             }}>
@@ -69,7 +71,7 @@ const Store = (props) => {
                         </div>
                 ))
             }
-            </main>
+            </div>
             </div>
             {/* <ProductsData/>       */}
         </>

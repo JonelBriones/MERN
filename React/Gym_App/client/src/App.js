@@ -19,6 +19,7 @@ import Profile from './UserView/Profile';
 // useContext
 import {CartProvider} from './CartContext';
 import GymNavbar from './UserView/GymNavbar';
+import Checkout from './UserView/Checkout';
 
 function App() {
   return (
@@ -35,8 +36,9 @@ function App() {
           <Route element={<UserRegistration/>} path="/users/"/>
           <Route element={<Home/>} path="/" default/>
           <Route element={<Store/>} path="/store"/>
-          <Route element={<Cart/>} path="/cart"/>
           <Route element={<ViewProduct/>} path="/store/:product_name"/>
+          <Route element={<Cart/>} path="/cart"/>
+          <Route element={<Checkout/>} path="/store/checkout"/>
           {/* LOGGED USERS */}
           <Route element={<Profile/>} path="/profile/:id"/>
         </Routes>

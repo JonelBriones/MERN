@@ -6,26 +6,42 @@
 .App {
   text-align: center;
 }
-Form {
-  margin: auto;
-  width: 300px;
 
-}
 
 .container {
   margin:auto;
 border-radius: 20px;
-  /* border: 2px solid; */
   justify-content: space-evenly;
   padding:20px
 }
-.logReg-container {
-  margin:auto;
+.log-container {
+  margin-inline:300px;
 border-radius: 20px;
   border: 2px solid;
-  justify-content: space-evenly;
   padding: 20px;
-
+  display:flex;
+  justify-content: center;
+}
+.reg-container {
+  margin-inline:300px;
+border-radius: 20px;
+  border: 2px solid;
+  justify-content: center;
+  padding: 20px;
+}
+.userReg {
+/* border: 2px solid purple; */
+display:flex;
+justify-content: space-evenly
+}
+.userReg input {
+width:250px;
+}
+.userLog Form{
+width:250px;
+}
+.userReg-btn {
+  margin: 20px;
 }
 
 .adminReg {
@@ -38,9 +54,9 @@ flex-wrap:wrap;
   color: rgb(255, 255, 255);
   font-weight:bolder;
   font-size: large;
-  height: 500px;
+  height: 90vh;
   /* object-fit: cover; */
-  background-image: url("./images/samuel-girven-fqMu99l8sqo-unsplash.jpg");
+  background-image: url("./images/anastase-maragos-HyvE5SiKMUs-unsplash.jpg");
   background-size: cover;
   display: flex;
 }
@@ -50,11 +66,12 @@ align-items: center;
 text-shadow: 50px;
 position: relative;
 top: -100px;
-
+width: 500px;
 }
 .home-content h1 {
   /* padding: 100px; */
   font-size: 4rem;
+  text-shadow: .30rem .30rem .2rem black;
 }
 html {
   /* background-color: black; */
@@ -172,6 +189,59 @@ flex-wrap: wrap;
   background-repeat: no-repeat;
 }
 
+/* Checkout */
+.form p {
+  font-size: 1.7rem;
+}
+.form {
+  padding: 20px;
+}
+.form input {
+  margin: 6px;
+  width: 200px;
+  line-height: 2;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  padding-left: 10px;
+}
+button .btn {
+  margin-top: 6px;
+  width: 100px;
+  line-height: 2;
+  border-radius: 4px;
+  font-size: 1.2rem;
+  /* padding: 20px; */
+}
+
+.checkout-btn {
+  margin: 6px;
+  line-height: 1;
+  font-size: 1.3rem;
+  padding: 1rem;
+}
+.checkout-btn button {
+  padding: .5rem;
+  border-radius: 10px;
+  transition: all .4s ease;
+  box-shadow: .2rem .2rem .3rem black;
+}
+.checkout-btn button:hover {
+  background-color: green;
+  transform: scale(1.1);
+  transition: all .3s ease;
+  color:white;
+  box-shadow: .2rem .2rem .3rem black;
 
 
+}
+.checkout-form {
+  margin-inline: auto;
+  width: 300px;
+  border: 2px solid black;
+  border-radius: 20px;
+}
+.checkout-form input {
+  margin: 5px;
+  border: .08rem solid black;
+}
 

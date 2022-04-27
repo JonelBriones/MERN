@@ -54,6 +54,9 @@ const ViewProduct = (props) => {
                             } 
                             </div>
                         <p>{product.description}</p>
+                        <hr/>
+            <p>Product above are used for demo purposes.</p>
+            <hr/>
                     </div>
                 </div>
             </div>

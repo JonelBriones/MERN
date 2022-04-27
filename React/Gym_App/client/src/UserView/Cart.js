@@ -4,7 +4,7 @@ import GymNavbar from './GymNavbar';
 import { useNavigate } from 'react-router-dom';
 import {Button} from 'react-bootstrap'
 const Cart = (props) => {
-    const {cart,addToCart,removeFromCart,cartQty} = useContext(CartContext)
+    const {cart,addToCart,removeFromCart,cartQty,itemsPrice} = useContext(CartContext)
 
     const navigate = useNavigate();
     const redirect = (page) => {
@@ -14,7 +14,8 @@ const Cart = (props) => {
         <div>
             <GymNavbar/>
             <div className='container'>
-            <h1>Shopping Cart</h1>
+            <h1>Shopping Cart </h1>
+            <span>{cartQty > 0?<button className='btn-no-item' onClick={()=>redirect(`/store/checkout`)}>Checkout</button>:null}</span>
             <hr/>
                 {
                     cartQty===0?
@@ -24,6 +25,7 @@ const Cart = (props) => {
                     <button className='btn-no-item' onClick={()=>redirect(`/store`)}>Continue Shopping</button>
                     </>
                 :null
+
                 }
             <div className='product-flex-container'>
                 {
