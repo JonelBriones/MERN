@@ -1,10 +1,11 @@
 import NavigatePages from '../components/navigatePages/NavigatePages';
-import React, {useState,useParams} from 'react';
-import ProjectsData from '../ProjectsData';
+import React, {useState} from 'react';
+import { ProjectsData } from '../components/Projects/ProjectsData';
+import {useParams} from 'react-router-dom'
 import { useEffect } from 'react';
-import axios from 'axios';
 const ViewProject = (props) => {
-    const [project,setProjects] = useState(
+    const {id} = useParams();
+    const [project,setProject] = useState(
         {
             _id:0,
             image:'https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8cHJvamVjdHxlbnwwfDB8MHx8&auto=format&fit=crop&w=700&q=60',
@@ -15,24 +16,26 @@ const ViewProject = (props) => {
     )
     return (
         <div className='home-container'>
-        <div>
-            <NavigatePages
-            left={'projects'}
-            page={'Project Name'}
-            right={'home'}
-            />
-            <div className='home-content'>
-                <div className='btn-resume'>
-                <button>Download</button>
-                <button>Github Repo</button>
-                </div>
-                <div>
-                    <section>
-                        <article>{project.description}</article>
-                    </section>
+            <div>
+                <NavigatePages
+                left={'projects'}
+                page={project.name}
+                right={'home'}
+                />
+
+                <div className='home-content'>
+                    <div className='btn-resume'>
+                    <button>Download</button>
+                    <button>Live</button>
+                    <button>Github Repo</button>
+                    </div>
+                    <div>
+                        <section>
+                            <article>{project.description}</article>
+                        </section>
+                    </div>
                 </div>
             </div>
-        </div>
         </div>
     )
 }

@@ -16,7 +16,7 @@ function App() {
         <Route element={<Blog/>} path="/blog"/>
         <Route element={<Contact/>} path="/contact"/>
         <Route element={<Projects/>} path="/projects"/>
-        <Route element={<ViewProject/>} path="/project/view"/>
+        <Route element={<ViewProject/>} path="/project/:id"/>
       </Routes>
       </BrowserRouter>
     </div>

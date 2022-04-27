@@ -1,7 +1,4 @@
-import React, {useState} from 'react';
-import { useNavigate } from 'react-router-dom';
-const ProjectsData = (props) => {
-    const [projects,setProjects] = useState([
+export const ProjectsData = [
         {
             _id:0,
             image:'https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8cHJvamVjdHxlbnwwfDB8MHx8&auto=format&fit=crop&w=700&q=60',
@@ -37,27 +34,4 @@ const ProjectsData = (props) => {
             tools: "javascript,html,css,react,express,node.js,mongoDb",
             description: "A full CRUD application"
         },
-    ])
-    const navigate = useNavigate();
-    const redirect = (page) => {
-        navigate(page);
-    }
-    return (
-        <>
-        {
-                projects.map((projects)=> (
-                    <div key={projects._id}>
-                        <button onClick={()=>redirect(`${projects.name}`)}>
-                            <img src={projects.image}/>
-                            <div>
-                                <div>{projects.name}</div>
-                                <div>{projects.price}</div>
-                            </div>
-                        </button>
-                    </div>
-                ))
-            }
-        </>
-    )
-}
-export default ProjectsData;
+    ]
