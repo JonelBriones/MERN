@@ -30,8 +30,8 @@ function App() {
           {/* ADMIN */}
           <Route element={<AdminLoginAndRegistration/>} path="/admin"/>
           <Route element={<Dashboard/>} path="/dashboard"/>
-          <Route element={<AdminViewProduct/>} path="/admin/products"/>
-          <Route element={<CreateProduct/>} path="/products/add"/>
+          <Route element={<AdminViewProduct/>} path="/admin/store"/>
+          <Route element={<CreateProduct/>} path="/admin/store/add"/>
           {/* USERS*/}
           <Route element={<UserRegistration/>} path="/users/"/>
           <Route element={<Home/>} path="/" default/>

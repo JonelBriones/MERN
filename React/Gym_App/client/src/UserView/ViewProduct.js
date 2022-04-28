@@ -26,10 +26,10 @@ const ViewProduct = (props) => {
             <GymNavbar/>
             <div className="container">
                 <div className='product-view-container'>
-                    <div className="product-view product-view-img" style={{backgroundImage: `url(${product.image})`,
+                    <div className="product-view-img" style={{backgroundImage: `url(${product.image})`,
                                     }}>
                     </div>
-                    <div className='product-view'>
+                    <div className='product-view-content'>
                         <h1>{product.name}</h1>
                         <hr></hr>
                         <h2>{product.price}</h2>
@@ -55,8 +55,8 @@ const ViewProduct = (props) => {
                             </div>
                         <p>{product.description}</p>
                         <hr/>
-            <p>Product above are used for demo purposes.</p>
-            <hr/>
+                        <p>Product above are used for demo purposes.</p>
+                        <hr/>
                     </div>
                 </div>
             </div>

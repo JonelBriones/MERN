@@ -7,24 +7,10 @@ const CreateProduct = (props) => {
     const [loggedAdmin,setloggedAdmin] = useState([])
     const [errors,setError] = useState({});
     const navigate = useNavigate();
-    const [product,setProduct] = useState({
-        name: "",
-        description: "",
-        category: "",
-        price: ""
-    })
-    useEffect(()=> {
-        axios.get("http://localhost:8000/api/admins")
-            .then((res)=>{
-                setloggedAdmin(res.data)
-                console.log(res.data)
-            })
-            .catch((err)=>console.log(err))
-
-    },[])
+    const [product,setProduct] = useState([])
     const onSubmitHandler = (e) => {
         e.preventDefault();
-            axios.post("http://localhost:8000/api/products/add",product,
+            axios.post("http://localhost:8000/api/admin/product/add",product,
             {
                 withCredentials:true // Only Admin can access this link
             })
@@ -37,7 +23,7 @@ const CreateProduct = (props) => {
                     price: ""
                 })
                 setError({})
-                navigate("/products");
+                navigate("/admin/store");
             })
             .catch((err)=> {
                 console.log(err.response.data.errors)
@@ -51,25 +37,10 @@ const CreateProduct = (props) => {
         console.log(newProductObject);
         setProduct(newProductObject);
     }
-
-    const logout = () => {
-        axios.post("http://localhost:8000/api/users/logout",{},
-        {
-            withCredentials:true
-        })
-            .then((res)=>{
-                console.log(res.data)
-                navigate("/users")
-            })
-            .catch((err)=>console.log(err))
-    }
-
     return (
 
         <div>
-            <AdminNavbar
-            logout={()=>logout}
-            loggedAdmin={loggedAdmin}/>
+            <AdminNavbar/>
             
             <h1>Create Product</h1>
             

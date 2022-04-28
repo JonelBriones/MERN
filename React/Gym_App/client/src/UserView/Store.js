@@ -32,41 +32,34 @@ const Store = (props) => {
             <p>Products below are used for demo purposes.</p>
             <hr/>
             <div className='product-flex-container'>
-                    {
+            {
                 product.map((oneProduct)=> (
                         <div key={oneProduct._id}>
-                            {/* <img src={oneProduct.image}></img> */}
-                            <div className="product-hover">
-                            <button className="product" onClick={()=>redirect(`${oneProduct.name}`)} style={{
-                                border: 'none'
-                            }}>
-                                <div className='product-content ' style={{backgroundImage: `url(${oneProduct.image})`,
-                                height: '300px',
-                                width: '100%',
-                                backgroundPosition: 'left -90px top -80px'
-                            }}>
-                                <div>{oneProduct.name}</div>
-                                <div>{oneProduct.price}</div>
-                                </div>
-                            </button>
-                            <div className='btn-add-del'>
-                                <Button className='btn-add' variant="info" size="sm"  onClick={()=>addToCart(oneProduct)}>Add 
-                                ({
-                                    cart.map((product)=>(
-                                        product._id === oneProduct._id?
-                                        product.qty:null
-                                        ))
-                                    })
-                                
-                                </Button >
-                                {
+                            <Button className='btn-add' variant="info" size="sm"  onClick={()=>addToCart(oneProduct)}>Add 
+                            ({
+                                cart.map((product)=>(
+                                    product._id === oneProduct._id?
+                                    product.qty:null
+                                    ))
+                                })
+                            </Button >
+                            <div className="product-view">
+                                <div className='product-image'
+                                    style={{backgroundImage: `url(${oneProduct.image})`}}>           
+                                        <div className="product">
+                                            <div className='product-content' onClick={()=>redirect(`${oneProduct.name}`)}>
+                                                <div>{oneProduct.name}</div>
+                                                <div>${oneProduct.price}.00</div>
+                                            </div>
+                                        </div>
+                                    {
                                     cart.map((product)=>(
                                         product._id === oneProduct._id?
                                         product.qty?
-                                        <Button key={product._id} className='btn-del' variant="danger" size="sm" onClick={()=>removeFromCart(oneProduct)}>Remove</Button>:null:null
+                                        <Button key={product._id} variant="danger" size="sm" onClick={()=>removeFromCart(oneProduct)}>Remove</Button>:null:null
                                         ))
                                     } 
-                            </div>
+                                </div>
                             </div>
                         </div>
                 ))

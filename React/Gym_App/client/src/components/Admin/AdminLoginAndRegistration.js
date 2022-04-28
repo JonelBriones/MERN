@@ -95,7 +95,9 @@ const AdminLoginAndRegistration = (props) => {
                 null
             }
             <div className="container">
-                <div className='adminReg'>
+                <div className='adminReg-container'>
+                <div className='userReg'>
+
                     <AdminForm
                     onSubmitHandler={onSubmitHandlerAdminRegistration}
                     onChangeHandler={onChangeHandlerAdminRegistration}
@@ -105,7 +107,10 @@ const AdminLoginAndRegistration = (props) => {
                     buttonText={'Sign Up'}
                     />
                 </div>
-                <div className='adminLogin'>
+                </div>
+
+                <div className="adminLog-container">
+                <div className='userLog'>
                     <AdminLogin
                     onSubmitHandler={onSubmitHandlerAdminLogin}
                     onChangeHandler={onChangeHandlerAdminLogin}
@@ -113,6 +118,7 @@ const AdminLoginAndRegistration = (props) => {
                     errors={adminLoginErrors}
                     buttonText={'Login'}
                     />  
+                </div>
                 </div>
             </div>
         </div>

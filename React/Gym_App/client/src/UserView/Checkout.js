@@ -5,7 +5,7 @@ import { useNavigate,Link } from 'react-router-dom';
 import axios from 'axios';
 const Checkout = (props) => {
     const navigate = useNavigate();
-    const {cart,taxPrice,shippingPrice,totalPrice,itemsPrice} = useContext(CartContext);
+    const {cart,taxPriceParsed,shippingPrice,totalPrice,itemsPrice} = useContext(CartContext);
     const [orderSummary,setOrderSummary] = useState(false);
     const redirect = (page)=>{
         navigate(page);
@@ -35,27 +35,27 @@ const Checkout = (props) => {
                             <div>
                                 <p>Subtotal: ${itemsPrice}</p>
                                 <p>Shipping: ${shippingPrice}</p>
-                                <p>Taxes (estimated): ${taxPrice}</p>
+                                <p>Taxes (estimated): ${taxPriceParsed}</p>
                             </div>
                             <div className='product-flex-container'>
-                                {
-                                cart.map((product)=>(
-                                    <div key={product._id} className='btn'>
-                                        <>
-                                        <button className="product" onClick={()=>redirect(`/store/${product.name}`)}>
-                                            <div className='product-content' style={{backgroundImage: `url(${product.image})`,
-                                            height: '300px',
-                                            width: '100%',
-                                            backgroundPosition: 'left -90px top -80px'
-                                            }}>
+            {
+                cart.map((oneProduct)=> (
+                        <div key={oneProduct._id}>
+                            <div className="product-view">
+                                <div className='product-image'
+                                    style={{backgroundImage: `url(${oneProduct.image})`}}>           
+                                        <div className="product">
+                                            <div className='product-content-checkout' onClick={()=>redirect(`${oneProduct.name}`)}>
+                                                <div>{oneProduct.name}</div>
+                                                <div>${oneProduct.price}.00</div>
                                             </div>
-                                        </button>
-                                        <div>{product.name}</div><div>Qty: {product.qty} Price: ${product.qty * product.price}</div>
-                                        </>
-                                    </div>
-                                ))
-                            }
+                                        </div>
+                                </div>
                             </div>
+                        </div>
+                ))
+            }
+            </div>
                             <button className='btn-no-item' onClick={()=>redirect(`/store`)}>Continue Shopping</button>
                             <hr/>
                         </>:<button className='btn-no-item' onClick={()=>redirect(`/store`)}>Continue Shopping</button>
@@ -100,7 +100,7 @@ const Checkout = (props) => {
                             <input type="text" placeholder={loggedUser.phone?loggedUser.phone:'Phone'} value={loggedUser.phone} required></input>
                         </div>
                         <div className='checkout-btn'>
-                            <button type="submit" onClick={()=>alert('Sorry this is a fake website!')}>Continue to Shipping Method</button>
+                            <button type="submit" onClick={()=>alert('Proccessing... Sorry this is a fake website!')}>Continue to Shipping Method</button>
                         </div>
                     </form>
                 </div>

@@ -7,9 +7,10 @@ export function CartProvider({children}) {
     const [cart,setCart] = useState([]);
     const [cartQty,setQty] = useState(0);
     const itemsPrice = cart.reduce((a,c)=> a+c.price * c.qty, 0);
-    const taxPrice = itemsPrice * .14;
-    const shippingPrice = itemsPrice > 200 || itemsPrice === 0? 0:50;
-    const totalPrice = parseFloat(itemsPrice + taxPrice + shippingPrice);
+    const taxPrice = itemsPrice * .0725;
+    const taxPriceParsed = parseFloat(itemsPrice * .0725).toFixed(2);
+    const shippingPrice = itemsPrice > 200 || itemsPrice === 0? 20:0;
+    const totalPrice = parseFloat(itemsPrice + taxPrice + shippingPrice).toFixed(2);
     const addToCart = (productObject) => {
 
         // is our product already in the cart?
@@ -78,7 +79,7 @@ export function CartProvider({children}) {
     }
 
     return (
-        <CartContext.Provider value={{item:1,cart,addToCart,removeFromCart,cartQty,totalPrice,itemsPrice,shippingPrice,taxPrice}}>{children}</CartContext.Provider>
+        <CartContext.Provider value={{item:1,cart,addToCart,removeFromCart,cartQty,totalPrice,itemsPrice,shippingPrice,taxPriceParsed}}>{children}</CartContext.Provider>
     )
 }
 

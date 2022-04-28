@@ -5,7 +5,7 @@ const ProductForm = (props) => {
     const {product,onSubmitHandler,onChangeHandler,errors,buttonText} = props;
     return (
         <div>
-            <Form onSubmit={onSubmitHandler}>
+            <Form onSubmit={onSubmitHandler} className='admin-add-product'>
                 <Form.Group className="mb-3">
                     <Form.Label>{
                         errors.name?
@@ -31,6 +31,15 @@ const ProductForm = (props) => {
                         <span>Category</span>
                     }</Form.Label>
                     <Form.Control type="text" name="category" value={product.category} onChange={(e)=>onChangeHandler(e)}/>
+                </Form.Group>
+
+                <Form.Group>
+                    <Form.Label>{
+                        errors.image?
+                        <span>{errors.image.message}</span>:
+                        <span>Image</span>
+                    }</Form.Label>
+                    <Form.Control type="text" name="image" value={product.image} placeholder="Enter Image URL" onChange={(e)=>onChangeHandler(e)}/>
                 </Form.Group>
 
                 <Form.Group>
