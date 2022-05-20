@@ -16,9 +16,10 @@ export const ProjectsData = [
         {
             _id:2,
             image:'https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8cHJvamVjdHxlbnwwfDB8MHx8&auto=format&fit=crop&w=700&q=60',
-            name: "eccomerce",
+            name: "Gym Eccomerce",
             tools: "javascript,html,css,react,express,node.js,mongoDb",
-            description: "A full CRUD application using the MERN stack"
+            description: "An online store for gym apparel.",
+            link:"https://github.com/JonelBriones/solo_project/tree/master/Gym_App"
         },
         {
             _id:3,

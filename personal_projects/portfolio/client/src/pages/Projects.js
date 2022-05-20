@@ -15,6 +15,7 @@ const Projects = (props) => {
             page={'Projects'}
             right={'blog'}
             />
+            <a href={'https://github.com/JonelBriones/solo_project/tree/master/Gym_App'}>link</a>
             <div className='home-content'>
                 <div className='projects-flow'>
                     {
@@ -22,7 +23,8 @@ const Projects = (props) => {
                         <div key={project._id} className='project-card' style={{
                             backgroundImage: `url(${project.image})`,
                             backgroundSize: 'cover',
-                        }} onClick={()=>redirect(`/project/${project._id}`)}>
+                        }}   onClick={()=>redirect(`/project/${project._id}`)}>
+                            <a href={project.link} className="links">
                             <div className='project-content'>
                                 <h3 className='project-title'>{project.name}</h3>
                                 <div className='project-body'>
@@ -30,6 +32,7 @@ const Projects = (props) => {
                                 <p className='project-btn'>View</p>
                                 </div>
                             </div>
+                            </a>
                         </div>
                         ))
                     }
