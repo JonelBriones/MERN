@@ -23,7 +23,9 @@ const Projects = (props) => {
                         <div key={project._id} className='project-card' style={{
                             backgroundImage: `url(${project.image})`,
                             backgroundSize: 'cover',
-                        }}   onClick={()=>redirect(`/project/${project._id}`)}>
+                        }}   
+                        // onClick={()=>redirect(`/project/${project._id}`)}
+                        >
                             <a href={project.link} className="links">
                             <div className='project-content'>
                                 <h3 className='project-title'>{project.name}</h3>

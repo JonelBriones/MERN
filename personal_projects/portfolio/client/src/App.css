@@ -4,7 +4,6 @@
   box-sizing:border-box;
   font-family: "Fira sans", sans-serif;
 text-decoration: none;
-  
 }
 .App {
   text-align: center;
@@ -65,6 +64,7 @@ display: flex;
 } */
 .links {
   color: #fff;
+  text-decoration-color: none;
 }
 .project-content {
   padding: 1.5em;
